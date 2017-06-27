@@ -1,0 +1,86 @@
+<window apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.extras.alerta.ControlAlertas')">
+
+	<!-- ================================== LISTADO DETALLES ============================== -->
+	<div id="alertas">
+		<vlayout>
+			<hlayout width="100%" sclass="z-valign-middle">
+				<separator width="360px" />
+				<toolbarbutton label="Anterior" dir="reverse"
+					image="/core/images/nav_izquierda.png" onClick="@command('prev')" />
+				<toolbarbutton label="Siguiente"
+					image="/core/images/nav_derecha.png" onClick="@command('next')" />
+			</hlayout>
+			<listbox height="500px" model="@load(vm.alertas)"
+				selectedItem="@bind(vm.selectedAlerta)"
+				emptyMessage="@bind(vm.mensaje)">
+				<custom-attributes
+					org.zkoss.zul.listbox.autoSort="true" />
+				<listhead>
+					<listheader style="text-align:center"
+						width="50px">
+						<vlayout>
+							<label value="Nivel:" />
+						</vlayout>
+					</listheader>
+					<listheader style="text-align:center"
+						width="150px">
+						<vlayout>
+							<label value="Fecha creación:" />
+						</vlayout>
+					</listheader>
+					<listheader style="text-align:center"
+						width="100px">
+						<vlayout>
+							<label value="Creador:" />
+						</vlayout>
+					</listheader>
+
+					<listheader style="text-align:center"
+						width="200px">
+						<vlayout>
+							<label value="Descripción" />
+						</vlayout>
+					</listheader>
+					<listheader style="text-align:center"
+						width="200px">
+						<vlayout>
+							<label value="Observación" />
+						</vlayout>
+					</listheader>
+					<listheader style="text-align:center"
+						width="150px">
+						<vlayout>
+							<label value="Fecha cancelación" />
+						</vlayout>
+					</listheader>
+					<listheader style="text-align:center"
+						width="50px">
+						<vlayout>
+							<label value="Estado" />
+						</vlayout>
+					</listheader>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<image src="@load(each.nivelAlerta)"
+								tooltiptext="@load(each.mensajeNivel)" />
+						</listcell>
+						<listcell label="@load(each.fechaCreacionStr)"/>
+						<listcell label="@load(each.creador)" />
+						<listcell label="@load(each.descripcion)" />
+						<listcell label="@load(each.observacion)" />
+						<listcell
+							label="@load(each.fechaCancelacionStr)" />
+						<listcell>
+							<image src="@load(each.estadoAlerta)"
+								tooltiptext="@load(each.mensajeEstado)"
+								onClick="@command('cancelarAlerta')" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+	</div>
+</window>

@@ -1,0 +1,192 @@
+<zk>
+	<window id="Módulo"
+		viewModel="@id('vm') @init('com.coreweb.modulo.ModuloControlBody')"
+		apply="org.zkoss.bind.BindComposer" width="100%" height="100%">
+
+		<groupbox title="Gestión de Módulos" hflex="min"
+			height="500px">
+			<hlayout>
+				<vlayout>
+					<vlayout>
+						<listbox model="@load(vm.dto.modulos)"
+							width="250px" selectedItem="@bind(vm.selectedModulo)" rows="3">
+							<listhead>
+								<listheader label="Módulos"
+									sort="auto(pos1)" />
+							</listhead>
+							<template name="model" var="modulo">
+								<listitem label="@load(modulo.pos1)" />
+							</template>
+						</listbox>
+
+
+					</vlayout>
+
+					<grid hflex="min">
+						<rows>
+							<row>
+								Nombre:
+								<textbox
+									value="@bind(vm.selectedModulo.pos1)"
+									onChange="@command('validarNombreMod')" constraint="" />
+							</row>
+							<row>
+								Descripción:
+								<textbox
+									value="@bind(vm.selectedModulo.pos2)" />
+							</row>
+						</rows>
+					</grid>
+
+					<hlayout>
+						<button label="Agregar"
+							onClick="@command('agregarModulo')" />
+						<button label="Eliminar"
+							disabled="@load(!vm.selectedModulo.pos4)"
+							onClick="@command('eliminarModulo')" />
+					</hlayout>
+
+				</vlayout>
+				<vlayout>
+					<vlayout>
+						<listbox model="@load(vm.selectedModulo.pos3)"
+							width="250px" selectedItem="@bind(vm.selectedFormulario)"
+							rows="3">
+							<listhead>
+								<listheader label="Formularios"
+									sort="auto(pos1)" />
+							</listhead>
+							<template name="model" var="formulario">
+								<listitem
+									label="@load(formulario.pos1)" />
+							</template>
+						</listbox>
+
+
+					</vlayout>
+
+					<grid hflex="min">
+						<rows>
+							<row>
+								Label:
+								<textbox
+									value="@bind(vm.selectedFormulario.pos1)" />
+							</row>
+							<row>
+								Descripción:
+								<textbox
+									value="@bind(vm.selectedFormulario.pos2)" />
+							</row>
+							<row>
+								Url:
+								<textbox
+									value="@bind(vm.selectedFormulario.pos3)" constraint=""/>
+							</row>
+							<row>
+								Alias:
+								<textbox
+									value="@bind(vm.selectedFormulario.pos4)"
+									onChange="@command('validarAliasFor')" constraint="" />
+							</row>
+							<row>
+								Habilitado:
+								<radiogroup
+									model="@load(vm.dtoUtil.habilitado)"
+									selectedItem="@bind(vm.selectedFormulario.pos5)">
+									<template name="model">
+										<radio label="@load(each.text)"
+											value="@load(each)" />
+									</template>
+								</radiogroup>
+							</row>
+						</rows>
+					</grid>
+
+					<hlayout>
+						<button label="Agregar"
+							onClick="@command('agregarFormulario')" />
+						<button label="Eliminar"
+							onClick="@command('eliminarFormulario')"
+							disabled="@load(!vm.selectedFormulario.pos7)" />
+					</hlayout>
+
+				</vlayout>
+				<vlayout>
+					<vlayout>
+						<listbox
+							model="@load(vm.selectedFormulario.pos6)" width="250px"
+							selectedItem="@bind(vm.selectedOperacion)" rows="3">
+							<listhead>
+								<listheader label="Operaciones"
+									sort="auto(pos1)" />
+							</listhead>
+							<template name="model" var="operacion">
+								<listitem label="@load(operacion.pos1)" />
+							</template>
+						</listbox>
+
+
+					</vlayout>
+
+					<grid hflex="min">
+						<rows>
+							<row>
+								Alias:
+								<textbox
+									value="@bind(vm.selectedOperacion.pos1)"
+									onChange="@command('validarAliasOp')" constraint="" />
+							</row>
+							<row>
+								Nombre:
+								<textbox
+									value="@bind(vm.selectedOperacion.pos2)" />
+							</row>
+							<row>
+								Descripción:
+								<textbox
+									value="@bind(vm.selectedOperacion.pos3)" />
+							</row>
+							<row>
+								Habilitado:
+								<radiogroup id="rgHabi"
+									selectedItem="@bind(vm.selectedOperacion.pos4)"
+									model="@load(vm.dtoUtil.habilitado)">
+									<template name="model">
+										<radio label="@load(each.text)"
+											value="@load(each)" radiogroup="rgHabi" />
+									</template>
+								</radiogroup>
+							</row>
+							<row>
+								IdTexto:
+								<textbox
+									value="@bind(vm.selectedOperacion.pos5)" constraint=""/>
+							</row>
+						</rows>
+					</grid>
+
+					<hlayout>
+						<button label="Agregar"
+							onClick="@command('agregarOperacion')" />
+						<button label="Eliminar"
+							disabled="@load(!vm.selectedOperacion.pos8)"
+							onClick="@command('eliminarOperacion')" />
+					</hlayout>
+
+				</vlayout>
+
+				<listbox model="@load(vm.selectedOperacion.pos7)"
+					width="220px" rows="3">
+					<listhead>
+						<listheader label="Perfiles por Operacion" />
+					</listhead>
+					<template name="model">
+						<listitem label="@load(each)" />
+					</template>
+				</listbox>
+
+			</hlayout>
+		</groupbox>
+
+	</window>
+</zk>

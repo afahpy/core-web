@@ -1,0 +1,195 @@
+@CHARSET "UTF-8";
+
+.z-cell {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.label-moneda {
+	font-size: 11px;
+}
+
+.label-moneda-footer {
+	font-size: 11px;
+	font-weight: bold
+}
+
+.label-red {
+	color: red;
+}
+
+.label-bold {
+	font-weight: bold;
+}
+
+.searchform {
+	background: transparent none no-repeat scroll 0 0;
+	border: 1px solid #cfcfcf;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin: 0;
+	vertical-align: bottom;
+}
+
+.searchfield {
+	border: none;
+	margin: 0;
+}
+
+.searchBtn {
+	background: transparent none no-repeat scroll 0 0;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin: 0;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.formato-numerico {
+	text-align: right;
+}
+
+.title {
+	font-weight: bold;
+	color: #428bca;
+	font-size: 11pt;
+}
+
+.footer-input {
+	background: #dddddd;
+	text-align: right;
+	font-weight: bold;
+}
+
+.small-list {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.small-list .z-listcell-content {
+	height: 25px;
+	line-height: 17px;
+	min-height: 25px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.button-container {
+	margin: 5px 2px 5px 2px;
+	padding: 10px 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #f5f5f5;
+}
+
+.form-container {
+	margin: 5px 5px 5px 5px;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #cfcfcf;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.rounded {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.solicitarCabecera {
+	margin: 5px 2px 5px 2px;
+	padding: 10px 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #f5f5f5;
+	text-align: center;
+	background-image: url('detalle.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0.7;
+	background-size: 40% 25%"
+}
+
+.inicio {
+	margin: 5px 2px 5px 2px;
+	padding: 10px 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #f5f5f5;
+	text-align: center;
+	background-image: url('yhaguy.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0.7;
+	background-size: 40% 25%"
+}
+
+.login {
+	background-image: url('background.png');
+	background-repeat: no-repeat;
+}
+
+.transparent-input .z-datebox-input[readonly] {
+	border-color: transparent;
+	border: none;
+	background: transparent;
+}
+
+.filter {
+	background:#EEF7FA;
+	background-image:url('images/filter.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	background-size: 10px;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------- */
+/* Form Grid
+/* ----------------------------------------------------------------------------------------------------------------------- */
+.vgrid tr.z-row
+		td.z-row-inner, tr.z-row, div.z-grid-body div.z-cell, div.z-grid {
+	border: none;
+	overflow: hidden;
+	zoom: 1;
+	background-color: transparent;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+}
+
+.vgrid .z-grid-odd .vgrid .z-row-inner, .vgrid .z-grid-odd .z-cell {
+	background-color: transparent;
+	border-bottom: 1px solid transparent;
+	border-left: 1px solid transparent;
+	border-top: 1px solid transparent;
+}
+
+.vgrid .z-grid-odd .vgrid.z-row-inner, .vgrid.z-grid-odd .z-cell, .vgrid.z-grid-odd
+	{
+	background: none repeat scroll 0 0 transparent;
+}
+
+.vgrid tr.z-row td.z-row-inner, .vgrid tr.z-row .z-cell {
+	line-height: 15px;
+}
+
+.vgrid tr.z-grid-odd td.z-row-inner, .vgrid tr.z-grid-odd .z-cell,
+	.vgrid tr.z-grid-odd {
+	background-color: transparent;
+}
+
+.vgrid tr.z-row td.z-row-inner, .vgrid tr.z-row .z-cell {
+	background-color: transparent;
+	border-top: none;
+}
+/* ----------------------------------------------------------------------------------------------------------------------- */
+/* End: Form Grid 
+/* ----------------------------------------------------------------------------------------------------------------------- */

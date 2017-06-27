@@ -1,0 +1,51 @@
+<zk>
+	<window id="Body" viewModel="@id('vm') @init('com.coreweb.templateABM.BodyPrueba')"		                                            
+    apply="org.zkoss.bind.BindComposer" width="100%">    
+
+	 <!-- Detalle  -->
+	 			<grid>
+ 					<columns>
+                		<column  width="150px" />
+                		<column />
+            		</columns>
+            		
+            		<rows>
+            			<!-- Nombre -->
+            			 <row>
+                    		<label value="Nombre" width="150px"  />
+                    		<hlayout>
+                        		<textbox value="@bind(vm.dato.nombre)"
+                            	width="200px" tabindex="1" />
+                    		</hlayout>
+                    		<div>
+                        		<label sclass="hightlight">Textbox</label>
+                    		</div>
+                		</row>
+            			<!-- Apellido -->
+            			 <row>
+                    		<label value="Apellido" width="150px"  />
+                    		<hlayout>
+                        		<textbox id="dd" disabled="@load(vm.noapellido)" value="@bind(vm.dato.apellido)"
+                            	width="200px" tabindex="1" />
+                    		</hlayout>
+                    		<div>
+                        		<label sclass="hightlight">Textbox</label>
+                    		</div>
+                		</row>
+            			<!-- RUC -->
+            			 <row>
+                    		<label value="RUC" width="150px"  />
+                    		<hlayout>
+                        		<textbox value="@bind(vm.dato.ruc)  "
+                            	width="200px" tabindex="1" />
+                    		</hlayout>
+                    		<div>
+                        		<label sclass="hightlight">Textbox</label>
+                    		</div>
+                		</row>                		
+            		</rows>
+            
+	 			</grid>
+
+    </window>
+</zk>

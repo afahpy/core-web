@@ -1,0 +1,46 @@
+
+<window id="winAgenda" border="normal" width="600px" minheight="370"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.extras.agenda.ControlAgendaEvento')"
+	closable="true" visible="false" position="&quot;right,bottom&quot;;"
+	sizable="true">
+
+	<caption image="/core/images/agenda.png" label="@load(vm.titulo)" />
+	<borderlayout height="300px">
+		<!-- north border="none">
+			<hlayout>
+				<label value="Fecha de creación:" />
+				<label value="@load(vm.dto.fecha)" />
+			</hlayout>
+		</north  -->
+		<center>
+			<grid id="agendaDetalle" model="@load(vm.dto.agendaEventoDetalles)"
+				sizedByContent="true"  height="280px">
+				<custom-attributes org.zkoss.zul.grid.autoSort="true" />
+				<columns menupopup="auto">
+					<column label="Fecha" width="160px" sort="auto(fechaHora)"
+						onCreate="self.sort(true);" />
+					<column label="Detalle" width="240px" />
+					<column label="Link" />
+					<column label="Usuario" />
+				</columns>
+				<template name="model">
+					<row align="left">
+						<label value="@load(each.fechaHora)" />
+						<label value="@load(each.texto)" />
+						<toolbarbutton image="/core/images/link.png" href="@load(each.link)"
+							target="_blank" visible="@load(not empty each.link)" />
+						<label value="@load(each.usuario)" />
+					</row>
+				</template>
+			</grid>
+		</center>
+		<south border="0">
+			<toolbar mold="panel" align="center">
+				<button id="nuevoEvento" hflex="1" label="Agregar Evento" onClick="@command('agregarEvento')" />
+				<button id="cerrarAgenda" hflex="1" label="Cerrar"  onClick="@command('cerrarAgenda')" />
+			</toolbar>
+		</south>
+	</borderlayout>
+
+</window>

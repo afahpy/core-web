@@ -1,0 +1,47 @@
+<zk>
+<window border="normal" hflex="min" apply="org.zkoss.bind.BindComposer"
+	width="${arg.widthWindows}" sizable="true"
+	viewModel="@id('vmAC') @init('com.coreweb.componente.BodyPopupAceptarCancelar')"
+	title="${arg.titulo}"
+	height="100%">
+
+		<caption id="captionPopup" />
+
+
+	<borderlayout id="boderLayoutId" width="${arg.widthWindows}">
+		<center>
+			<vlayout id="cuerpo">
+			</vlayout>
+		</center>
+		<south>
+			<toolbar align="center" style="padding:5px">
+				<hlayout>
+					<button id="btnAccept" label="ACEPTAR" tooltiptext="Aceptar" disabled="@load(!vmAC.tenerBotonAceptar)"
+						iconSclass="z-icon-check" width="150px" onClick="@command('aceptar')" 
+						visible="@load(!vmAC.soloBotonCerrar)" 
+						style="font-weight:bold;padding:7px"
+						dir="normal"/>
+					<space/>
+					<button id="btnCancel" label="CANCELAR" tooltiptext="Cancelar"
+						iconSclass="z-icon-times" width="150px" onClick="@command('cancelar')" 
+						visible="@load(!vmAC.soloBotonCerrar)" 
+						style="font-weight:bold;padding:7px"
+						dir="normal"/>
+
+					<button id="btnCerrar" label="CERRAR" tooltiptext="Cerrar"
+						iconSclass="z-icon-check" width="150px" onClick="@command('cerrar')" 
+						visible="@load(vmAC.soloBotonCerrar)" 
+						style="font-weight:bold;padding:7px"
+						dir="normal"/>
+						
+				</hlayout>
+			</toolbar>
+		</south>
+	</borderlayout>
+	<style>
+		.z-vlayout {height:100%} .z-hbox{height:100%}
+		.z-listheader-content{text-align:center}
+		.z-vlayout-inner {height:100%}
+	</style>
+</window>
+</zk>

@@ -1,0 +1,226 @@
+<?page title="${param.title}"   style="background-color: #EBEBEB;"   ?>
+<?import com.coreweb.Config?>
+<zk>
+
+	<?link rel="shortcut icon" type="image/x-icon" href="/icono-tab.ico"?>
+	<?link rel="icon" type="image/x-icon" href="/icono-tab.ico"?>
+
+	<script src="/core/macros/js/jquery.maskedinput-1.3.js"
+		type="text/javascript" />
+	<style src="${param.css}" />
+	<style>
+
+		body { padding: 0 0; background-color: #EBEBEB; }
+
+		.hightlight { color: #1469AB; font-weight: bold; }
+
+		.error { color: red; }
+
+		.dm-menuitem {width: 100%; }
+
+		.dm-menuitem .z-menu-item-cnt {display: none;}
+
+		.mydb { background: white; border: 1px }
+
+		.mydb-readonly { background: #D3D3D3; border: 1px }
+
+		.colorBarra {background-color: #BCC6CC ; border-color: #BCC6CC
+		;} }
+	</style>
+	<style>
+		.z-tabpanel-hidden { display: none !important; }
+		.z-menu-content, .z-menuitem-content {color:black}
+	</style>
+	<script>
+
+
+
+
+
+		
+		<![CDATA[ zk.afterLoad("zul.tab", function () { var _tpWgt = {};
+		zk.override(zul.tab.Tabpanel.prototype, _tpWgt, { bind_:
+		function (a, b, c) { _tpWgt.bind_.apply(this, arguments); if
+		(!this._visible) jq(this.$n()).addClass('z-tabpanel-hidden'); },
+		setVisible: function (v) { var n = this.$n();
+		_tpWgt.setVisible.apply(this, arguments); if (n) { if (v)
+		jq(this.$n()).removeClass('z-tabpanel-hidden'); else
+		jq(this.$n()).addClass('z-tabpanel-hidden'); } } }); }); ]]>
+		
+		
+		
+		
+
+
+	</script>
+
+
+	<!--<html>
+		<![CDATA[
+		<p style="text-align: right;">
+		[<a href="JavaScript:window.close()">cerrar</a>]
+		</p>
+		]]>
+		</html>-->
+
+
+
+	<window id="templateInicio" width="98%" position="center"
+		mode="overlapped" height="98%" apply="org.zkoss.bind.BindComposer"
+		title=""
+		viewModel="@id('vm')
+		@init('com.coreweb.login.ControlInicio')"
+		border="normal">
+
+		<!-- contentStyle="overflow:auto" -->
+
+		<!-- // esto es para recibir como parametro el // archivo del menu a utilizar -->
+
+		<zscript>
+	import javax.servlet.http.HttpServletRequest;
+	import org.zkoss.zk.ui.Executions;
+	HttpServletRequest request = (HttpServletRequest) Executions.getCurrent()
+			.getNativeRequest();
+	String menuApp = request.getParameter("menu");
+</zscript>
+
+		<borderlayout>
+
+			<!-- =================== NORTE ===================================== " -->
+
+			<north border="0" collapsible="false" height="30px"
+				style="background:#5f5f5f">
+				<hlayout valign="middle">
+
+					<hbox hflex="25%" align="center" height="30px">
+						<label id="nombreFormulario"
+							value="${param.css}" multiline="false" maxlength="26"
+							style="font-size:12pt;font-weight:bold;margin-left:15px;color:white" />
+						<label value="Inicio"
+							visible="@load(vm.aliasFormularioCorriente.isEmpty())"
+							style="color:white" />
+					</hbox>
+					<include id="menu" src="@load(vm.menu)" hflex="75%" />
+				</hlayout>
+			</north>
+
+			<!-- ==================== SUR ==================================== -->
+			<south border="0" style="@load(vm.colorBarra)"
+				sclass="rounded" height="30px">
+				<hlayout valign="middle">
+					<hbox width="1px" align="center" height="30px" />
+
+					<hbox align="center" height="30px"
+						pack="start" visible="true">
+						<include id="menuSistema"
+							src="@load(vm.menuSistema)" />
+					</hbox>
+
+					<hbox width="450px" align="center" height="30px"
+						pack="start">
+						<menubar id="menubarFoot1" width="100%"
+							style="background:#BCC6CC">
+							<menuitem label="Buscador Artículos"
+								onClick="@command('buscarArticulos')" iconSclass="z-icon-search"
+								style="@load(vm.colorBarra)"
+								visible="@load(vm.buscarArticuloVisible)" />
+							<menuitem label="Estado Cta. Cte."
+								onClick="@command('visorCtaCte')" iconSclass="z-icon-money"
+								style="@load(vm.colorBarra)"
+								visible="@load(vm.visorCtaCteVisible)" />
+							<menuitem label="@load(vm.us.nombre)"
+								onClick="@command('informacionUsuario')"
+								iconSclass="z-icon-user" style="@load(vm.colorBarra)" />
+						</menubar>
+					</hbox>
+
+
+					<hbox hflex="true" align="center" pack="end"
+						height="30px" style="@load(vm.colorBarra)">
+
+						<menubar id="menubarFoot2" width="100%"
+							style="background:#BCC6CC;margin-right:10px">
+							<menuitem id="users"
+								label="Usuarios en línea" iconSclass="z-icon-group"
+								style="@load(vm.colorBarra)"
+								visible="@load(vm.misVentasVisible)"
+								onClick='usuEnLinea.open(templateInicio, "overlap_after")' />
+							<menuitem id="support"
+								label="Soporte Sistema"
+								href="https://sistemasyhaguy.freshdesk.com/support/tickets/new"
+								target="_blank" iconSclass="z-icon-wrench"
+								style="@load(vm.colorBarra)"
+								visible="@load(vm.misVentasVisible)" />
+							<menuitem id="ventas" label="Mis Ventas"
+								onClick="@command('misVentas')" iconSclass="z-icon-tags"
+								style="@load(vm.colorBarra)"
+								visible="@load(vm.misVentasVisible)" />
+							<menuitem id="alertas"
+								label="@load(vm.misAlertas)"
+								onClick="@command('mostrarAlertas')"
+								iconSclass="z-icon-exclamation-circle"
+								style="@load(vm.colorBarra)" />
+							<menuitem id="carita" label="click me"
+								image="/core/images/face-angry.png" style="@load(vm.colorBarra)"
+								visible="false" />
+							<!-- onClick="@command('mostrarCarita')" -->
+						</menubar>
+					</hbox>
+
+
+				</hlayout>
+				<!-- <menu label="@load(vm.us.nombre)" onClick="@command('informacionUsuario')" 
+					image="/core/images/user1.png" /> <image id="infoUsuario" src="/core/images/user1.png" 
+					style="float: left;" onClick="@command('informacionUsuario')" /> <label value="@load(vm.us.nombre)"/> 
+					<image id="carita" src="/core/images/face-angry.png" style="float: right;" 
+					onClick="@command('mostrarCarita')" /> -->
+
+			</south>
+
+
+			<!-- =================== CENTER ===================================== -->
+
+			<center border="0" autoscroll="true">
+				<include id="principalBody" mode="instant"
+					src="/core/inicio/login.zul" />
+			</center>
+
+		</borderlayout>
+		<popup id="usuEnLinea" sclass="rounded">
+			<hbox align="end" pack="end" width="100%">
+				<hbox pack="start" align="center" hflex="true"
+					vflex="true" style="border-bottom:solid 1px silver">
+					<field value="Usuarios Logueados" />
+				</hbox>
+				<button onClick="usuEnLinea.close()"
+					iconSclass="z-icon-times">
+				</button>
+			</hbox>
+			<div height="2px"></div>
+			<listbox sclass="small-list" width="430px" height="550px"
+				model="@load(vm.usuariosLogueados)">
+				<listhead>
+					<listheader label="Usuario" align="center" />
+					<listheader label="IP" align="center" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="@load(each[0])" />
+						<listcell label="@load(each[1])" />
+					</listitem>
+				</template>
+				<listfoot>
+					<listfooter span="2" align="left">
+						<hlayout>
+							<field
+								value="@load(vm.usuariosLogueados.size())" />
+							<field value="usuarios en linea." />
+						</hlayout>
+					</listfooter>
+				</listfoot>
+			</listbox>
+		</popup>
+	</window>
+	<!-- ============================================================= -->
+
+</zk>

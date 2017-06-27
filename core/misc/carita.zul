@@ -1,0 +1,10 @@
+
+<window id="winCarita" border="normal" width="430px" minheight="350"
+	closable="true" visible="false" position="&quot;right,bottom&quot;;"
+	sizable="true"  >
+
+	<caption image="/core/images/face-raspberry-2.png" tooltip="texto" />
+	
+	<label pre="false" multiline="true" value="${arg.chiste}" />
+</window>
+

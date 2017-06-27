@@ -1,0 +1,301 @@
+<zk>
+	<window id="Usuario"
+		viewModel="@id('vm') @init('com.coreweb.usuario.UsuarioControlBody')"
+		apply="org.zkoss.bind.BindComposer" width="100%" height="100%">
+		<vlayout>
+			<tabbox height="500px">
+				<tabs>
+					<tab label="Usuarios" />
+					<tab label="Perfiles" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<groupbox title="Gestión de Usuarios"
+							hflex="min" width="500px">
+							<hlayout>
+								<vlayout>
+									<vlayout>
+										<listbox
+											model="@load(vm.dto.usuarios)" width="280px"
+											selectedItem="@bind(vm.selectedUsuario)" rows="5">
+											<listhead>
+												<listheader
+													label="Usuarios" sort="auto(model)" />
+											</listhead>
+											<template name="model"
+												var="usuario">
+												<listitem
+													label="@load(usuario.pos1)" />
+											</template>
+										</listbox>
+									</vlayout>
+
+									<grid hflex="min">
+										<rows>
+											<row>
+												Nombre:
+												<textbox
+													value="@bind(vm.selectedUsuario.pos1)" />
+											</row>
+											<row>
+												Login:
+												<textbox
+													value="@bind(vm.selectedUsuario.pos2)"
+													constraint="${vm.check.noVacio}" />
+											</row>
+											<row>
+												Clave:
+												<textbox type="password"
+													value="@bind(vm.selectedUsuario.pos3)"
+													constraint="${vm.check.noVacio}" />
+											</row>
+											<row>
+												Verificar Clave:
+												<textbox type="password"
+													value="@bind(vm.selectedUsuario.pos5)" constraint=""
+													onChange="@command('validarContra')" />
+											</row>
+										</rows>
+									</grid>
+
+									<hlayout>
+										<button label="Agregar"
+											onClick="@command('agregarUsuario')" />
+										<button label="Eliminar"
+											onClick="@command('eliminarUsuario')" />
+									</hlayout>
+
+								</vlayout>
+
+								<!-- DUAL LISTBOX -->
+								<hlayout>
+									<vlayout>
+										<listbox
+											model="@load(vm.selectedUsuario.pos4)" width="230px"
+											selectedItem="@bind(vm.selectedPerfilUsuario)" rows="5">
+											<listhead>
+												<listheader
+													label="Perfiles Del Usuario">
+												</listheader>
+											</listhead>
+											<template name="model">
+												<listitem
+													label="@load(each.pos1)" />
+											</template>
+										</listbox>
+										<button label="Eliminar Perfil"
+											onClick="@command('eliminarPerfilUsuario')" />
+									</vlayout>
+									<toolbarbutton label="Agregar"
+										image="/core/images/insertar.png"
+										onClick="@command('agregarPerfilAlUsuario')"
+										style="font-family:tahoma" />
+									<vlayout>
+										<vlayout>
+											<listbox
+												model="@load(vm.dto.perfiles)" width="280px"
+												selectedItem="@bind(vm.selectedPerfilUsr)" rows="8">
+												<listhead>
+													<listheader
+														label="Perfiles" sort="auto(model)" />
+												</listhead>
+												<template
+													name="model">
+													<listitem
+														label="@load(each.pos1)" />
+												</template>
+											</listbox>
+										</vlayout>
+										<grid hflex="min">
+											<rows>
+												<row>
+													Nombre:
+													<textbox
+														readonly="true" value="@load(vm.selectedPerfilUsr.pos1)" />
+												</row>
+												<row>
+													Descripción:
+													<textbox
+														readonly="true" value="@load(vm.selectedPerfilUsr.pos2)" />
+												</row>
+											</rows>
+										</grid>
+										<hlayout></hlayout>
+									</vlayout>
+								</hlayout>
+							</hlayout>
+						</groupbox>
+					</tabpanel>
+					<tabpanel>
+						<groupbox title="Gestión de Perfiles"
+							hflex="min" width="500px">
+							<hlayout>
+								<vlayout>
+									<vlayout>
+										<listbox
+											model="@load(vm.dto.perfiles)" width="280px"
+											selectedItem="@bind(vm.selectedPerfil)" rows="3"
+											onSelect='mod.setSelectedItem(null);form.setSelectedItem(null);ope.setSelectedItem(null)'>
+											<listhead>
+												<listheader
+													label="Perfiles" sort="auto" />
+											</listhead>
+											<template name="model">
+												<listitem
+													label="@load(each.pos1)" />
+											</template>
+										</listbox>
+										<grid hflex="min">
+											<rows>
+												<row>
+													Nombre:
+													<textbox
+														value="@bind(vm.selectedPerfil.pos1)"
+														constraint="${vm.check.noVacio}" />
+												</row>
+												<row>
+													Descripción:
+													<textbox
+														value="@bind(vm.selectedPerfil.pos2)" />
+												</row>
+											</rows>
+										</grid>
+										<hlayout>
+											<button label="Agregar"
+												onClick="@command('agregarPerfil')" />
+											<button label="Eliminar"
+												onClick="@command('eliminarPerfil')" />
+										</hlayout>
+									</vlayout>
+									<vlayout>
+										<listbox
+											model="@load(vm.selectedPerfil.pos3)" width="280px"
+											rows="3">
+											<listhead>
+												<listheader
+													label="Usuarios" sort="auto" />
+											</listhead>
+											<template name="model">
+												<listitem
+													label="@load(each)" />
+											</template>
+										</listbox>
+									</vlayout>
+								</vlayout>
+								<vlayout>
+									<vlayout>
+										<listbox
+											model="@load(vm.selectedPerfil.pos4)" width="510px"
+											selectedItem="@bind(vm.selectedPermiso)" rows="3"
+											onSelect='mod.setSelectedItem(null);form.setSelectedItem(null);ope.setSelectedItem(null);habilitado.setSetSelectedItem(null)'>
+											<listhead>
+												<listheader
+													label="Permisos" sort="auto(model)" />
+											</listhead>
+											<template name="model">
+												<listitem
+													label="@load(each.pos2.pos3)" />
+											</template>
+										</listbox>
+
+									</vlayout>
+									<hlayout>
+										<vlayout>
+											<grid hflex="min">
+												<rows>
+													<row>
+														Operación:
+														<textbox
+															readonly="true"
+															value="@bind(vm.selectedPermiso.pos2.pos3)" />
+													</row>
+													<row>
+														Habilitado:
+														<radiogroup
+															selectedItem="@bind(vm.selectedPermiso.pos1)"
+															model="@load(vm.dtoUtil.habilitado)">
+															<template
+																name="model">
+																<radio
+																	label="@load(each.text)" value="@load(each)" />
+															</template>
+														</radiogroup>
+													</row>
+												</rows>
+											</grid>
+											<button label="Eliminar"
+												onClick="@command('eliminarPermiso')" />
+										</vlayout>
+										<vlayout>
+											<grid hflex="min">
+												<rows>
+													<row>
+														Módulo:
+														<combobox
+															id="mod" model="@load(vm.dto.modulos)" width="200px"
+															selectedItem="@bind(vm.selectedModulo)"
+															constraint="${vm.check.noVacio}">
+															<template
+																name="model">
+																<comboitem
+																	label="@load(each.pos1)" />
+															</template>
+														</combobox>
+													</row>
+													<row>
+														Formulario:
+														<combobox
+															id="form" model="@load(vm.selectedModulo.pos3)"
+															width="200px" selectedItem="@bind(vm.selectedFormulario)"
+															constraint="${vm.check.noVacio}">
+															<template
+																name="model">
+																<comboitem
+																	label="@load(each.pos1)" />
+															</template>
+														</combobox>
+													</row>
+													<row>
+														Operación:
+														<combobox
+															id="ope" model="@load(vm.selectedFormulario.pos6)"
+															width="200px"
+															selectedItem="@bind(vm.selectedPermiso.pos2)"
+															constraint="${vm.check.noVacio}">
+															<template
+																name="model">
+																<comboitem
+																	label="@load(each.pos3)" />
+															</template>
+														</combobox>
+													</row>
+													<row>
+														Habilitado:
+														<radiogroup
+															id = "habilitado"
+															selectedItem="@bind(vm.selectedPermiso.pos1)"
+															model="@bind(vm.dtoUtil.habilitado)">
+															<template
+																name="model">
+																<radio
+																	label="@load(each.text)" value="@load(each)" />
+															</template>
+														</radiogroup>
+													</row>
+												</rows>
+											</grid>
+											<button label="Agregar"
+												onClick="@command('agregarPermiso')" />
+
+										</vlayout>
+
+									</hlayout>
+								</vlayout>
+							</hlayout>
+						</groupbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</vlayout>
+	</window>
+</zk>

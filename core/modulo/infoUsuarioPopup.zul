@@ -1,0 +1,80 @@
+<window width="750px" height="380px" border="normal" closable="true"
+	title="Información de Usuario">
+	<caption iconSclass="z-icon-user"></caption>
+	<hlayout vflex="true" valign="top">
+
+		<vbox vflex="true" style="padding:10px">
+			<vlayout width="320px" vflex="true"
+				children="@load(vm.us.perfiles)" style="overflow-y:scroll">
+				<template name="children">
+					<hlayout>
+						<toolbarbutton disabled="true"
+							iconSclass="z-icon-check">
+						</toolbarbutton>
+						<label value="@load(each)"
+							style="font-style:italic" />
+					</hlayout>
+				</template>
+			</vlayout>
+		</vbox>
+		<vbox vflex="true" hflex="true">
+			<grid sclass="vgrid">
+				<columns>
+					<column width="37%" />
+					<column />
+				</columns>
+				<rows>
+					<row>
+						<field value="Nombre:" />
+						<label value="@load(vm.us.nombre)" />
+					</row>
+					<row>
+						<field value="Login:" />
+						<label value="@load(vm.us.login)" />
+					</row>
+					<row visible="@load(!vm.mostrarCambioClave)">
+						<field />
+						<button label="Cambiar Clave"
+							onClick="@command('cambiarClave')">
+						</button>
+					</row>
+					<row visible="@load(vm.mostrarCambioClave)">
+						<field value="Clave anterior:" />
+						<hlayout>
+							<textbox
+								disabled="@load(vm.habilitarCambioClave)"
+								onOK="@command('verificarClaveAterior')"
+								onChange="@command('verificarClaveAterior')"
+								value="@bind(vm.claveAnterior)" type="password" />
+							<labelConstrain />
+						</hlayout>
+					</row>
+					<row visible="@load(vm.mostrarCambioClave)">
+						<field value="Clave nueva:" />
+						<hlayout>
+							<textbox
+								disabled="@load(!vm.habilitarCambioClave)"
+								value="@bind(vm.claveNueva)" type="password" />
+							<labelConstrain />
+						</hlayout>
+					</row>
+					<row visible="@load(vm.mostrarCambioClave)">
+						<field value="Verificar Clave nueva:" />
+						<hlayout>
+							<textbox
+								disabled="@load(!vm.habilitarCambioClave)"
+								value="@bind(vm.claveNuevaVerificar)" type="password" />
+							<labelConstrain />
+						</hlayout>
+					</row>
+					<row visible="@load(vm.mostrarCambioClave)">
+						<field />
+						<button label="Confirmar Clave Nueva" disabled="@load(!vm.habilitarCambioClave)"
+							onClick="@command('confirmarClaveNueva')">
+						</button>
+					</row>
+				</rows>
+			</grid>
+		</vbox>
+	</hlayout>
+</window>

@@ -1,0 +1,78 @@
+<window apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.extras.alerta.ControlCrearAlerta')">
+
+	<div id="crearAlerta">
+		<vlayout>
+
+			<hlayout sclass="z-valign-middle">
+				<grid width="370px">
+					<columns>
+						<column width="100px"></column>
+					</columns>
+					<rows>
+						<row>
+							Número:
+							<textbox value="@load(vm.alerta.numero)"
+								readonly="true" width="250px" />
+						</row>
+						<row>
+							Nivel:
+							<textbox value="@load(vm.alerta.nivel)"
+								readonly="true" width="250px" />
+						</row>
+						<row>
+							Tipo:
+							<combobox model="@load(vm.tipos)"
+								width="250px" value="@load(vm.selectedTipo.text)"
+								selectedItem="@bind(vm.selectedTipo)"
+								onChange="@command('actualizarTipo')">
+								<template name="model">
+									<comboitem label="@load(each.text)" />
+								</template>
+							</combobox>
+						</row>
+						<row visible="@load(vm.habUsuario)">
+							Usuario:
+							<hbox>
+								<textbox
+									value="@bind(vm.alerta.destino)" width="220px"
+									onOK="@command('buscarUsuario')" />
+								<toolbarbutton
+									image="/core/images/find-small.png"
+									onClick="@command('buscarUsuario')" />
+							</hbox>
+						</row>
+						<row visible="@load(vm.habGrupo)">
+							Grupo:
+							<combobox model="@load(vm.grupos)"
+								width="250px" value="@load(vm.selectedGrupo)"
+								selectedItem="@bind(vm.selectedGrupo)"
+								onChange="@command('agregarGrupo')">
+								<template name="model">
+									<comboitem label="@load(each)" />
+								</template>
+							</combobox>
+						</row>
+						<row visible="@load(vm.habGrupo)">
+							Lista:
+							<combobox model="@load(vm.listas)"
+								width="250px" value="@load(vm.selectedLista)"
+								selectedItem="@bind(vm.selectedLista)"
+								onChange="@command('agregarLista')">
+								<template name="model">
+									<comboitem label="@load(each)" />
+								</template>
+							</combobox>
+						</row>
+						<row>
+							Descripción:
+							<textbox
+								value="@bind(vm.alerta.descripcion)" width="250px"
+								height="100px" />
+						</row>
+					</rows>
+				</grid>
+			</hlayout>
+		</vlayout>
+	</div>
+</window>

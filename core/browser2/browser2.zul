@@ -1,0 +1,27 @@
+<window id="windowABM" apply="org.zkoss.bind.BindComposer" width="100%"
+	height="100%"
+	viewModel="@id('vm')
+	@init('com.coreweb.extras.browser.Browser2ViewModel')"
+	border="0">
+
+	<borderlayout height="100%">
+
+		<north border="0" collapsible="false">
+			<vlayout>
+				<include id="cabeceraBrowser" mode="instant" />
+				<hlayout>
+				<button label="Imprimir" onClick="@command('imprimir')" />
+				<button label="Exportar CSV" onClick="@command('exportarCSV')" visible="@load(vm.br2.showBotonExportarCSV)" />
+				</hlayout>
+			</vlayout>
+		</north>
+
+		<center border="0" autoscroll="true" style="overflow:auto;">
+			<vlayout>
+				<div id="gridBrowser" />
+			</vlayout>
+		</center>
+
+	</borderlayout>
+
+</window>

@@ -1,0 +1,16 @@
+
+<window id="barraProgreso" border="normal" width="300px" height="50"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.extras.barraProgreso.BarraProgresoVM')"
+	closable="false" visible="true" position="&quot;center&quot;;"
+	sizable="false" >
+
+	<vlayout>
+		<progressmeter id="progress" hflex="1" value="0" />
+
+		<timer id="timer" delay="500" repeats="true" onCreate="self.stop()"
+		onTimer="@command('actualizarBarra')" />
+	</vlayout>
+
+
+</window>

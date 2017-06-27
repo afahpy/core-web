@@ -1,0 +1,257 @@
+<zk xmlns:x="xhtml" xmlns:zk="zk">
+	<style>
+		.hightlight { color: #1469AB; font-weight: bold; } .error {
+		color: red; }
+	</style>
+	<window id="loginWin" mode="modal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('crt') @init('com.coreweb.login.Login')"
+		zclass="z-window-popup" onCreate='name.focus()' width="100%"
+		height="100%" style="background:white">
+		<style>
+			div.minimize { border: 1px solid #79858E; background
+			#D3E1EC; position: absolute; opacity: 0.8; } div.loginGrid {
+			border: none; } td.loginCtl { text-align: center; }
+			td.loginCtl .z-label { color: red; font-style: italic; }
+		</style>
+		<!--  border-radius -->
+		<vbox pack="center" align="center" width="100%" height="80%">
+
+
+
+			<x:table border="0">
+				<x:tr>
+					<x:td>
+						<image src="/saraki/portada/innovadora.png"
+							width="600px" />
+					</x:td>
+					<x:td>
+						<image src="/saraki/portada/ministerio.png"
+							width="300px"
+							onClick="Executions.sendRedirect(&quot;http://www.mtess.gov.py/&quot;)"
+							style="cursor: pointer; outline-width:thin"
+							tooltiptext="Ministerio de Trabajo" />
+					</x:td>
+				</x:tr>
+				<x:tr>
+					<x:td>
+						<image src="/saraki/portada/manos.png"
+							width="600px" />
+					</x:td>
+					<x:td>
+						<div
+							style="background:#eaeaea;border-radius:10px" height="230px"
+							align="center">
+							<div height="5px" />
+							<vlayout>
+								<label
+									style="font-family:ALSSchlangesans; font-size: 15pt; font-weight: normal">
+									Iniciar sesión
+								</label>
+								<div height="2px" />
+
+								<hlayout>
+									<space hflex="true" />
+									<textbox class="form-control"
+										width="200px" placeholder="Cédula, RUC o Usuario" id="name"
+										value="@bind(crt.user)" onOK="@command('loginOkBootstrap')"
+										tooltiptext="Ingrese su número de documento, RUC o usuario asignado." />
+									<space hflex="true" />
+								</hlayout>
+
+								<div height="1px" />
+
+								<hlayout>
+									<space hflex="true" />
+									<textbox class="form-control"
+										width="200px" placeholder="Contraseña" id="pwd"
+										type="password" value="@bind(crt.pass)"
+										onOK="@command('loginOkBootstrap')"
+										tooltiptext="Ingrese su contraseña" />
+									<space hflex="true" />
+								</hlayout>
+								<a
+									style="font-family:ALSSchlangesans; font-size: 11pt; font-weight: bold"
+									href="/saraki/inicio/RecuperarContrasenha.zul">
+									¿Has olvidado tu contraseña?
+								</a>
+								<div height="1px" />
+								<hlayout>
+									<space hflex="true" />
+									<button sclass="btn-primary"
+										label="Ingresar" onClick="@command('loginOkBootstrap')"
+										tooltiptext="Ingresar" />
+									<space hflex="true" />
+								</hlayout>
+								<div height="1px" />
+								<label id="mesg" value="@load(crt.msg)"
+									style="color: red;font-style: italic; font-family:ALSSchlangesans; font-size: 13pt; font-weight: normal" />
+								<hlayout
+									style="border-top: 1px solid #ccc;">
+									<label
+										style="font-family:ALSSchlangesans; font-size: 12pt; font-weight: normal">
+										O registrarse como
+									</label>
+									<a
+										style="font-family:ALSSchlangesans; font-size: 11pt; font-weight: bold"
+										href="/saraki/inicio/RegistroPostulante.zul">
+										Postulante
+									</a>
+									o
+									<a
+										style="font-family:ALSSchlangesans; font-size: 11pt; font-weight: bold"
+										href="/saraki/inicio/RegistroEmpresa.zul">
+										Empresa
+									</a>
+
+									<space hflex="true" />
+								</hlayout>
+								<div height="1px" />
+							</vlayout>
+						</div>
+
+
+
+
+
+
+
+
+					</x:td>
+				</x:tr>
+				<x:tr>
+					<x:td>
+						<image src="/saraki/portada/buscas-trabajo.png"
+							width="600px" />
+					</x:td>
+					<x:td>
+						<image src="/saraki/portada/usaid-saraki.png"
+							width="300px"
+							onClick="Executions.sendRedirect(&quot;http://www.saraki.org/&quot;)"
+							style="cursor: pointer; outline-width:thin"
+							tooltiptext="Ministerio de Trabajo" />
+
+					</x:td>
+				</x:tr>
+			</x:table>
+
+
+
+
+
+
+			<!--  
+				
+				
+				
+				
+				<space height="50px" />
+				<hlayout valign="middle">
+				<image src="/logo2.png" width="400px" height="350px"
+				tooltiptext="Logotipo de USAID" />
+				<image src="/logo.png" width="300px" height="300px"
+				tooltiptext="Logotipo de la Fundación Saraki" />
+				<space width="50px" />
+				
+				<div style="background:#eaeaea ; border-radius : 10px"
+				width="400px" height="300px">
+				<div height="10px" />
+				<vlayout width="250px">
+				<hlayout valign="middle"
+				style="border-bottom: 1px solid #ccc;">
+				<label
+				style="font-family:ALSSchlangesans; font-size: 19pt; font-weight: normal">
+				Iniciar sesión
+				</label>
+				<space hflex="true" />
+				</hlayout>
+				<div height="10px" />
+				
+				<textbox class="form-control"
+				placeholder="Cédula, RUC o Usuario" id="name"
+				value="@bind(crt.user)" onOK="@command('loginOkBootstrap')"
+				tooltiptext="Ingrese su número de documento, RUC o usuario asignado." />
+				
+				<div height="10px" />
+				
+				<textbox class="form-control"
+				placeholder="Contraseña" id="pwd" type="password"
+				value="@bind(crt.pass)" onOK="@command('loginOkBootstrap')"
+				tooltiptext="Ingrese su contraseña" />
+				
+				
+				
+				<div height="10px" />
+				<hlayout>
+				<button sclass="btn-primary"
+				label="Ingresar" onClick="@command('loginOkBootstrap')"
+				tooltiptext="Ingresar" />
+				<space hflex="true" />
+				</hlayout>
+				<div height="10px" />
+				<label id="mesg" value="@load(crt.msg)"
+				style="color: red;font-style: italic; font-family:ALSSchlangesans; font-size: 13pt; font-weight: normal" />
+				<hlayout valign="middle"
+				style="border-top: 1px solid #ccc;">
+				<label style="font-family:ALSSchlangesans; font-size: 16pt; font-weight: normal">
+				O registrarse como
+				</label>
+				<space hflex="true" />
+				</hlayout>
+				<hlayout>
+				<a style="font-family:ALSSchlangesans; font-size: 13pt; font-weight: bold"
+				href="/saraki/inicio/RegistroPostulante.zul">
+				Postulante
+				</a>
+				o
+				<a style="font-family:ALSSchlangesans; font-size: 13pt; font-weight: bold"
+				href="/saraki/inicio/RegistroEmpresa.zul">
+				Empresa
+				</a>
+				</hlayout>
+				<div height="10px" />
+				</vlayout>
+				</div>
+				</hlayout>
+				
+			-->
+
+		</vbox>
+
+
+		<script>
+
+
+
+
+
+
+
+
+
+
+			
+			<![CDATA[
+
+			function loginFaild() { var l =
+			jq("$loginWin").position().left; jq("$loginWin").animate({
+			left : l - 25 }, 50).animate({ backgroundColor : "red" },
+			50).animate({ left : l }, 50).animate({ left : l + 25 },
+			50).animate({ left : l }, 50).animate({ backgroundColor :
+			"white" }, 50);
+			jq("$loginWin").css('background-color','white'); } ]]>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+				
+			
+		</script>
+	</window>
+</zk>

@@ -1,0 +1,16 @@
+<?page title="Timeout" contentType="text/html;charset=UTF-8"?>
+<window width="500px" height="300px" title="Tiempo de sesión expirado" border="normal"  position="center" mode="modal">
+	<vbox>
+	<div>
+	La página no está disponible. 
+	Esto se puede deber a que a expirado el tiempo de su sessión o 
+	que el sistema ha sido reiniciado.
+	</div>
+	<space />
+	<div>
+	<hlayout>
+    Para volver al sistema haga click <a href="/sistema.zul" style="font-size:20px" label="aquí"/>
+    </hlayout>
+    </div>
+	</vbox>
+</window>

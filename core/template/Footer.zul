@@ -1,0 +1,26 @@
+
+	<window id="Footer"
+		viewModel="@id('footer') @init('com.coreweb.templateABM.Footer')"
+		apply="org.zkoss.bind.BindComposer" zclass="z-window-popup" border="0"
+		position="center,top">
+			<toolbar id="foo" height="35px" align="center" sclass="rounded" style="padding:5px 40px; background:#BCC6CC">
+					 	
+				<button id="btnGrabar" tooltiptext="Grabar"
+					label="GRABAR" width="150px" style="font-weight:bold"
+					onClick="@command('save') 
+			    @global-command(footer.yesClick?'refreshComponentes':'')" />
+			    <space />
+				<button id="btnCancel" tooltiptext="Salir"
+					label="SALIR" width="150px" style="font-weight:bold"
+					onClick="@command('discard')
+				@global-command(footer.yesClick?'deshabilitarComponentes':'')" />
+
+
+				<!-- <toolbarbutton id="btnAccept2" image="/core/images/accept.png" tooltiptext="Aceptar" 
+					onClick="@command('doTask') @global-command(footer.yesClick?'deshabilitarComponentes':'')" 
+					/> <toolbarbutton id="btnCance2l" image="/core/images/cancel.png" tooltiptext="Cancelar" 
+					onClick="@command('discard') @global-command(footer.yesClick?'deshabilitarComponentes':'')" 
+					/> -->
+			</toolbar>
+
+	</window>

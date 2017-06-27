@@ -1,0 +1,49 @@
+<zk>
+	<window id="Finder"
+		viewModel="@id('fi') @init('com.coreweb.templateABM.Finder')"
+		apply="org.zkoss.bind.BindComposer" width="50%" height="50%"
+		closable="false" sizable="true">
+		<caption image="/core/images/find.png"
+			label="Seleccione un elemento" />
+		<borderlayout>
+			<center autoscroll="true">
+				<vlayout>
+					<hlayout>
+						Filtro:
+						<textbox instant="true"
+							value="@bind(fi.textoFiltro)" hflex="1"
+							onChange="@command('changeFilter')" />
+					</hlayout>
+					<listbox model="@load(fi.modelx)"
+						onDoubleClick="@command('doTask')"
+						selectedItem="@bind(fi.selectedDTO)">
+						<listhead>
+							<listheader label="Datos" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each)" />
+							</listitem>
+						</template>
+
+					</listbox>
+				</vlayout>
+			</center>
+
+			<south>
+				<toolbar id="fooFinder" sclass="vista" height="40px"
+					align="center">
+					<button id="btnAccept" label="Aceptar"
+						tooltiptext="Aceptar" image="/core/images/accept.png"
+						width="125px" onClick="@command('doTask')" />
+					<button id="btnCancel" label="Cancelar"
+						tooltiptext="Cancelar" image="/core/images/cancel.png"
+						width="125px" onClick="@command('discard')" />
+				</toolbar>
+			</south>
+		</borderlayout>
+
+
+
+	</window>
+</zk>

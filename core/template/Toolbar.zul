@@ -1,0 +1,117 @@
+<zk>
+	<window id="ToolbarABM" width="100%"
+		viewModel="@id('Toolbar') @init('com.coreweb.templateABM.Toolbar')"
+		apply="org.zkoss.bind.BindComposer" zclass="z-window-popup" border="0">
+
+		<hbox  width="100%" widths="50%,50%"> 
+			<hbox width="100%" align="start">
+
+				<!--  la invocación del globalCommand se hace desde el comando agregarItem -->
+				<button width="50px"
+					tooltiptext="Crear"
+					onClick="@command('agregarItem')"
+					disabled="@load(Toolbar.agregarDeshabilitado)" 
+					iconSclass="z-icon-plus"
+					dir="normal"/>
+
+				<button width="50px"
+					tooltiptext="Editar"
+					onClick="@command('editarItem')
+				@global-command('habilitarComponentes')"
+					disabled="@load(Toolbar.editarDeshabilitado)" 
+					
+					
+					iconSclass="z-icon-edit"
+					dir="normal"/>
+
+				<!-- <toolbarbutton image="/core/images/delete.png" tooltiptext="Eliminar" 
+					onClick="@command('eliminarItem') @global-command('refreshComponentes')" 
+					disabled="@load(Toolbar.eliminarDeshabilitado)" /> -->
+
+				<button width="50px"
+					tooltiptext="ANULAR"
+					onClick="@command('anularItem')
+				@global-command('refreshComponentes')"
+					disabled="@load(Toolbar.anularDeshabilitado)" 
+					
+					
+					iconSclass="z-icon-minus"
+					dir="normal"/>
+
+
+				<button width="50px"
+					tooltiptext="Buscar"
+					onClick="@command('buscarItem')
+				@global-command('refreshComponentes')"
+					disabled="@load(Toolbar.buscarDeshabilitado)" 					
+					
+					iconSclass="z-icon-search"
+					dir="normal"/>
+
+				<!-- <toolbarbutton image="/core/images/find.png" tooltiptext="Buscar" 
+					onClick="@command('buscarItemBr') @global-command('refreshComponentes')" 
+					disabled="@load(Toolbar.buscarDeshabilitado)" /> -->
+
+				<label id="idObjeto" value="@load(Toolbar.idObjeto)" visible="false"/>
+
+				<label id="abmModo" value="@load(Toolbar.estadoABM)"
+					multiline="false" style="font-size:12pt;font-weight:bold" visible="false"/>
+			</hbox>
+
+
+			<hbox  width="100%" pack="end">
+
+				<label value="@load(Toolbar.usuarioTemporal)" style="font-size:12pt;font-weight:bold"  />
+
+				<button width="50px"
+					tooltiptext="Cambio de Usuario" onClick="@command('cambioUsuario')
+					@global-command('refreshComponentes')" 
+					disabled="@load(Toolbar.cambioUsuarioDeshabilitado)"
+					iconSclass="z-icon-user"/>
+
+				<button width="50px"
+					tooltiptext="Agenda" onClick="@command('showAgenda')" 
+					disabled="@load(Toolbar.agendaDeshabilitado)" 
+					iconSclass="z-icon-book"/>
+
+				<button width="50px"
+					tooltiptext="Imprimir" onClick="@command('showImprimir')" 
+					disabled="@load(Toolbar.imprimirDeshabilitado)"
+					iconSclass="z-icon-print"/>
+					
+				<button width="50px"
+					tooltiptext="Información" onClick="@command('showInformacion')" 
+					disabled="@load(Toolbar.informacionDeshabilitado)" 
+					iconSclass="z-icon-info"/>					
+
+				<hbox align="center" pack="center">
+
+					<toolbarbutton width="30px"
+						tooltiptext="Anterior"
+						onClick="@command('beforePosicion')
+				@global-command('refreshComponentes')"
+						disabled="@load(Toolbar.buscarDeshabilitado)" 
+						iconSclass="z-icon-arrow-left"
+						style="text-align:center"/>
+						
+					<hlayout width="40px" style="text-align:center">
+						<label value="@load(Toolbar.strBrowser)" style="font-size:11px" multiline="false"/>
+					</hlayout>
+
+					<toolbarbutton width="30px"
+						tooltiptext="Siguiente"
+						onClick="@command('afterPosicion')
+				@global-command('refreshComponentes')"
+						disabled="@load(Toolbar.buscarDeshabilitado)" 
+						iconSclass="z-icon-arrow-right"
+						style="text-align:center"/>
+
+
+				</hbox>
+
+			</hbox>
+
+
+		</hbox>
+	</window>
+</zk>

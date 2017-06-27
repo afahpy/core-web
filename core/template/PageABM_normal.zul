@@ -1,0 +1,46 @@
+	<borderlayout height="100%">
+		<north border="0" height="30px" collapsible="false">
+
+			<include id="tool" mode="instant" src="/core/template/Toolbar.zul"
+				pageVM="${Page}" />
+
+		</north>
+		<center border="0" autoscroll="true" style="overflow:auto;">
+			<!-- style="overflow:auto;" -->
+			
+				<div>
+					<include id="body" mode="instant" src="/core/template/BodyDefault.zul"
+						pageVM="${Page}" />
+
+					<div id="bodyMask" visible="false" zclass="z-modal-mask"
+						style="z-index: 2000; display: block; background:#ffcc99; opacity:0.2; filter:alpha(opacity=30); ">
+						<vbox Height="100%" width="100%" pack="center" align="center">
+							<label value="@load(Page.textoEnmascarar)" style="font-weight:bold;font-size:50pt" />
+						</vbox>
+					</div>					
+
+					
+				</div>
+		</center>
+		<south border="0" height="40px" collapsible="false">
+		<div height="40px">
+			<hbox width="100%" widths="20%,60%,20%" height="40px" align="center" pack="center" >		
+			
+				<hbox width="100%" height="40px">		
+				<!-- Disponible para poner algo a la izquierda de los botones -->
+				</hbox>
+			
+				<hbox width="100%" height="40px" align="center" pack="center">
+					<include id="footer" mode="instant" src="/core/template/Footer.zul"
+						pageVM="${Page}" />
+				</hbox>
+			
+				<hbox width="100%" align="end" pack="end" height="40px">
+				<label width="90%%" style="color:gray; font-size: 62.5%; text-align: right;" value="@load(Page.dto.ultimaModificacion)" />
+				</hbox>
+
+			</hbox>
+		</div>
+				
+		</south>
+	</borderlayout>

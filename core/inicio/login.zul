@@ -1,0 +1,133 @@
+<zk>
+	<style>
+		.hightlight { color: #1469AB; font-weight: bold; }
+		.error {
+		color: red; }
+	</style>
+		<window id="loginWin" mode="modal" width="60%" height="70%" visible="true"
+			minimizable="false" border="0" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('crt') @init('com.coreweb.login.Login')">
+			<style>
+				div.minimize {
+				border: 1px solid #79858E;
+				background: #D3E1EC;
+				position: absolute;
+				opacity: 0.8;
+				}
+				div.loginGrid {
+				border: none;
+				}
+				td.loginCtl {
+				text-align: center;
+				}
+				td.loginCtl .z-label {
+				color: red;
+				font-style: italic;
+				}
+			</style>
+			<vbox vflex="true" hflex="true" sclass="rounded login"
+				align="center" style="padding-top:20px; padding-bottom:10px">
+				<label value="Acceso al Sistema de Gestión"
+					style="font-weight:bold;font-size:11pt">
+				</label>
+				<vbox pack="center" align="center" vflex="true" hflex="true"
+					style="margin:50px">
+					<hlayout style="text-align:right">
+						<label value="@load(crt.nombre)" style="font-style:oblique"/>
+						<div width="10px"></div>
+					</hlayout>
+					<grid sclass="vgrid">
+						<rows>
+							<row>
+								<div style="text-align:center">
+									<image src="/logo.png" width="70%"
+										height="70%" />
+								</div>
+								<vlayout spacing="0" width="100%">
+									<hlayout hflex="true">
+										<image
+											src="/core/images/_user.png" />
+										<combobox id="name"
+											buttonVisible="false"
+											autocomplete="@load(crt.users.size() eq 1? 'true' : 'false')" 
+											placeholder="Usuario"
+											hflex="true" onOK="@command('loginOk')" readonly="false"
+											model="@load(crt.users)"
+											value="@bind(crt.user)"
+											instant="true"
+											onChange="@command('openUserList')">
+										</combobox>
+										<div width="20px"></div>
+									</hlayout>
+
+									<div height="15px" />
+
+									<hlayout width="100%">
+										<image
+											src="/core/images/password.png" />
+										<textbox id="pwd" hflex="true"
+											type="password" value="@bind(crt.pass)"
+											onOK="@command('loginOk')" placeholder="Password" />
+										<div width="20px"></div>
+									</hlayout>
+									<div height="15px" />
+									<hlayout>
+										<image
+											src="/core/images/user_.png" />
+										<button label=" Ingresar"
+											onClick="@command('loginOk')" hflex="true" 
+											style="font-weight:bold"/>
+										<div width="20px"></div>
+									</hlayout>
+									<div height="15px" />
+									<label id="mesg"
+										value="@load(crt.msg)" style="color: red;font-style: italic;" />
+								</vlayout>
+							</row>
+						</rows>
+					</grid>
+				</vbox>
+				<label value="Asunción - Paraguay" style="color:grey"></label>
+			</vbox>
+			<popup id="usuarios" width="200px" height="150px" sclass="rounded">
+				<listbox id="lst" model="@load(crt.users)" sclass="small-list" vflex="true"
+					selectedItem="@bind(crt.user)"
+					onSelect='usuarios.close()'>
+					<attribute name="onSelect">
+						pwd.focus();
+					</attribute>
+					<template name="model">
+						<listitem>
+							<listcell>
+								<hlayout valign="middle">
+									<image src="/core/images/user-.png"/>
+									<div width="5px"/>
+									<label value="@load(each)"/>
+								</hlayout>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</popup>
+			<script><![CDATA[
+	
+function loginFaild() { //Shake the window
+    var l = jq("$loginWin").position().left;
+    jq("$loginWin").animate({
+        left : l - 25
+    }, 50).animate({
+        backgroundColor : "red"
+    }, 50).animate({
+        left : l
+    }, 50).animate({
+        left : l + 25
+    }, 50).animate({
+        left : l
+    }, 50).animate({
+        backgroundColor : "white"
+    }, 50);
+    jq("$loginWin").css('background-color','transparent');
+} 
+]]></script>
+		</window>
+</zk>

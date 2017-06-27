@@ -1,0 +1,145 @@
+<?page title="${param.title}"   style="background-color: #EBEBEB;"   ?>
+<?import com.coreweb.Config?>
+<zk>
+	<?link rel="shortcut icon" type="image/x-icon" href="/icono-tab.ico"?>
+	<?link rel="icon" type="image/x-icon" href="/icono-tab.ico"?>	
+
+	<script src="/core/macros/js/jquery.maskedinput-1.3.js"
+		type="text/javascript" />
+	<style src="/core/css/yhaguy.css" />
+	<style>
+
+		body { padding: 0 0; background-color: #EBEBEB; }
+
+		.hightlight { color: #1469AB; font-weight: bold; }
+
+		.error { color: red; }
+
+		.dm-menuitem {width: 100%; }
+
+		.dm-menuitem .z-menu-item-cnt {display: none;}
+
+		.mydb { background: white; border: 1px }
+
+		.mydb-readonly { background: #D3D3D3; border: 1px }
+
+		.colorBarra {background-color: #B5B4B4 ; border-color: #B5B4B4
+		;}
+
+		}
+	</style>
+	<style>.z-tabpanel-hidden { display: none !important; }</style>
+	<script>
+
+
+
+
+		
+		<![CDATA[ zk.afterLoad("zul.tab", function () { var _tpWgt = {};
+		zk.override(zul.tab.Tabpanel.prototype, _tpWgt, { bind_:
+		function (a, b, c) { _tpWgt.bind_.apply(this, arguments); if
+		(!this._visible) jq(this.$n()).addClass('z-tabpanel-hidden'); },
+		setVisible: function (v) { var n = this.$n();
+		_tpWgt.setVisible.apply(this, arguments); if (n) { if (v)
+		jq(this.$n()).removeClass('z-tabpanel-hidden'); else
+		jq(this.$n()).addClass('z-tabpanel-hidden'); } } }); }); ]]>
+		
+		
+		
+
+
+	</script>
+
+	<window id="templateInicio" width="99.5%" position="center"
+		mode="overlapped" height="100%" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.coreweb.login.ControlInicio')"
+		border="none">
+
+		<!-- // esto es para recibir como parametro el // archivo del menu a utilizar -->
+
+		<zscript>
+	import javax.servlet.http.HttpServletRequest;
+	import org.zkoss.zk.ui.Executions;
+	HttpServletRequest request = (HttpServletRequest) Executions.getCurrent()
+			.getNativeRequest();
+	String menuApp = request.getParameter("menu");
+</zscript>
+
+		<borderlayout>
+		
+			<north border="0" collapsible="false" height="50px">
+				<hlayout valign="middle">
+					
+					<hbox hflex="30%" align="center" height="30px" visible="false">
+						<label id="nombreFormulario" value=" " multiline="false"
+							maxlength="26" style="font-size:12pt;font-weight:bold" />
+					</hbox>
+					
+					<include id="menu" src="@load(vm.menu)" hflex="70%"/>
+					
+				</hlayout>
+			</north>
+
+			<center style="border:none" autoscroll="true" hflex="true">
+					
+												
+					<include id="principalBody" mode="instant"
+						src="/core/inicio/login_bootstrap.zul" />
+					
+				
+			</center>
+
+<!--
+			<south style="border:none" height="40px">
+ 			
+				<div sclass="breadcrumb" height="40px">
+
+					<hlayout>
+
+						<button onClick="@command('informacionUsuario')"
+							label="@load(vm.us.nombre)" iconSclass="z-icon-user"
+							width="150px" sclass="btn-primary btn-xs" dir="normal" />
+
+
+						<hbox hflex="true" align="center" pack="end">
+
+							<button label="@load(vm.misAlertas)"
+								onClick="@command('mostrarAlertas')" width="150px"
+								sclass="btn-primary btn-xs" iconSclass="z-icon-warning"
+								dir="normal">
+							</button>
+
+							<button label="click me"
+								onClick="@command('mostrarCarita')" width="150px"
+								sclass="btn-primary btn-xs" iconSclass="z-icon-thumbs-up"
+								dir="normal" />
+
+						</hbox>
+
+						<hbox visible="false">
+							<menubar id="menubarFoot2" width="100%"
+								style="@load(vm.colorBarra)">
+								<menuitem id="alertas"
+									label="@load(vm.misAlertas)"
+									onClick="@command('mostrarAlertas')"
+									image="/core/images/exclamation.png"
+									style="@load(vm.colorBarra)" />
+								<menuitem id="carita" label="click me"
+									onClick="@command('mostrarCarita')"
+									image="/core/images/face-angry.png"
+									style="@load(vm.colorBarra)" />
+							</menubar>
+						</hbox>
+
+						<hbox visible="false">
+							<include id="menuSistema"
+								src="@load(vm.menuSistema)" />
+						</hbox>
+
+					</hlayout>
+				</div>
+			</south>
+ -->
+		</borderlayout>
+	</window>
+</zk>

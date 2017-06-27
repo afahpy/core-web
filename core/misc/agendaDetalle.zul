@@ -1,0 +1,48 @@
+
+<window id="winAgendaDetalle" border="normal" width="430px" minheight="150"
+	closable="true"
+	visible="false"
+	position="&quot;center&quot;;"
+	sizable="true"
+	>
+
+	<caption image="/core/images/agenda.png" label="Agregar un item a la Agenta" />
+	<borderlayout height="300px">
+
+		<center>
+
+			<grid>
+				<columns>
+					<column label="" width="150px" />
+					<column label="" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Fecha" width="150px" />
+						<textbox value="2012-09-18" width="150px" />
+					</row>
+					<row>
+						<label value="Texto" width="150px" />
+						<textbox rows="3" value="texto de referencia" width="150px" />
+					</row>
+					<row>
+						<label value="Adjuntar archivo" width="150px" />
+						<button label="Buscar archivo" upload="true">
+							<attribute name="onUpload"><![CDATA[
+							Messagebox.show("Archivo leido", "Información", Messagebox.OK, Messagebox.INFORMATION);
+							break;
+							]]></attribute>
+						</button>
+					</row>
+				</rows>
+			</grid>
+		</center>
+		<south border="0">
+			<toolbar mold="panel" align="center">
+				<button id="grabarEvento" hflex="1" label="Grabar" />
+				<button id="cerrarDetalle" hflex="1" label="Cerrar" />
+			</toolbar>
+		</south>
+	</borderlayout>
+
+</window>

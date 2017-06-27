@@ -1,0 +1,38 @@
+<div apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.extras.archivos.ViewModelManejadorArchivos')">
+
+	<vlayout>
+		<hbox width="100%" align="center">
+			<toolbarbutton width="25px" image="/core/images/flecha-iz.png" tooltiptext="volver un nivel"
+				onClick="@command('volverNivel')" />
+			<toolbarbutton width="25px" image="/core/images/folder-new.png"  tooltiptext="crear directorio"
+				visible="@load(vm.modoAdm)" onClick="@command('crearDirectorio')" />
+			<toolbarbutton width="25px" id="uploadArchivo" visible="@load(vm.modoAdm)"  tooltiptext="subir un archivo"
+				image="/core/images/add.png" upload="true,maxsize=10000"
+				onUpload="@command('agregarFile', evt=event)" tooltip="agregar archivo" />
+			<space />
+			<label value="@load(vm.direCCWeb)" />
+		</hbox>
+
+
+		<grid model="@load(vm.listaArchivos)" emptyMessage="No hay archivos en esta carpeta !">
+			<columns>
+				<column label="" width="20px" />
+				<column label="" hflex="max" />
+				<column label="" width="150px" align="right" />
+				<column label="" width="80px" align="center" />
+			</columns>
+			<template name="model">
+				<row>
+					<image src="@load(each.image)" />
+					<a onClick="@command('clickFile', file=each)">
+						<label value="@load(each.nombre)" />
+					</a>
+					<label value="@load(each.tamanio)" />
+					<button visible="@load(vm.modoAdm)" image="/core/images/delete.png" tooltiptext="eliminar"
+						onClick="@command('eliminarFile', file=each)" />
+				</row>
+			</template>
+		</grid>
+	</vlayout>
+</div>

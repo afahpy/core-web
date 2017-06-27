@@ -1,0 +1,21 @@
+<zk>
+	<window id="Body"
+		viewModel="@id('vm') @init('com.coreweb.extras.backup.BackupControlBody')"
+		apply="org.zkoss.bind.BindComposer">
+		<groupbox>
+			<vlayout>
+				<hlayout>
+					<button label="Generar Backup"
+						onClick="@command('generarBackup')" />
+					<button label="Descargar Backup"
+						onClick="@command('descargarBackup')"
+						disabled="@load(!vm.descargar)" />
+					<button label="Ver catalina"
+						onClick="@command('verCatalina')" />
+				
+				</hlayout>
+				<textbox rows="38" cols="90" value="@load(vm.log)" />
+			</vlayout>
+		</groupbox>
+	</window>
+</zk>
