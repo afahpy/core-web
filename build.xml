@@ -1,0 +1,66 @@
+
+<project>
+
+	<!-- Definicion de variables -->
+	<property name="lib.dir" value="WEB-INF/lib" />
+	<property name="src.dir" value="WEB-INF/src/" />
+	<property name="classes.dir" value="WEB-INF/classes/" />
+	<property name="java.class" value="com.coreweb.extras.ejecutar.ClaseEjecutarMain" />
+
+
+	<!-- ============================= -->
+	<!-- No modiicar de acá para abajo -->
+	<!-- ============================= -->
+
+
+	<target name="jar" depends="compile">
+		<jar basedir="${classes.dir}" destfile="core.jar" includes="**">
+		</jar>
+	</target>
+
+
+
+	<!-- borrar los class -->
+	<target name="clean">
+		<delete dir="${classes.dir}" />
+	</target>
+
+	<!-- incluir los jar para compilar -->
+	<path id="classpath">
+		<pathelement path="${classes.dir}" />
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+
+
+	<!-- Compila el proyecto -->
+	<target name="compile" depends="copy-hbm">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" encoding="UTF-8"
+			classpathref="classpath" includeantruntime="false" />
+	</target>
+
+
+	<!-- copy hbm files ${dist.dir} -->
+	<target name="copy-hbm" description="Copy hibernate files">
+		<mkdir dir="${classes.dir}" />
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}" includes="**/*.xml" />
+		</copy>
+	</target>
+
+
+	<target name="run" depends="input-runargs" description="run the project">
+		<!-- You can use exec here, depending on your needs -->
+		<java classname="${java.class}" classpathref="classpath">
+			<arg line="${args}" />
+		</java>
+	</target>
+	<target name="input-runargs" unless="args"
+		description="prompts for command line arguments if necessary">
+		<input addProperty="args"
+			message="Ingresar el nombre de la clase a ejecutar el método main" />
+	</target>
+
+
+</project>
