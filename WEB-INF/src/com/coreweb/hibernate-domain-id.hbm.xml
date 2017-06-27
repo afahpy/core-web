@@ -1,0 +1,4 @@
+
+<id name="id" type="long" column="id">
+	<generator class="increment" />
+</id>

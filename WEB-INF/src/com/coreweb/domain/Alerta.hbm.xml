@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//hibernate/hibernate Mapping DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-mapping-3.0.dtd"
+        [ <!ENTITY hibernate-domain SYSTEM "classpath://com/coreweb/hibernate-domain.hbm.xml"> ]
+        >
+
+<hibernate-mapping>
+
+	<class name="com.coreweb.domain.Alerta" table="Alerta">
+
+		&hibernate-domain;
+
+		<property name="numero" />
+		<property name="fechaCreacion" />
+		<property name="fechaCancelacion" />
+		<property name="creador" />
+		<property name="destino" />
+		<property name="descripcion" />
+		<property name="observacion" />
+		<property name="cancelada" />
+
+		<many-to-one name="nivel" class="com.coreweb.domain.Tipo"
+			column="idnivel" lazy="false" />
+
+		<many-to-one name="tipo" class="com.coreweb.domain.Tipo"
+			column="idtipo" lazy="false" />
+			
+		<property name="propietario" />
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,187 @@
+<language-addon>
+	<addon-name>coreWeb</addon-name>
+	<language-name>xul/html</language-name>
+
+	<!-- Como definir valores por default de los componentes -->
+
+	<component>
+		<component-name>window</component-name>
+		<extends>window</extends>
+		<property>
+			<property-name>border</property-name>
+			<property-value>0</property-value>
+		</property>
+	</component>
+	<component>
+		<component-name>combobox</component-name>
+		<extends>combobox</extends>
+		<property>
+			<property-name>readonly</property-name>
+			<property-value>true</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>button</component-name>
+		<extends>button</extends>
+		<property>
+			<property-name>autodisable</property-name>
+			<property-value>self</property-value>
+		</property>
+		<property>
+			<property-name>dir</property-name>
+			<property-value>reverse</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>doublebox</component-name>
+		<component-class>com.coreweb.extras.zul.CoreWebDoubleBox</component-class> 
+		<extends>doublebox</extends>
+		<property>
+			<property-name>style</property-name>
+			<property-value>text-align:right</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>intbox</component-name>
+		<component-class>com.coreweb.extras.zul.CoreWebIntBox</component-class> 
+		<extends>intbox</extends>
+		<property>
+			<property-name>style</property-name>
+			<property-value>text-align:right</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>longbox</component-name>
+		<component-class>com.coreweb.extras.zul.CoreWebLongBox</component-class> 
+		<extends>longbox</extends>
+		<property>
+			<property-name>style</property-name>
+			<property-value>text-align:right</property-value>
+		</property>
+	</component>
+
+
+
+	<component>
+		<component-name>guaranibox</component-name>
+		<property>
+			<property-name>format</property-name>
+			<property-value>###,###,##0</property-value>
+		</property>
+		<property>
+			<property-name>style</property-name>
+			<property-value>text-align:right</property-value>
+		</property>
+		<custom-attribute>
+			<attribute-name>onFocus</attribute-name>
+			<attribute-value>self.select()</attribute-value>
+		</custom-attribute>
+		<extends>doublebox</extends>
+	</component>
+
+	<component>
+		<component-name>dolarbox</component-name>
+		<property>
+			<property-name>format</property-name>
+			<property-value>###,###,##0.00</property-value>
+		</property>
+		<property>
+			<property-name>style</property-name>
+			<property-value>text-align:right</property-value>
+		</property>
+		<extends>doublebox</extends>
+	</component>
+
+	<component>
+		<component-name>fechabox</component-name>
+		<component-class>com.coreweb.extras.macros.CustomTextbox
+		</component-class>
+		<property>
+			<property-name>tipo</property-name>
+			<property-value>fecha</property-value>
+		</property>
+		<property>
+			<property-name>width</property-name>
+			<property-value>100px</property-value>
+		</property>
+		<extends>textbox</extends>
+	</component>
+
+	<component>
+		<component-name>monedabox</component-name>
+		<extends>doublebox</extends>
+		<property>
+			<property-name>style</property-name>
+			<property-value>text-align:right</property-value>
+		</property>
+		<property>
+			<property-name>format</property-name>
+			<property-value>#,###,###,##0</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>groupbox</component-name>
+		<extends>groupbox</extends>
+		<property>
+			<property-name>mold</property-name>
+			<property-value>default</property-value>
+		</property>
+		<property>
+			<property-name>closable</property-name>
+			<property-value>false</property-value>
+		</property>
+	</component>
+
+
+	<component>
+		<component-name>menubar</component-name>
+		<extends>menubar</extends>
+		<!-- <property> <property-name>style</property-name> <property-value>background: 
+			#3FC6D2;</property-value> </property> -->
+		<property>
+			<property-name>autodrop</property-name>
+			<property-value>false</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>hlayout</component-name>
+		<extends>hlayout</extends>
+		<property>
+			<property-name>valign</property-name>
+			<property-value>middle</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>field</component-name>
+		<extends>label</extends>
+		<property>
+			<property-name>style</property-name>
+			<property-value>font-weight:bold</property-value>
+		</property>
+	</component>
+
+	<component>
+		<component-name>labelConstrain</component-name>
+		<extends>label</extends>
+		<property>
+			<property-name>style</property-name>
+			<property-value> color:red</property-value>
+		</property>
+		<property>
+			<property-name>value</property-name>
+			<property-value>(*)</property-value>
+		</property>
+	</component>
+
+
+	<!-- Es una idea a probar y ver si funciona <component> <component-name>ctextbox</component-name> 
+		<extends>textbox</extends> <component-class>com.yhaguy.core.components.CTextbox</component-class> 
+		</component> -->
+</language-addon>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//hibernate/hibernate Mapping DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-mapping-3.0.dtd"
+        [ <!ENTITY hibernate-domain SYSTEM "classpath://com/coreweb/hibernate-domain.hbm.xml"> ]
+        >
+
+<hibernate-mapping>
+
+	<class name="com.coreweb.domain.Usuario" table="Usuario">
+
+		&hibernate-domain;
+
+		<property name="nombre" />
+		<property name="login" />
+		<property name="clave" />
+		<property name="motivoDeInactivacion" />
+		<property name="activo">
+			<column name="activo" not-null="true" default="true" />
+		</property>
+		<property name="fechaDeIngreso" />
+		<property name="fechaDeInactivacion" />
+
+		<set name="perfiles" table="Usuario_UsuarioPerfil" inverse="false"
+			lazy="false" fetch="join">
+			<key>
+				<column name="idUser" not-null="false" />
+			</key>
+			<many-to-many column="idPerfil" class="com.coreweb.domain.Perfil" />
+		</set>
+
+		<set name="usuarioPropiedades" table="UsuarioPropiedad" inverse="false"
+			lazy="false" fetch="join" cascade="all">
+			<key>
+				<column name="idUsuario" not-null="false" />
+			</key>
+			<one-to-many class="com.coreweb.domain.UsuarioPropiedad" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>

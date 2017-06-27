@@ -1,0 +1,12 @@
+
+<id name="id" type="long" column="id">
+	<generator class="increment" />
+</id>
+<property name="dbEstado" />
+<property name="modificado" />
+<property name="usuarioMod" />
+<property name="auxi" />
+<property name="orden"  index="Orden_index"/>
+<property name="ip_pc" />
+
+

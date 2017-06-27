@@ -1,0 +1,77 @@
+
+<property name="hibernate.c3p0.min_size">5</property>
+<property name="hibernate.c3p0.max_size">20</property>
+<property name="hibernate.c3p0.timeout">100</property>
+<property name="hibernate.c3p0.max_statements">1</property>
+<property name="hibernate.c3p0.idle_test_period">1000</property>
+<property name="hibernate.c3p0.validate">true</property>
+
+<!-- 
+
+<property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+
+
+<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider
+</property>
+
+ -->
+
+
+
+
+<!-- SQL dialect -->
+<!-- <property name="dialect">org.hibernate.dialect.HSQLDialect</property> 
+	<property name="dialect">org.hibernate.dialect.MySQLDialect</property> -->
+<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+
+
+
+<!-- Enable Hibernate's automatic session context management -->
+<property name="current_session_context_class">thread</property>
+
+<!-- Disable the second-level cache -->
+<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+<!-- Echo all executed SQL to stdout -->
+<property name="show_sql">false</property>
+
+<!-- Drop and re-create the database schema on startup -->
+<property name="hibernate.hbm2ddl.auto">update</property>
+
+
+<!-- tuning -->
+
+<property name="hibernate.jdbc.batch_size">100</property>
+<property name="hibernate.order_inserts">true</property>
+<property name="hibernate.order_updates">true</property>
+<property name="hibernate.current_session_context_class">thread</property>
+
+<!-- login -->
+<mapping resource="com/coreweb/domain/LogAcceso.hbm.xml" />
+
+
+<mapping resource="com/coreweb/domain/Ping.hbm.xml" />
+<mapping resource="com/coreweb/domain/Tecorei.hbm.xml" />
+<mapping resource="com/coreweb/domain/Usuario.hbm.xml" />
+<mapping resource="com/coreweb/domain/UsuarioPropiedad.hbm.xml" />
+<mapping resource="com/coreweb/domain/Perfil.hbm.xml" />
+<mapping resource="com/coreweb/domain/Permiso.hbm.xml" />
+<mapping resource="com/coreweb/domain/Formulario.hbm.xml" />
+<mapping resource="com/coreweb/domain/Operacion.hbm.xml" />
+<mapping resource="com/coreweb/domain/Modulo.hbm.xml" />
+<mapping resource="com/coreweb/domain/Tipo.hbm.xml" />
+<mapping resource="com/coreweb/domain/TipoTipo.hbm.xml" />
+<mapping resource="com/coreweb/domain/MensajeEmail.hbm.xml" />
+
+<!-- Agenda -->
+<mapping resource="com/coreweb/domain/AgendaEvento.hbm.xml" />
+<mapping resource="com/coreweb/domain/AgendaEventoDetalle.hbm.xml" />
+
+<!-- AutoNumerico -->
+<mapping resource="com/coreweb/domain/AutoNumero.hbm.xml" />
+
+<!-- Alerta -->
+<mapping resource="com/coreweb/domain/Alerta.hbm.xml" />
+<mapping resource="com/coreweb/domain/AlertaDestinos.hbm.xml" />
+		

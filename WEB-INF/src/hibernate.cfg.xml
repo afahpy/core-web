@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-configuration-3.0.dtd"
+        [ <!ENTITY hibernate-core SYSTEM "classpath://com/coreweb/hibernate-core.cfg.xml"> ]>
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Postgres PROPERTIES -->
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/xxxdb</property>
+
+		<property name="connection.username">postgres</property>
+		<property name="connection.password">postgres</property>
+
+		<!-- Fin Postgres -->
+
+		<!-- ===== Hibernate Core ==================== -->
+		
+		&hibernate-core; 
+		
+		
+		<!-- ********************************************* -->
+		<!-- ********************************************* -->
+		<!-- ********************************************* -->
+
+	</session-factory>
+
+</hibernate-configuration>

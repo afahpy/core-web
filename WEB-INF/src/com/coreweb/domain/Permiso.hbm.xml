@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//hibernate/hibernate Mapping DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-mapping-3.0.dtd"
+        [ <!ENTITY hibernate-domain SYSTEM "classpath://com/coreweb/hibernate-domain.hbm.xml"> ]
+        >
+
+<hibernate-mapping>
+
+	<class name="com.coreweb.domain.Permiso" table="UsuarioPermiso">
+
+		&hibernate-domain; 
+
+		<property name="habilitado"/>
+
+		<many-to-one name="operacion" class="com.coreweb.domain.Operacion"
+			lazy="false"
+			column="idOperacion" cascade="none" not-null="true" />
+
+		<many-to-one name="perfil" class="com.coreweb.domain.Perfil"
+			column="idPerfil"
+			lazy="false"
+			cascade="none" not-null="false"/>
+
+	</class>
+
+</hibernate-mapping>
