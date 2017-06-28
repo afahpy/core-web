@@ -48,6 +48,10 @@ local.properties
 .scala_dependencies
 .worksheet
 
+#otros
+.classpath
+.project
+
 #classes
 WEB-INF/classes
 #librerias
