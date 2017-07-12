@@ -1,0 +1,73 @@
+
+Comandos utiles postgres:
+=========================
+
+Desinstalar:
+------------
+
+# sudo apt-get remove --purge postgresql-9.5 (Version puede variar)
+
+Instalar:
+---------
+
+# sudo apt-get install postgresql postgresql-client postgresql-contrib libpq-dev
+
+Cambiar contrasenha del sistema para usuario postgres:
+------------------------------------------------------
+
+# sudo passwd postgres
+
+Cambiar contrasenha de bd para el usuario postgres:
+---------------------------------------------------
+
+#Cambiar a usuario del sistema postgres
+# su postgres 
+
+#Luego iniciar psql
+# psql
+
+#Para cambiar contrasenna (PSQL)
+postgres=# \password
+
+Crear nuevo usuario de postgres (PSQL)
+--------------------------------------
+
+
+# CREATE USER usuario WITH PASSWORD 'Contrasenha';
+
+Crear BD (PSQL)
+---------------
+
+# CREATE DATABASE nombrebd;
+
+
+Asignar permisos a un usuario sobre una BD (PSQL)
+-------------------------------------------------
+
+# GRANT ALL PRIVILEGES ON DATABASE nombrebd to usuario;
+
+Borrar BD (PSQL)
+----------------
+
+# DROP DATABASE repuestosdb
+
+Hacer backup de BD:
+-------------------
+
+# pg_dump -U $USER_DB -h localhost --port 5432 -f ${FILE_NAME} $NAME_DB
+
+Restaurar backup de BD:
+-----------------------
+
+# psql -d nombrebd -f path_a_archivo
+
+
+Observaciones para restaurar backup:
+------------------------------------
+
+- Si se va a restaurar conviene truncar la bd correspondiente a 
+la cual se restaurara el backup o podrian cargarse datos repetidos.
+- Recien luego de hacer eso restaurar la BD con el archivo Backup correspondiente
+
+
+/****************************************************************************/
