@@ -10,11 +10,10 @@ public class ClaseEjecutarMain {
 				System.out.println("Debe especificar una clase");
 				return;
 			}
-			
 			// los parámetros no funionan. Ver esto.
 			String[] params = new String[args.length - 1];
-			for (int i = 1; i < args.length - 1; i++) {
-				params[i] = args[i];
+			for (int i = 1; i < args.length; i++) {
+				params[i-1] = args[i];
 			}
 
 			Class<?> cls = Class.forName(args[0]);
