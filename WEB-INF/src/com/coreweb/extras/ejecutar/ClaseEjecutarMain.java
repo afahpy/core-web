@@ -13,7 +13,7 @@ public class ClaseEjecutarMain {
 			
 			// los parámetros no funionan. Ver esto.
 			String[] params = new String[args.length - 1];
-			for (int i = 1; i < args.length; i++) {
+			for (int i = 1; i < args.length - 1; i++) {
 				params[i] = args[i];
 			}
 
