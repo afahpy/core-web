@@ -145,12 +145,12 @@
 								style="@load(vm.colorBarra)"
 								visible="@load(vm.misVentasVisible)"
 								onClick='usuEnLinea.open(templateInicio, "overlap_after")' />
-							<menuitem id="support"
+<!-- 							<menuitem id="support"
 								label="Soporte Sistema"
 								href="https://sistemasyhaguy.freshdesk.com/support/tickets/new"
 								target="_blank" iconSclass="z-icon-wrench"
 								style="@load(vm.colorBarra)"
-								visible="@load(vm.misVentasVisible)" />
+								visible="@load(vm.misVentasVisible)" /> -->
 							<menuitem id="ventas" label="Mis Ventas"
 								onClick="@command('misVentas')" iconSclass="z-icon-tags"
 								style="@load(vm.colorBarra)"
