@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fontFamilies>
+	<fontFamily name="Cousine">
+		<normal>com/coreweb/extras/reporte/fonts/cousine/Cousine-Regular.ttf</normal>
+		<bold>com/coreweb/extras/reporte/fonts/cousine/Cousine-Bold.ttf</bold>
+		<italic>com/coreweb/extras/reporte/fonts/cousine/Cousine-Italic.ttf</italic>
+		<boldItalic>com/coreweb/extras/reporte/fonts/cousine/Cousine-BoldItalic.ttf</boldItalic>
+		<pdfEncoding>Cp1252</pdfEncoding>
+		<pdfEmbedded>true</pdfEmbedded>
+	</fontFamily>
+
+</fontFamilies>

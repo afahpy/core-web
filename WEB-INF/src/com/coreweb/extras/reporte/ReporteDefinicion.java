@@ -62,7 +62,8 @@ public class ReporteDefinicion {
 	public static final String EXPORT_DOCX = ".docx";
 
 	private PageType tipoPagina = PageType.A4;
-
+	
+	
 	public void setA4() {
 		this.tipoPagina = A4;
 	}
@@ -143,6 +144,10 @@ public class ReporteDefinicion {
 	 */
 	public CrosstabBuilders ctab = new CrosstabBuilders();
 
+	
+	private StyleBuilder monoSpaceStyle = stl.style().setFontName("Cousine");
+	
+	
 	/**
 	 * Creates a new report builder. The most used report builder for creating
 	 * reports. It allows constructing and customizing the whole report content.
@@ -445,6 +450,13 @@ public class ReporteDefinicion {
 		return cmp.text(texto).setStyle(Templates.boldStyleRight);
 	}
 
+	
+	public ComponentBuilder textoMonoSpace(String texto) {
+		return cmp.text(texto).setStyle(monoSpaceStyle);
+	}
+	
+	
+	
 	/*
 	 * me genera un espacio en blanco a la izquierda. Se ve en los CV de saraki
 	 * public ComponentBuilder textoParValor(String texto, Object valor) {

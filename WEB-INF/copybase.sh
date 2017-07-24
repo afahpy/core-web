@@ -20,7 +20,7 @@ rm core.zip
 # Archivos .class (crea jar)
 
 cd $DESDE/WEB-INF/classes
-zip -r core com/*  -x *.svn*
+zip -r core *  -x *.svn*
 mv core.zip ../src
 cd ../src
 zip -r core com/*  -x *.svn*
