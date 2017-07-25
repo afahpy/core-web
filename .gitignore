@@ -1,6 +1,7 @@
 
 bin/
 tmp/
+*.*~
 *.tmp
 *.bak
 *.swp
@@ -56,3 +57,4 @@ local.properties
 WEB-INF/classes
 #librerias
 WEB-INF/lib
+/classes/
