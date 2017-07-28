@@ -362,6 +362,11 @@ public class ReporteDefinicion {
 
 	// =========== funiones propias ======================
 
+	public static final String LETRA_6 = "tamanioSeis";
+	public static final String LETRA_7 = "tamanioSiete";
+	public static final String LETRA_8 = "tamanioOcho";
+	public static final String LETRA_9 = "tamanioNueve";
+	public static final String LETRA_10 = "tamanioDiez";
 	public static final String NEGRITA = "negrita";
 	public static final String DERECHA = "derecha";
 	public static final String WIDTH = "width";
@@ -403,6 +408,22 @@ public class ReporteDefinicion {
 
 		StyleBuilders stl = new StyleBuilders();
 		StyleBuilder stlNew = stl.style();
+
+		if (style.indexOf(LETRA_6) >= 0) {
+			stlNew = stlNew.setFontSize(6);
+		}
+		if (style.indexOf(LETRA_7) >= 0) {
+			stlNew = stlNew.setFontSize(7);
+		}
+		if (style.indexOf(LETRA_8) >= 0) {
+			stlNew = stlNew.setFontSize(8);
+		}
+		if (style.indexOf(LETRA_9) >= 9) {
+			stlNew = stlNew.setFontSize(6);
+		}
+		if (style.indexOf(LETRA_10) >= 10) {
+			stlNew = stlNew.setFontSize(6);
+		}
 
 		if (style.indexOf(BOX) >= 0) {
 			stlNew = stlNew.setBorder(stl.pen1Point());
@@ -610,10 +631,18 @@ public class ReporteDefinicion {
 	}
 
 	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop) {
-		return getTabla(cols, datos, prop, false);
+		return getTabla(cols, datos, prop, false, 0);
 	}
 
 	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop, boolean siPie) {
+		return getTabla(cols, datos, prop, siPie, 0);
+	}
+
+	
+	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop, boolean siPie, int fontSize) {
+		
+		
+		
 		HorizontalListBuilder out = cmp.horizontalList();
 		VerticalListBuilder cuerpo = cmp.verticalList();
 
@@ -640,7 +669,7 @@ public class ReporteDefinicion {
 		int pt = prop.indexOf(TABLA_TITULO);
 		if (pt >= 0) {
 			String tiStr = prop.substring(pt + TABLA_TITULO.length());
-			cuerpo.add(this.texto(tiStr, NEGRITA + PADDING));
+			cuerpo.add(this.texto(tiStr, NEGRITA + prop+PADDING));
 		}
 
 		VerticalListBuilder tabla = cmp.verticalList();
@@ -695,6 +724,8 @@ public class ReporteDefinicion {
 			out.add(colAux);
 		}
 
+		
+		
 		return out;
 	}
 
