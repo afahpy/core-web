@@ -159,6 +159,7 @@ public abstract class Assembler {
 		dom.setModificado(new Date());
 		dom.setUsuarioMod(dto.getUsuarioMod());
 		dom.setAuxi(dto.getAuxi());
+		dom.setOrden(dto.getOrden());
 		dom.setIp_pc(ip);
 		return dom;
 	}
