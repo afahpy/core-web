@@ -49,7 +49,9 @@ public class DBMenuUserParser {
 		String m = "m";
 		Modulo modulo = new Modulo();
 
-		for (int mi = 1; (modulo != null); mi++) {
+		// 0 es el core.
+		
+		for (int mi = 0; ((mi <= 1) || (modulo != null)); mi++) {
 			// buscar los modulos
 			String m_ = m + mi;
 			modulo = getModulo(m_);

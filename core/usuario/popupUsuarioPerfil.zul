@@ -1,0 +1,336 @@
+<window apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.repuestos.gestion.modulos.PopupSimpleViewModel')">
+
+	<!-- ________________ AGREGAR USUARIO _______________ -->
+
+	<grid sclass="vgrid" visible="@load(vm.dato.visibleUsuario)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Nombre:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newUsuario.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Login:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newUsuario.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Clave:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newUsuario.pos3)"
+						hflex="true" type="password" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Verificar Clave:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newUsuario.pos4)"
+						hflex="true" type="password" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+		</rows>
+	</grid>
+
+	<!-- ________________ AGREGAR PPERFIL _______________ -->
+
+	<grid sclass="vgrid" visible="@load(vm.dato.visiblePerfil)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Nombre:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newPerfil.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newPerfil.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Grupo:" />
+				<textbox value="@bind(vm.dato.newPerfil.pos3)"
+					hflex="true" />
+			</row>
+		</rows>
+	</grid>
+
+	<!-- ________________ AGREGAR MODULO _______________ -->
+
+	<grid sclass="vgrid" visible="@load(vm.dato.visibleModulo)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Nombre:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newModulo.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newModulo.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+		</rows>
+	</grid>
+	<!-- ________________ AGREGAR FORMULARIO _______________ -->
+
+	<grid sclass="vgrid" visible="@load(vm.dato.visibleFormulario)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Label:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newFormulario.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newFormulario.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Url:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newFormulario.pos3)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Alias:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newFormulario.pos4)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+		</rows>
+	</grid>
+
+	<!-- ________________ AGREGAR OPERACION _______________ -->
+
+	<grid sclass="vgrid" visible="@load(vm.dato.visibleOperacion)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Alias:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newOperacion.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Nombre:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newOperacion.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newOperacion.pos3)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="IdTexto:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.newOperacion.pos4)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+		</rows>
+	</grid>
+
+	<!-- ________________ EDITAR OPERACION _______________ -->
+
+	<grid sclass="vgrid"
+		visible="@load(vm.dato.visibleEditarOperacion)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Alias:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Nombre:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos3)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="IdTexto:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos4)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+		</rows>
+	</grid>
+
+	<!-- ________________ EDITAR FORMULARIO _______________ -->
+
+	<grid sclass="vgrid"
+		visible="@load(vm.dato.visibleEditarFormulario)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Label:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Url:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos3)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Alias:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos4)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+		</rows>
+	</grid>
+	<!-- ________________ EDITAR MODULO _______________ -->
+
+	<grid sclass="vgrid" visible="@load(vm.dato.visibleEditarModulo)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Nombre:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+		</rows>
+	</grid>
+
+	<!-- ________________ EDITAR PERFIL _______________ -->
+
+	<grid sclass="vgrid" visible="@load(vm.dato.visibleEditarPerfil)">
+		<columns>
+			<column width="35%" />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<field value="Nombre:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos1)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Descripción:" />
+				<hlayout>
+					<textbox value="@bind(vm.dato.editItem.pos2)"
+						hflex="true" />
+					<labelConstrain />
+				</hlayout>
+			</row>
+			<row>
+				<field value="Grupo:" />
+				<textbox value="@bind(vm.dato.editItem.pos3)"
+					hflex="true" />
+			</row>
+		</rows>
+	</grid>
+</window>

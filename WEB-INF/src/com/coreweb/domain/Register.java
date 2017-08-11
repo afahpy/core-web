@@ -1496,5 +1496,123 @@ public class Register {
 		return l;
 	}	
 	
+
+	
+	//========= usuario perfil ====================================
+	/**
+	 * @return los usuarios segun parametros..
+	 */
+	public List<Usuario> getUsuarios(String login, String nombre) throws Exception {
+		String query = "select u from Usuario u where u.dbEstado != 'D' and cast (u.login as string) like '%"
+				+ login.toLowerCase() + "%'" + " and lower(u.nombre) like '%" + nombre.toLowerCase()
+				+ "%' order by u.nombre";
+		return this.hqlLimit(query, 50);
+	}
+
+	
+
+	/**
+	 * @return los perfiles segun parametros..
+	 */
+	public List<Perfil> getPerfiles(String nombre, String descripcion) throws Exception {
+		String query = "select p from Perfil p where p.dbEstado != 'D' and lower(p.nombre) like '%"
+				+ nombre.toLowerCase() + "%' and lower(p.descripcion) like '%" + descripcion.toLowerCase()
+				+ "%' order by p.nombre";
+		return this.hqlLimit(query, 50);
+	}
+
+	/**
+	 * @return los modulos segun parametros..
+	 */
+	public List<Modulo> getModulos(String nombre, String descripcion) throws Exception {
+		String query = "select m from Modulo m where m.dbEstado != 'D' and lower(m.nombre) like '%"
+				+ nombre.toLowerCase() + "%' and lower(m.descripcion) like '%" + descripcion.toLowerCase()
+				+ "%' order by m.nombre";
+		return this.hqlLimit(query, 50);
+	}
+
+	/**
+	 * @return los formularios segun parametros..
+	 */
+	public List<Formulario> getFormularios(String label, String alias) throws Exception {
+		String query = "select f from Formulario f where f.dbEstado != 'D' and lower(f.label) like '%"
+				+ label.toLowerCase() + "%' and lower(f.alias) like '%" + alias.toLowerCase() + "%' order by f.label";
+		return this.hqlLimit(query, 50);
+	}
+
+	/**
+	 * @return las operaciones segun parametros..
+	 */
+	public List<Operacion> getOperaciones(String alias, String nombre, String descripcion) throws Exception {
+		String query = "select o from Operacion o where o.dbEstado != 'D' and lower(o.alias) like '%"
+				+ alias.toLowerCase() + "%' and lower(o.nombre) like '%" + nombre.toLowerCase()
+				+ "%' and lower(o.descripcion) like '%" + descripcion.toLowerCase() + "%' order by o.alias";
+		return this.hqlLimit(query, 50);
+	}
+
+	/**
+	 * obtener el usuario
+	 */
+	public Usuario getUsuario(long idUsuario) throws Exception {
+		String query = "select u from Usuario u where u.dbEstado != 'D' and u.id = " + idUsuario;
+		return (Usuario) (this.hql(query)).get(0);
+	}
+
+
+
+	/**
+	 * Obtener el perfil
+	 */
+	public Perfil getPerfil(long idPerfil) throws Exception {
+		String query = "select p from Perfil p where p.dbEstado != 'D' and p.id = " + idPerfil;
+		return (Perfil) (this.hql(query)).get(0);
+	}
+
+	/**
+	 * Obtener el permiso
+	 */
+	public Permiso getPermiso(long idPermiso) throws Exception {
+		String query = "select p from Permiso p where p.dbEstado != 'D' and p.id = " + idPermiso;
+		return (Permiso) (this.hql(query)).get(0);
+	}
+
+	/**
+	 * Obtener el modulo
+	 */
+	public Modulo getModulo(long idModulo) throws Exception {
+		String query = "select m from Modulo m where m.dbEstado != 'D' and m.id = " + idModulo;
+		return (Modulo) (this.hql(query)).get(0);
+	}
+
+	/**
+	 * Obtener la operacion
+	 */
+	public Operacion getOperacion(long idOperacion) throws Exception {
+		String query = "select o from Operacion o where o.dbEstado != 'D' and o.id = " + idOperacion;
+		return (Operacion) (this.hql(query)).get(0);
+	}
+
+	/**
+	 * obtener el formulario
+	 */
+	public Formulario getFormulario(long idFormulario) throws Exception {
+		String query = "select f from Formulario f where f.dbEstado != 'D' and f.id = " + idFormulario;
+		return (Formulario) (this.hql(query)).get(0);
+	}
+
+	/**
+	 * verifica si existe el login
+	 */
+	public boolean getExisteLogin(String login) throws Exception {
+		boolean out = true;
+		String query = "select u from Usuario u where u.login like '" + login + "'";
+		if (this.hql(query).size() > 0)
+			out = true;
+		else
+			out = false;
+		return out;
+	}
+
+	
 	
 }

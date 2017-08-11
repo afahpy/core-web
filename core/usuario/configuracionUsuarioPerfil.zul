@@ -1,0 +1,611 @@
+<window apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.extras.usuarioPerfil.ConfiguracionUsuarioPerfilVM')"
+	height="100%">
+	<tabbox height="100%">
+		<tabs>
+			<tab label="Usuarios" width="200px" />
+			<tab label="Pefiles" width="200px" />
+			<tab label="Módulos" width="200px"
+				visible="@load(vm.visibleTabsDesarrollador)" />
+			<tab label="Formularios" width="200px"
+				visible="@load(vm.visibleTabsDesarrollador)" />
+			<tab label="Operaciones" width="200px"
+				visible="@load(vm.visibleTabsDesarrollador)" />
+		</tabs>
+
+		<tabpanels>
+			<!-- __________________ USUARIO _____________________ -->
+			<tabpanel>
+				<hlayout vflex="true" valign="top">
+					<vbox vflex="true">
+						<hlayout sclass="button-container"
+							width="600px">
+							<label value="Usuarios"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Nuevo Usuario"
+								style="align:right" image="/core/images/user_add.png"
+								onClick="@command('crearNuevoItem', index=0)" />
+							<toolbarbutton label="Inactivar Usuario"
+								style="align:right" image="/core/images/user_delete.png"
+								disabled="@load(vm.selectedUsuario.pos3.equals('SI') ? false : true)"
+								onClick="@command('activarUsuario', index=false)" />
+							<toolbarbutton label="Activar Usuario"
+								style="align:right" image="/core/images/user_go.png"
+								onClick="@command('activarUsuario', index=true)"
+								disabled="@load(vm.selectedUsuario.pos3.equals('NO') ? false : true)" />
+							<toolbarbutton label="Reset clave" visible="@load(vm.visibleTabsDesarrollador)"
+								style="align:right" image="/core/images/update3.png"
+								onClick="@command('resetPass')"
+								disabled="@load(!vm.usuarioSeleccionado)" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							vflex="true" width="600px"
+							emptyMessage="INGRESE UN CRITERIO DE BÚSQUEDA.."
+							model="@load(vm.usuarios)"
+							selectedItem="@bind(vm.selectedUsuario)">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Login" width="100px" />
+								<listheader label="Nombre" />
+								<listheader label="Activo" width="80px" />
+							</listhead>
+							<auxhead>
+								<auxheader />
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="login.."
+											value="@bind(vm.filterLoginUsuario)" instant="true" />
+									</hlayout>
+								</auxheader>
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="nombre.."
+											value="@bind(vm.filterNombreUsuario)" instant="true" />
+									</hlayout>
+								</auxheader>
+								<auxheader></auxheader>
+							</auxhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+									<listcell label="@load(each.pos3)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="3" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.usuarios.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+					<vbox vflex="true" hflex="true">
+						<hlayout sclass="button-container"
+							width="100%">
+							<label value="Perfiles"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Asignar Perfil"
+								style="align:right" disabled="@load(!vm.usuarioSeleccionado)"
+								image="/core/images/insertar.png"
+								onClick="@command('agregarNuevoPerfilAUsuario')" />
+							<space />
+							<toolbarbutton label="Remover Perfil"
+								style="align:right" image="/core/images/borrarItem.png"
+								disabled="@load(!vm.perfilParaRemoverSeleccionado)"
+								onClick="@command('removerPerfilDeUsuario')" />
+							<toolbarbutton label="Copiar Perfiles de.."
+								disabled="@load(!vm.usuarioSeleccionado)" style="align:right"
+								image="/core/images/copy-16.png"
+								onClick="@command('copiarPerfilesDe')" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							model="@load(vm.perfilesDeUsuario)" width="100%" vflex="true"
+							hflex="true" selectedItem="@bind(vm.selectedPerfilRemove)"
+							emptyMessage="No tiene perfiles asignados">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Nombre" width="130px" />
+								<listheader label="Descripción" />
+								<listheader label="Grupo" width="80px" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+									<listcell label="@load(each.pos3)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="3" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.perfilesDeUsuario.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+				</hlayout>
+			</tabpanel>
+
+			<!-- __________________ PERFILES _____________________ -->
+			<tabpanel>
+				<hlayout vflex="true" valign="top">
+					<vbox vflex="true">
+						<hlayout sclass="button-container"
+							width="550px">
+							<label value="Perfiles"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Nuevo Perfil"
+								style="align:right" image="/core/images/insertar.png"
+								onClick="@command('crearNuevoItem', index=1)" />
+							<toolbarbutton label="Modificar Perfíl"
+								disabled="@load(!vm.perfilSeleccionado)" style="align:right"
+								image="/core/images/editarItem.png"
+								onClick="@command('modificarItem', index=8)" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							vflex="true" width="550px"
+							emptyMessage="INGRESE UN CRITERIO DE BÚSQUEDA.."
+							model="@load(vm.perfiles)"
+							selectedItem="@bind(vm.selectedPerfil)">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Nombre"
+									width="200PX" />
+								<listheader label="Descripción" />
+							</listhead>
+							<auxhead>
+								<auxheader />
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="nombre.."
+											value="@bind(vm.filterNombrePerfil)" instant="true" />
+									</hlayout>
+								</auxheader>
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="descripcion.."
+											value="@bind(vm.filterDescripcionPerfil)" instant="true" />
+									</hlayout>
+								</auxheader>
+							</auxhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="2" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.perfiles.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+
+					<vbox vflex="true" hflex="true">
+						<hlayout sclass="button-container"
+							width="100%">
+							<label value="Operaciones"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Asignar Operación"
+								style="align:right" disabled="@load(!vm.perfilSeleccionado)"
+								image="/core/images/insertar.png"
+								onClick="@command('agregarNuevaOperacionAPerfil')" />
+							<space />
+							<toolbarbutton label="Habilitar Permiso"
+								style="align:right" image="/core/images/accept_.png"
+								disabled="@load(!vm.operacionParaRemoverSeleccionada)"
+								onClick="@command('habilitarPermisoOperacionDePerfil')" />
+							<space />
+							<toolbarbutton label="Deshabilitar Permiso"
+								style="align:right" image="/core/images/delete_.png"
+								disabled="@load(!vm.operacionParaRemoverSeleccionada)"
+								onClick="@command('deshabilitarPermisoOperacionDePerfil')" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							model="@load(vm.permisosDePerfil)" width="100%" vflex="true"
+							hflex="true" selectedItem="@bind(vm.selectedOperacionRemove)"
+							emptyMessage="No tiene operaciones asignados">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Nombre" />
+								<listheader label="Descripción" />
+								<listheader label="Habilitada"
+									align="center" width="70px" />
+								<listheader label="Permiso"
+									align="center" width="70px" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+									<listcell label="@load(each.pos3)" />
+									<listcell label="@load(each.pos4)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="4" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.permisosDePerfil.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+				</hlayout>
+			</tabpanel>
+			<!-- __________________ MODULOS _____________________ -->
+
+			<tabpanel>
+				<hlayout vflex="true" valign="top">
+					<vbox vflex="true">
+						<hlayout sclass="button-container"
+							width="500px">
+							<label value="Módulos"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Nuevo Modulo"
+								style="align:right" image="/core/images/insertar.png"
+								onClick="@command('crearNuevoItem', index=2)" />
+							<toolbarbutton label="Modificar Modulo"
+								disabled="@load(!vm.moduloSeleccionado)" style="align:right"
+								image="/core/images/editarItem.png"
+								onClick="@command('modificarItem', index=7)" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							vflex="true" width="500px"
+							emptyMessage="INGRESE UN CRITERIO DE BÚSQUEDA.."
+							model="@load(vm.modulos)"
+							selectedItem="@bind(vm.selectedModulo)">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Nombre"
+									width="200px" />
+								<listheader label="Descripción" />
+							</listhead>
+							<auxhead>
+								<auxheader />
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="nombre.."
+											value="@bind(vm.filterNombreModulo)" instant="true" />
+									</hlayout>
+								</auxheader>
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="descrip.."
+											value="@bind(vm.filterDescripcionModulo)" instant="true" />
+									</hlayout>
+								</auxheader>
+							</auxhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="3" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.modulos.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+					<vbox vflex="true" hflex="true">
+						<hlayout sclass="button-container"
+							width="100%">
+							<label value="Formularios"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Asignar Formulario"
+								style="align:right" disabled="@load(!vm.moduloSeleccionado)"
+								image="/core/images/insertar.png"
+								onClick="@command('agregarNuevoFormularioAModulo')" />
+							<space />
+							<toolbarbutton label="Habilitar Formulario"
+								style="align:right" image="/core/images/accept_.png"
+								disabled="@load(!vm.formularioParaRemoverSeleccionado)"
+								onClick="@command('habilitarFormularioDelModulo')" />
+							<space />
+							<toolbarbutton
+								label="Deshabilitar Formulario" style="align:right"
+								image="/core/images/delete_.png"
+								disabled="@load(!vm.formularioParaRemoverSeleccionado)"
+								onClick="@command('deshabilitarFormularioDelModulo')" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							model="@load(vm.formulariosDeModulo)" width="100%" vflex="true"
+							hflex="true" selectedItem="@bind(vm.selectedFormularioRemove)"
+							emptyMessage="No tiene formularios asignados">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Label" />
+								<listheader label="Alias" />
+								<listheader label="Descripción" />
+								<listheader label="Habilitado"
+									width="50px" align="center" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+									<listcell label="@load(each.pos3)" />
+									<listcell label="@load(each.pos4)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="5" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.formulariosDeModulo.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+				</hlayout>
+			</tabpanel>
+			<!-- _________________________FORMULARIOS____________________________ -->
+			<tabpanel>
+				<hlayout vflex="true" valign="top">
+					<vbox vflex="true">
+						<hlayout sclass="button-container"
+							width="600px">
+							<label value="Formularios"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Nuevo Formulario"
+								style="align:right" image="/core/images/insertar.png"
+								onClick="@command('crearNuevoItem', index=3)" />
+							<toolbarbutton label="Modificar Formulario"
+								disabled="@load(!vm.formularioSeleccionado)" style="align:right"
+								image="/core/images/editarItem.png"
+								onClick="@command('modificarItem', index=6)" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							vflex="true" width="600px"
+							emptyMessage="INGRESE UN CRITERIO DE BÚSQUEDA.."
+							model="@load(vm.formularios)"
+							selectedItem="@bind(vm.selectedFormuario)">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Label" />
+								<listheader label="Alias" />
+								<listheader label="Habilitado"
+									width="70px" />
+							</listhead>
+							<auxhead>
+								<auxheader />
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="label.."
+											value="@bind(vm.filterLabelFormulario)" instant="true" />
+									</hlayout>
+								</auxheader>
+								<auxheader>
+									<hlayout>
+										<toolbarbutton
+											iconSclass="z-icon-filter" disabled="true" />
+										<textbox hflex="true"
+											style="margin-right:7px" placeholder="alias.."
+											value="@bind(vm.filterAliasFormulario)" instant="true" />
+									</hlayout>
+								</auxheader>
+								<auxheader />
+							</auxhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+									<listcell label="@load(each.pos3)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="3" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.formularios.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+					<vbox vflex="true" hflex="true">
+						<hlayout sclass="button-container"
+							width="100%">
+							<label value="Operaciones"
+								style="font-style:italic" />
+							<separator orient="vertical" bar="true" />
+							<toolbarbutton label="Asignar Operación"
+								style="align:right" disabled="@load(!vm.formularioSeleccionado)"
+								image="/core/images/insertar.png"
+								onClick="@command('agregarNuevaOperacionAFormulario')" />
+							<space />
+							<toolbarbutton label="Habilitar Operación"
+								style="align:right" image="/core/images/accept_.png"
+								disabled="@load(!vm.operacionFormParaRemoverSeleccionada)"
+								onClick="@command('habilitarOperacionDelFormulario')" />
+							<space />
+							<toolbarbutton
+								label="Deshabilitar Operación" style="align:right"
+								image="/core/images/delete_.png"
+								disabled="@load(!vm.operacionFormParaRemoverSeleccionada)"
+								onClick="@command('deshabilitarOperacionDelFormulario')" />
+						</hlayout>
+						<listbox sclass="small-list" checkmark="true"
+							model="@load(vm.operacionesDeFormulario)" width="100%"
+							vflex="true" hflex="true"
+							selectedItem="@bind(vm.selectedOperacionFormRemove)"
+							emptyMessage="No tiene operaciones asignados">
+							<listhead>
+								<listheader width="40px" align="center" />
+								<listheader label="Alias" />
+								<listheader label="Nombre" />
+								<listheader label="Habilitada"
+									width="70px" align="center" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell />
+									<listcell label="@load(each.pos1)" />
+									<listcell label="@load(each.pos2)" />
+									<listcell label="@load(each.pos3)" />
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter span="5" align="left">
+									<hlayout>
+										<field
+											value="@load(vm.operacionesDeFormulario.size())" />
+										<field value="items" />
+									</hlayout>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</vbox>
+				</hlayout>
+			</tabpanel>
+			<!-- ______________________OPERACIONES_______________________ -->
+			<tabpanel>
+				<vlayout vflex="true">
+					<hlayout sclass="button-container">
+						<label value="Operaciones"
+							style="font-style:italic" />
+						<separator orient="vertical" bar="true" />
+						<toolbarbutton label="Nueva Operación"
+							style="align:right" image="/core/images/insertar.png"
+							onClick="@command('crearNuevoItem', index=4)" />
+						<toolbarbutton label="Modificar Operación"
+							disabled="@load(!vm.operacionSeleccionada)" style="align:right"
+							image="/core/images/editarItem.png"
+							onClick="@command('modificarItem', index=5)" />
+					</hlayout>
+					<listbox sclass="small-list" checkmark="true"
+						vflex="true" emptyMessage="INGRESE UN CRITERIO DE BÚSQUEDA.."
+						model="@load(vm.operaciones)"
+						selectedItem="@bind(vm.selectedOperacion)">
+						<listhead>
+							<listheader width="40px" align="center" />
+							<listheader label="Alias" />
+							<listheader label="Nombre" />
+							<listheader label="Descripción" />
+							<listheader label="Habilitada" width="70px" />
+						</listhead>
+						<auxhead>
+							<auxheader />
+							<auxheader>
+								<hlayout>
+									<toolbarbutton
+										iconSclass="z-icon-filter" disabled="true" />
+									<textbox hflex="true"
+										style="margin-right:7px" placeholder="label.."
+										value="@bind(vm.filterAliasOperacion)" instant="true" />
+								</hlayout>
+							</auxheader>
+							<auxheader>
+								<hlayout>
+									<toolbarbutton
+										iconSclass="z-icon-filter" disabled="true" />
+									<textbox hflex="true"
+										style="margin-right:7px" placeholder="alias.."
+										value="@bind(vm.filterNombreOperacion)" instant="true" />
+								</hlayout>
+							</auxheader>
+							<auxheader>
+								<hlayout>
+									<toolbarbutton
+										iconSclass="z-icon-filter" disabled="true" />
+									<textbox hflex="true"
+										style="margin-right:7px" placeholder="alias.."
+										value="@bind(vm.filterDescripcionOperacion)" instant="true" />
+								</hlayout>
+							</auxheader>
+							<auxheader />
+						</auxhead>
+						<template name="model">
+							<listitem>
+								<listcell />
+								<listcell label="@load(each.pos1)" />
+								<listcell label="@load(each.pos2)" />
+								<listcell label="@load(each.pos3)" />
+								<listcell label="@load(each.pos4)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter span="3" align="left">
+								<hlayout>
+									<field
+										value="@load(vm.operaciones.size())" />
+									<field value="items" />
+								</hlayout>
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</vlayout>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+
+	<popup id="motivoInactivacion" width="300px">
+		<hlayout>
+			<field value="Motivo:" />
+			<textbox hflex="true" value="@bind(vm.motivoDeInactivacion)"
+				onOK="@command('inactivarUsuario')">
+			</textbox>
+		</hlayout>
+		<button hflex="true" label="aceptar" style="margin-top:10px"
+			onClick="@command('inactivarUsuario')">
+		</button>
+	</popup>
+</window>

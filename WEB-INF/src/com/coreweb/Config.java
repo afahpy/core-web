@@ -102,6 +102,11 @@ public class Config {
 		
 	}
 
+	
+	public static String USUARIO_DESARROLLADOR = "UsuarioDesarrollador";
+	public static String SIGLA_TIPO_USUARIO_DESARROLLADOR = "USU-DES";
+	
+	
 	public static String LOGO_REPORTE_EMPRESA_DEFAULT = DIRECTORIO_BASE_REAL+"/core/images/logoMickey.png";
 	public static int    LOGO_REPORTE_EMPRESA_ANCHO = 30;
 	public static int    LOGO_REPORTE_EMPRESA_ALTO = 30;
