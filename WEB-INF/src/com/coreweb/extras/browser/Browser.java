@@ -185,15 +185,22 @@ public abstract class Browser extends SimpleViewModel implements
 			c.setWidth(col.getWidthColumna());
 			c.setValue(col.getValue());
 
+			
 			// el textbox del filtro
 			InputElement imputbox = new Textbox();
 			if (col.getTipo().compareTo(Config.TIPO_NUMERICO) == 0) {
 				imputbox = new Longbox();
+				
 			} else if (col.getTipo().compareTo(Config.TIPO_BOOL) == 0) {
 				// restringe que se escriba T o F
 				imputbox.setConstraint(this.getCheck().getTrueFalse());
 				imputbox.setMaxlength(1);
 			}
+			
+			if (imputbox instanceof Textbox){
+				((Textbox)imputbox).setValue(col.getValue().trim());
+			}
+			
 			// se setea despues, por que puede cambiar según el tipo
 			//imputbox.setWidth(col.getWidthComponente());
 			imputbox.setHflex("true");
@@ -252,7 +259,16 @@ public abstract class Browser extends SimpleViewModel implements
 	 */
 
 	private List<Object[]> getModelo() throws Exception {
+		return getModelo(null);
+	}
+	
+	private List<Object[]> getModelo(String[] tempWhere) throws Exception {
 		Register rr = Register.getInstance();
+		
+		if (tempWhere != null){
+			
+		}
+		
 		try {
 			datos = (List<Object[]>) rr.buscarElemento(clase, atributos,
 					valores, wheres, tipos, true, this.join, this.attOrden, this.limit);

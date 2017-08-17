@@ -20,6 +20,8 @@ public class ColumnaBrowser {
 	// por reflexión y tendrá 2 parámetros "Object obj, Object[] datos". El
 	// primero es el valor de esa celda, y el segundo es la lista de todos los valores de la fila
 
+	
+
 	private String componente = Browser.LABEL;
 
 	
