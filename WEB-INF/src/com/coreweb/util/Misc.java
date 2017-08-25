@@ -3,10 +3,13 @@ package com.coreweb.util;
 import java.beans.PropertyDescriptor;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -1523,6 +1526,46 @@ public class Misc {
 		return out;
 	}
 
+	
+	/**
+	 * Un objeto serializable se guada en el disco
+	 * @param obj
+	 * @param file
+	 */
+	public void grabarObjectToArchvo(Serializable obj, String file) {
+		try {
+			byte[] ff = this.serializar(obj);
+			ObjectOutputStream fil = new ObjectOutputStream(new FileOutputStream(file));
+			fil.write(ff);
+			fil.close();
+		} catch (Exception e) {
+			System.out.println("NO pudo grabar en ["+file+"] "+e.getMessage());
+		}
+	}
+
+
+	/**
+	 * Leer desde el disco un objeto
+	 * @param file
+	 * @return
+	 */
+	public Serializable leerObjetoFromDisco(String file) {
+		Serializable out = null;
+		try {
+			ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(file));
+			byte[] ff = new byte[entrada.available()];
+			entrada.readFully(ff);
+			out = (Serializable) this.deSerializar(ff);
+			entrada.close();
+		} catch (Exception e) {
+			System.out.println("NO pudo leer  ["+file+"] "+e.getMessage());
+			out = null;
+		}
+		return out;
+	}
+
+	
+	
 	public void mensajePopupTemporal(String mensaje) {
 		this.mensajePopupTemporal(mensaje, 3000);
 	}
@@ -1753,6 +1796,22 @@ public class Misc {
 	public void ordernar(List collection, String campo) {
 		BeanComparator fieldComparator = new BeanComparator(campo);
 		Collections.sort(collection, fieldComparator);
+	}
+
+	
+	/**
+	 * Controla que si el atributo es nulo, retorna un string en blanco
+	 * @param o
+	 * @param campo
+	 * @return
+	 */
+	public String getString(Object obj, String att){
+		String out = "";
+		try {
+			out = (this.getValue(obj, att)).toString();
+		} catch (Exception e) {
+		}
+		return out;
 	}
 
 	

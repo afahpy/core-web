@@ -507,6 +507,19 @@ public class ReporteDefinicion {
 				Templates.styleHTML);
 	}
 
+	public ComponentBuilder textoParValorVertical(String texto, Object valor) {
+		if (valor == null){
+			valor = "";
+		}
+		VerticalListBuilder ver = cmp.verticalList();
+		ver.add(cmp.text("<b>" + texto + ":</b> ").setStyle(
+				Templates.styleHTML));
+		ver.add(cmp.text(valor.toString()).setStyle(Templates.styleHTML));
+		return ver;
+	}
+
+	
+	
 	public ComponentBuilder textoAutorizado() {
 
 		VerticalListBuilder out = cmp.verticalList();

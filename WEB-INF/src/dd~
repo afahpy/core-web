@@ -1,0 +1,53 @@
+./com/coreweb/util/Misc.java-1496-		}
+./com/coreweb/util/Misc.java-1497-		if (array4 != null) {
+./com/coreweb/util/Misc.java-1498-			arrays.add(array4);
+./com/coreweb/util/Misc.java-1499-		}
+./com/coreweb/util/Misc.java-1500-		if (array5 != null) {
+./com/coreweb/util/Misc.java-1501-			arrays.add(array5);
+./com/coreweb/util/Misc.java-1502-		}
+./com/coreweb/util/Misc.java-1503-		return this.concatenarArraysDeString(arrays);
+./com/coreweb/util/Misc.java-1504-	}
+./com/coreweb/util/Misc.java-1505-
+./com/coreweb/util/Misc.java:1506:	public byte[] serializar(Serializable o) {
+./com/coreweb/util/Misc.java-1507-		return SerializationUtils.serialize(o);
+./com/coreweb/util/Misc.java-1508-	}
+./com/coreweb/util/Misc.java-1509-
+./com/coreweb/util/Misc.java:1510:	public Object deSerializar(byte[] bs) {
+./com/coreweb/util/Misc.java-1511-		return SerializationUtils.deserialize(bs);
+./com/coreweb/util/Misc.java-1512-	}
+./com/coreweb/util/Misc.java-1513-
+./com/coreweb/util/Misc.java-1514-	public boolean siDirty(Serializable o2, byte[] bs1) {
+./com/coreweb/util/Misc.java-1515-		boolean out = true;
+./com/coreweb/util/Misc.java:1516:		byte[] bs2 = this.serializar(o2);
+./com/coreweb/util/Misc.java-1517-		if (bs1.length == bs2.length) {
+./com/coreweb/util/Misc.java-1518-			out = false;
+./com/coreweb/util/Misc.java-1519-			for (int i = 0; ((!out) && (i < bs2.length)); i++) {
+./com/coreweb/util/Misc.java-1520-				out = out || (bs1[i] != bs2[i]);
+./com/coreweb/util/Misc.java-1521-			}
+./com/coreweb/util/Misc.java-1522-		}
+./com/coreweb/util/Misc.java-1523-		return out;
+./com/coreweb/util/Misc.java-1524-	}
+./com/coreweb/util/Misc.java-1525-
+./com/coreweb/util/Misc.java-1526-	public void mensajePopupTemporal(String mensaje) {
+--
+./com/coreweb/templateABM/Body.java-191-		BindUtils.postGlobalCommand(null, null, "deshabilitarComponentes", null);
+./com/coreweb/templateABM/Body.java-192-	}
+./com/coreweb/templateABM/Body.java-193-
+./com/coreweb/templateABM/Body.java-194-	// ===================================================================
+./com/coreweb/templateABM/Body.java-195-	// Para saber si hubo cambios en el DTO
+./com/coreweb/templateABM/Body.java-196-
+./com/coreweb/templateABM/Body.java-197-	byte[] dtoSerializado = {};
+./com/coreweb/templateABM/Body.java-198-
+./com/coreweb/templateABM/Body.java-199-	public void setDTOCorrienteDirty(DTO dto) {
+./com/coreweb/templateABM/Body.java-200-		this.setDTOCorriente(dto);
+./com/coreweb/templateABM/Body.java:201:		this.dtoSerializado = this.m.serializar(dto);
+./com/coreweb/templateABM/Body.java-202-	}
+./com/coreweb/templateABM/Body.java-203-
+./com/coreweb/templateABM/Body.java-204-	public void setDTOCorrienteDirty() {
+./com/coreweb/templateABM/Body.java-205-		this.setDTOCorrienteDirty(this.getDTOCorriente());
+./com/coreweb/templateABM/Body.java-206-	}
+./com/coreweb/templateABM/Body.java-207-
+./com/coreweb/templateABM/Body.java-208-	public boolean siHuboCambiosEnDTO() {
+./com/coreweb/templateABM/Body.java-209-		return this.m.siDirty(this.getDTOCorriente(), this.dtoSerializado);
+./com/coreweb/templateABM/Body.java-210-	}
+./com/coreweb/templateABM/Body.java-211-
