@@ -14,7 +14,7 @@ public class ServerImpresora {
 	 * @param nombreImpresora
 	 * @return
 	 */
-	static public ServerImpresoraSingleton getInstancia(String nombreImpresora) {
+	static synchronized public ServerImpresoraSingleton getInstancia(String nombreImpresora) {
 
 		ServerImpresoraSingleton out = hashImpresoras.get(nombreImpresora);
 		if (out == null) {

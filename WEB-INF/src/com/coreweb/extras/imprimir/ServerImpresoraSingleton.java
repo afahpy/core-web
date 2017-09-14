@@ -51,8 +51,12 @@ public class ServerImpresoraSingleton {
 		// crear el PDF
 		rep.ejecutar(false);
 
+		System.out.println("1: pdf creado - "+rep.getArchivoPathReal());
+		
 		// imprimir
 		imp.imprimirPdf(rep.getArchivoPathReal(), nombreImpresora);
+
+		System.out.println("15: pdf creado - "+rep.getArchivoPathReal());
 
 		// retornar número
 		return nro;
