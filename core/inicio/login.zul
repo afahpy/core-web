@@ -44,10 +44,16 @@
 										height="70%" />
 								</div>
 								<vlayout spacing="0" width="100%">
-									<hlayout hflex="true">
+									<hlayout visible="true" hflex="true">
 										<image
 											src="/core/images/_user.png" />
-										<combobox id="name"
+										<textbox id="name" hflex="true"
+											value="@bind(crt.user)"
+											onOK="@command('loginOk')" 
+											placeholder="Usuario"
+											onChange="@command('nombreUsuario')" />	
+										
+										<!-- <combobox id="name"
 											buttonVisible="false"
 											autocomplete="@load(crt.users.size() eq 1? 'true' : 'false')" 
 											placeholder="Usuario"
@@ -56,7 +62,7 @@
 											value="@bind(crt.user)"
 											instant="true"
 											onChange="@command('openUserList')">
-										</combobox>
+										</combobox> -->
 										<div width="20px"></div>
 									</hlayout>
 
@@ -89,7 +95,7 @@
 				</vbox>
 				<label value="Asunción - Paraguay" style="color:grey"></label>
 			</vbox>
-			<popup id="usuarios" width="200px" height="150px" sclass="rounded">
+			<!-- <popup id="usuarios" width="200px" height="150px" sclass="rounded">
 				<listbox id="lst" model="@load(crt.users)" sclass="small-list" vflex="true"
 					selectedItem="@bind(crt.user)"
 					onSelect='usuarios.close()'>
@@ -108,7 +114,7 @@
 						</listitem>
 					</template>
 				</listbox>
-			</popup>
+			</popup> -->
 			<script><![CDATA[
 	
 function loginFaild() { //Shake the window

@@ -633,6 +633,21 @@ public class Register {
 		Usuario out = (Usuario) this.hqlToObject(query);
 		return out;
 	}
+	
+	/**
+	 * Obtiene el Nombre usuario por el login
+	 */
+	public String getNombreUsuario(String login) throws Exception {
+		String query = "select u from Usuario u where u.login='"
+				+ login + "'";
+		List<Usuario> usuario = this.hql(query);
+		String nombre = "";
+		if(usuario.size() > 0){
+			nombre = usuario.get(0).getNombre();
+		}		
+		return nombre;
+	}
+	
 
 	public Perfil getPerfil(String perfil) throws Exception {
 		Perfil p = null;

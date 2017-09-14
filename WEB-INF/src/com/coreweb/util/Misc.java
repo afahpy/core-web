@@ -1797,6 +1797,19 @@ public class Misc {
 		BeanComparator fieldComparator = new BeanComparator(campo);
 		Collections.sort(collection, fieldComparator);
 	}
+	
+	
+
+	/**
+	 * Ordena una lista de algún tipo, por uno de sus campos, Asc
+	 * 
+	 * @param collection
+	 * @param campo
+	 */
+	public void ordernarAsc(List collection, String campo) {
+		BeanComparator fieldComparator = new BeanComparator(campo);
+		Collections.sort(collection, fieldComparator.reversed());
+	}
 
 	
 	/**
