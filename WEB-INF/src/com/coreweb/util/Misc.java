@@ -608,6 +608,12 @@ public class Misc {
 		return ((diff * diff) < 0.00001);
 	}
 
+	public boolean esIgual(double d1, double d2, double margen) {
+		double diff = d1 - d2;
+		return ((diff * diff) < (margen * margen));
+	}
+
+	
 	public boolean esIgual(double[] d1, double[] d2) {
 		boolean out = true;
 		try {
@@ -1819,6 +1825,14 @@ public class Misc {
 	public static void main(String[] args) {
 		Misc m = new Misc();	
 
+		double d1 = 130.1;
+		double d2 = 100;
+		double margen = 30; 
+		
+		System.out.println(" es: " +m.esIgual(d1, d2, margen));
+		
+		/*
+		
 		long dia = (24 * 60 * 60 * 1000);
 
 		Date dd =  new Date(   (new Date()).getTime() - (dia * 10));
@@ -1835,7 +1849,7 @@ public class Misc {
 		
 //		System.out.println(m.redondearConPrecioMinimo(7740, 5000, 3, 2));
 //		System.out.println(m.redondearConPrecioMinimo(3740, 5000, 3, 2));
-		
+		*/
 	}
 	
 	
