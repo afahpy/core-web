@@ -724,7 +724,7 @@ public class ReporteDefinicion {
 		}
 
 		VerticalListBuilder tabla = cmp.verticalList();
-		tabla.setStyle(stl.style().setBorder(stl.pen1Point()));
+//		tabla.setStyle(stl.style().setBorder(stl.pen1Point()));
 
 		// cargar los titulos
 

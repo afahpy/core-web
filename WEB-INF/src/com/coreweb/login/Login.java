@@ -39,6 +39,7 @@ public class Login extends Control {
 	String user = "";
 	String pass = "";
 	String msg = "";
+	String nombre = "";
 	
 	private List<Object[]> users;
 	
@@ -62,7 +63,6 @@ public class Login extends Control {
 		s.setAttribute(Config.LOGEADO, new Boolean(false));
 		BindUtils.postGlobalCommand(null, null, "deshabilitarMenu", null);
 		this.setTextoFormularioCorriente(" ");
-		this.loadUsers();
 	}
 
 	@AfterCompose
@@ -242,48 +242,55 @@ public class Login extends Control {
 	
 	//===============================================================
 	
+//	@Command
+//	public void openUserList() throws Exception {
+//		if(this.getUsers().size() > 1) {
+//			this.usuarios.open(this.name, "end_before");
+//		} else {
+//			this.usuarios.close();
+//		}		
+//	}
+	
+//	private void loadUsers() {
+//		Register rr = Register.getInstance();
+//		try {
+//			this.users = rr.getAllLogin();
+//			rr.getUsuario(login)
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+//	@DependsOn("user")
+//	public List<String> getUsers() {
+//		List<String> out = new ArrayList<String>();
+//		
+//		if (this.user.trim().isEmpty())
+//			return new ArrayList<String>();
+//		
+//		for (Object[] user : this.users) {
+//			String login = (String) user[0];
+//			if (login.startsWith(this.user))
+//				out.add(login);
+//		}
+//		return out;
+//	}
+	
+
+//	public static void main(String[] args) throws Exception {
+//		Register rr = Register.getInstance();
+//		rr.getNombreUsuario("robert");
+//	}
+	
 	@Command
-	public void openUserList() throws Exception {
-		if(this.getUsers().size() > 1) {
-			this.usuarios.open(this.name, "end_before");
-		} else {
-			this.usuarios.close();
-		}		
-	}
-	
-	private void loadUsers() {
+	@NotifyChange("nombre")
+	public void nombreUsuario() throws Exception{
 		Register rr = Register.getInstance();
-		try {
-			this.users = rr.getAllLogin();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this.nombre = rr.getNombreUsuario(user);
 	}
 	
-	@DependsOn("user")
-	public List<String> getUsers() {
-		List<String> out = new ArrayList<String>();
-		
-		if (this.user.trim().isEmpty())
-			return new ArrayList<String>();
-		
-		for (Object[] user : this.users) {
-			String login = (String) user[0];
-			if (login.startsWith(this.user))
-				out.add(login);
-		}
-		return out;
-	}
-	
-	@DependsOn("user")
 	public String getNombre() {
-		for (Object[] user : this.users) {
-			String login = (String) user[0];
-			String name = (String) user[1];
-			if(this.user.equals(login))
-				return name;
-		}
-		return null;
+		return this.nombre;
 	}
 	
 	public String getUser() {
