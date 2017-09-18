@@ -402,6 +402,7 @@ public class ReporteDefinicion {
 	public static final String TIPO_LONG = "Lomg";
 	public static final String TIPO_DOUBLE = "Double";
 	public static final String TIPO_DOUBLE_GS = "DoubleGs";
+	public static final String TIPO_DOUBLE_BIG_GS = "DoubleBigGs";
 	public static final String TIPO_DOUBLE_DS = "DoubleDolar";
 	public static final String TIPO_BIGDECIMAL = "BigDecimal";
 	public static final String TIPO_DATE = "Date";

@@ -63,6 +63,7 @@ public abstract class DatosReporte extends ReporteDefinicion implements ReporteI
 		tipos.put(TIPO_LONG, type.longType());
 		tipos.put(TIPO_DOUBLE, type.doubleType());
 		tipos.put(TIPO_DOUBLE_GS, type.doubleType());
+		tipos.put(TIPO_DOUBLE_BIG_GS, type.doubleType());
 		tipos.put(TIPO_DOUBLE_DS, type.doubleType());
 		tipos.put(TIPO_BIGDECIMAL, type.bigDecimalType());
 		tipos.put(TIPO_DATE, type.dateType());

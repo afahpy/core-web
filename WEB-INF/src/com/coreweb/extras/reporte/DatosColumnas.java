@@ -117,6 +117,11 @@ public class DatosColumnas extends ReporteDefinicion{
 			tx.setValueFormatter(new ValueFormatterGS());
 		}
 
+		if (this.getTipo().compareTo(DatosReporte.TIPO_DOUBLE_BIG_GS) == 0) {
+			tx.setValueFormatter(new ValueFormatterBigGS());
+		}
+		
+		
 		if (this.getTipo().compareTo(DatosReporte.TIPO_DOUBLE_DS) == 0) {
 			tx.setValueFormatter(new ValueFormatterDS());
 		}
@@ -153,6 +158,23 @@ class ValueFormatterGS extends AbstractValueFormatter<String, Number> {
 	}
 
 }
+
+class ValueFormatterBigGS extends AbstractValueFormatter<String, Number> {
+
+	private Misc m = new Misc();
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String format(Number value, ReportParameters reportParameters) {
+
+		String d = m.formatoGs((Double) value, 18, false);
+
+		return d;
+	}
+
+}
+
+
 
 class ValueFormatterDS extends AbstractValueFormatter<String, Number> {
 
