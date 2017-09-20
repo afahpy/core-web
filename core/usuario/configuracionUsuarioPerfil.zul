@@ -34,7 +34,9 @@
 								style="align:right" image="/core/images/user_go.png"
 								onClick="@command('activarUsuario', index=true)"
 								disabled="@load(vm.selectedUsuario.pos3.equals('NO') ? false : true)" />
-							<toolbarbutton label="Reset clave" visible="@load(vm.visibleTabsDesarrollador)"
+								
+							<!-- visible="@load(vm.visibleTabsDesarrollador)" -->
+							<toolbarbutton label="Reset clave" 
 								style="align:right" image="/core/images/update3.png"
 								onClick="@command('resetPass')"
 								disabled="@load(!vm.usuarioSeleccionado)" />

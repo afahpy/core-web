@@ -26,9 +26,7 @@ import com.coreweb.control.SimpleViewModel;
 import com.coreweb.domain.Formulario;
 import com.coreweb.domain.Operacion;
 import com.coreweb.domain.Perfil;
-import com.coreweb.domain.Tipo;
 import com.coreweb.domain.Usuario;
-import com.coreweb.dto.UtilCoreDTO;
 import com.coreweb.util.MyArray;
 
 public class ConfiguracionUsuarioPerfilVM extends SimpleViewModel {

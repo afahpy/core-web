@@ -1,5 +1,5 @@
 <window apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('com.repuestos.gestion.modulos.PopupSimpleViewModel')">
+	viewModel="@id('vm') @init('com.coreweb.extras.usuarioPerfil.PopupSimpleViewModel')">
 
 	<!-- ________________ AGREGAR USUARIO _______________ -->
 
