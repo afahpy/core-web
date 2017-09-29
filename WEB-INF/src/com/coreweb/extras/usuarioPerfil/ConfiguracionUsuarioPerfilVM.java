@@ -282,7 +282,9 @@ public class ConfiguracionUsuarioPerfilVM extends SimpleViewModel {
 	/***************** FUNCIONES *****************/
 
 	public void verificarPermisosDeDesarrollador() throws Exception {
+		System.out.println("===================Config.USUARIO_DESARROLLADOR:"+Config.USUARIO_DESARROLLADOR+" para "+this.getUs().getLogin());
 		String propiedadDesarrollador = this.getUs().getPropiedad(Config.USUARIO_DESARROLLADOR);
+		System.out.println("====================propiedadDesarrollador: "+propiedadDesarrollador+"  Config.SIGLA_TIPO_USUARIO_DESARROLLADOR:"+Config.SIGLA_TIPO_USUARIO_DESARROLLADOR);
 		this.visibleTabsDesarrollador = propiedadDesarrollador.trim().equals(Config.SIGLA_TIPO_USUARIO_DESARROLLADOR);
 	}
 

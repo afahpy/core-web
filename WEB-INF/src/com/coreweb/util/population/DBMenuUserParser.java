@@ -416,7 +416,7 @@ public class DBMenuUserParser {
 	 * 
 	 * @throws Exception
 	 */
-	private void cargaUsuarioPropiedades() throws Exception {
+	public void cargaUsuarioPropiedades() throws Exception {
 
 		if (this.usuarioPropiedades.length == 0) {
 			return;
