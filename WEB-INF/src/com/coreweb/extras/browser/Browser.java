@@ -52,6 +52,7 @@ public abstract class Browser extends SimpleViewModel implements
 
 	public static String LABEL = "getLabel";
 	public static String LABEL_NUMERICO = "getLabelNumerico";
+	public static String LABEL_GS = "getLabelGs";
 	public static String TEXT_BOX = "getTextbox";
 	public static String LONG_BOX = "getLongbox";
 	public static String CHECK_BOX = "getCheckbox";
@@ -389,6 +390,17 @@ public abstract class Browser extends SimpleViewModel implements
 		return l;
 	}
 	
+	public HtmlBasedComponent getLabelGs(Object obj, Object[] datos) {
+		Label t = new Label();
+		t.setValue((this.m.formatoGs((double)obj, 13, false)));
+		t.setStyle("text-align: right");
+
+//		Cell cel = new Cell();
+//		cel.setAlign("right");
+//		t.setParent(cel);
+		
+		return t;
+	}
 	
 	public HtmlBasedComponent getLabelNumerico(Object obj, Object[] datos) {
 		Textbox t = new Textbox();
