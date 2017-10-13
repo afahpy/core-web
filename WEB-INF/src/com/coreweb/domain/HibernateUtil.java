@@ -7,9 +7,12 @@ import org.hibernate.criterion.Order;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import com.coreweb.IDCore;
 import com.coreweb.util.Misc;
 //import org.hibernate.service.ServiceRegistryBuilder;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ParameterMetaData;
@@ -22,37 +25,57 @@ public class HibernateUtil {
 
 	private static Configuration configuration;
 	private static SessionFactory sessionFactory;
-//	private Session session;
-	
+	// private Session session;
+
+	private static void cargaPropiedades(Configuration conf) throws Exception {
+		String file = "/data_source.properties";
+		try {
+			
+				
+			InputStream in = new IDCore().getClass().getResourceAsStream(file);
+
+			Properties pro = new Properties();
+			pro.load(in);
+			
+			for (Iterator ite = pro.keySet().iterator(); ite.hasNext();) {
+				String key = (String) ite.next();
+				String value = pro.getProperty(key);
+				conf.setProperty(key, value);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("\n\n\n Error al leer el archivo de Hibernate "+file+"\n"+e.getMessage()+"\n");
+			e.printStackTrace();
+		}
+	}
 
 	static {
 		try {
 
-			//Misc m = new Misc();
+			// Misc m = new Misc();
 
-			//java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-			//configuration = new Configuration().configure("classpath:/hibernate.cfg.xml");
+			// java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+			// configuration = new
+			// Configuration().configure("classpath:/hibernate.cfg.xml");
 			configuration = new Configuration().configure("hibernate.cfg.xml");
+			cargaPropiedades(configuration);
 			sessionFactory = createSessionFactory();
-
+			
 			/*
-			System.out.println("============================");
-			System.out.println("============================");
-			System.out.println("============================");
-
-			Properties p = configuration.getProperties();
-			Set ks = p.keySet();
-			for (Iterator iterator = ks.iterator(); iterator.hasNext();) {
-				Object k = (String) iterator.next();
-				Object o = configuration.getProperty((String) k);
-				System.out.println("k: " + k + " - " + o);
-			}
-
-			System.out.println("============================");
-			System.out.println("============================");
-			System.out.println("============================");
-			*/
-
+			  System.out.println("============================");
+			  System.out.println("============================");
+			  System.out.println("============================");
+			  
+			  Properties p = configuration.getProperties(); Set ks =
+			  p.keySet(); for (Iterator iterator = ks.iterator();
+			  iterator.hasNext();) { Object k = (String) iterator.next();
+			  Object o = configuration.getProperty((String) k);
+			  System.out.println("k: " + k + " - " + o); }
+			  
+			  System.out.println("============================");
+			  System.out.println("============================");
+			  System.out.println("============================");
+			 */
 
 			/*
 			 * 
@@ -79,13 +102,12 @@ public class HibernateUtil {
 
 		} catch (Throwable ex) {
 			// Make sure you log the exception, as it might be swallowed
-			System.out
-					.println("Initial SessionFactory creation failed.\n" + ex);
+			System.out.println("Initial SessionFactory creation failed.\n" + ex);
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
 
-	private static  SessionFactory createSessionFactory() {
+	private static SessionFactory createSessionFactory() {
 
 		return createSessionFactory(configuration);
 	}
@@ -93,33 +115,32 @@ public class HibernateUtil {
 	private static SessionFactory createSessionFactory(Configuration cfg) {
 		// Create the SessionFactory from hibernate.cfg.xml
 		configuration = cfg;
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
-				.applySettings(configuration.getProperties()).buildServiceRegistry();
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+				.buildServiceRegistry();
 		SessionFactory sf = configuration.buildSessionFactory(serviceRegistry);
 		return sf;
 	}
 
-	private  SessionFactory getSessionFactory() {
+	private SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 
-	public  Configuration getConfiguration() {
+	public Configuration getConfiguration() {
 		return configuration;
 	}
 
-	synchronized public  void forceRebuildSessionFactory(Configuration cfg) {
+	synchronized public void forceRebuildSessionFactory(Configuration cfg) {
 		try {
 			sessionFactory = createSessionFactory(cfg);
 			Session session = sessionFactory.openSession();
 			System.out.println("---- ok forceRebuildSessionFactory ----");
 		} catch (Exception ex) {
-			System.out
-					.println("---- error !!! forceRebuildSessionFactory ----");
+			System.out.println("---- error !!! forceRebuildSessionFactory ----");
 			ex.printStackTrace();
 		}
 	}
 
-	synchronized public  void rebuildSessionFactory() {
+	synchronized public void rebuildSessionFactory() {
 		// si es null si o si hay que asignarle algo para sincronizar :(
 		if (sessionFactory == null)
 			sessionFactory = createSessionFactory();
@@ -136,12 +157,12 @@ public class HibernateUtil {
 		}
 	}
 
-	public  Session getSession() throws Exception {
-		//checkSession();
+	public Session getSession() throws Exception {
+		// checkSession();
 		return sessionFactory.openSession();
 	}
 
-	private  void checkSession() throws Exception {
+	private void checkSession() throws Exception {
 		int v = 0;
 		boolean ok = false;
 		Session session = getSession();
@@ -174,7 +195,7 @@ public class HibernateUtil {
 
 	}
 
-	public  void clearDB() {
+	public void clearDB() {
 		try {
 			Register rr = Register.getInstance();
 			rr.dropAllTables();
@@ -191,8 +212,7 @@ public class HibernateUtil {
 	public static void pruebaPreparedStatement() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/xxxxxdb", "postgres",
+			Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/yhaguydb", "postgres",
 					"postgres");
 
 			String sql = "SELECT * FROM usuariooperacion WHERE idformulario = ?";
@@ -203,10 +223,8 @@ public class HibernateUtil {
 			ResultSet rd = stm.getResultSet();
 			ParameterMetaData pmd = stm.getParameterMetaData();
 			System.out.println("ParameterMetaData:" + pmd);
-			System.out.println("pmd.getParameterCount():"
-					+ pmd.getParameterCount());
-			System.out.println("pmd.getParameterTypeName(0):"
-					+ pmd.getParameterTypeName(1));
+			System.out.println("pmd.getParameterCount():" + pmd.getParameterCount());
+			System.out.println("pmd.getParameterTypeName(0):" + pmd.getParameterTypeName(1));
 
 			// System.out.println("rd.getObject(1):"+rd.getObject(0));
 			System.out.println("====================");
@@ -225,13 +243,21 @@ public class HibernateUtil {
 
 	}
 
+	public static void pruebaProperties(){
+		try {
+			
+		Register rr = Register.getInstance();
+		rr.getAllLogin();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		// HibernateUtil.clearDB();
 
-		pruebaPreparedStatement();
+		// pruebaPreparedStatement();
+		pruebaProperties();
 	}
-	
-	
-
 
 }
