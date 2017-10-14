@@ -52,11 +52,13 @@ public abstract class Browser extends SimpleViewModel implements
 
 	public static String LABEL = "getLabel";
 	public static String LABEL_NUMERICO = "getLabelNumerico";
+	public static String LABEL_GS = "getLabelGs";
 	public static String TEXT_BOX = "getTextbox";
 	public static String LONG_BOX = "getLongbox";
 	public static String CHECK_BOX = "getCheckbox";
 	public static String RADIOGROUP = "getRadiogroup";
 	public static String RADIO = "getRadio";
+	
 	// se llama label, pero es un Date lo que retorna
 	public static String LABEL_DATE = "getLabelDate";
 	public static String LABEL_DATE_SIMPLE = "getLabelDateSimple";
@@ -399,6 +401,19 @@ public abstract class Browser extends SimpleViewModel implements
 		return t;
 	}
 
+	public HtmlBasedComponent getLabelGs(Object obj, Object[] datos) {
+		Label t = new Label();
+		t.setValue((this.m.formatoGs((double)obj)));
+		t.setStyle("text-align: right");
+
+		Cell cel = new Cell();
+		cel.setAlign("right");
+		t.setParent(cel);
+		
+		return cel;
+	}
+	
+	
 	public HtmlBasedComponent getTextbox(Object obj, Object[] datos) {
 		Textbox t = new Textbox();
 		t.setReadonly(true);
