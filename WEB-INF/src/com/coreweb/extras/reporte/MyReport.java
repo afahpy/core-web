@@ -15,6 +15,7 @@ import net.sf.dynamicreports.jasper.builder.export.JasperCsvExporterBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperDocxExporterBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperPdfExporterBuilder;
 import net.sf.dynamicreports.jasper.builder.export.JasperXlsxExporterBuilder;
+import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.FieldBuilder;
 import net.sf.dynamicreports.report.builder.column.ColumnBuilder;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
@@ -34,6 +35,9 @@ import net.sf.jasperreports.engine.JRDataSource;
 
 public class MyReport extends ReporteDefinicion {
 
+	
+	DatosReporte reporteCore = null;
+	
 	MiscReporte miscReporte = new MiscReporte();
 
 	CabeceraReporte cabecera = new CabeceraReporte();
@@ -65,9 +69,10 @@ public class MyReport extends ReporteDefinicion {
 		this.simple = simple;
 	}
 
-	public MyReport(boolean membretePropioReporte, ComponentBuilder membretePropio, CabeceraReporte cabecera, ComponentBuilder body, ComponentBuilder footer, List<Object[]> datos,
+	public MyReport(DatosReporte reporteCore, boolean membretePropioReporte, ComponentBuilder membretePropio, CabeceraReporte cabecera, ComponentBuilder body, ComponentBuilder footer, List<Object[]> datos,
 			String empresa, String logoEmpresa, int logoAncho, int logoAlto, String titulo, String usuario,
 			String archivo, boolean footerPropioReporte, ComponentBuilder footerPropio) {
+		this.reporteCore = reporteCore;
 		this.membretePropioReporte = membretePropioReporte;
 		this.membretePropio = membretePropio;
 		this.cabecera = cabecera;
@@ -135,11 +140,10 @@ public class MyReport extends ReporteDefinicion {
 
 			if (this.simple == false) {
 				rep = report();
-				// rep.setTemplate(template.reportTemplate);
 				rep.setTemplate(tmp.reportTemplate);
 				rep.setColumnStyle(Templates.columnStyle);
-				rep.setDetailSplitType(SplitType.PREVENT);
-				
+				rep.setDetailSplitType(SplitType.IMMEDIATE);
+				rep.setTitleSplitType(SplitType.IMMEDIATE);
 				rep.setPageFormat(this.tipoPagina);
 			}
 			
@@ -156,14 +160,22 @@ public class MyReport extends ReporteDefinicion {
 				}else{
 					membreteCab = this.membretePropio;
 				}
-				rep.title(membreteCab).setTitleSplitType(SplitType.IMMEDIATE);
+				rep.title(membreteCab);
 			}
 			
 			
 
 			if (this.simple == false) {				
-
-				rep.addTitle(this.body);
+				
+				// ####################################
+				// si queremos que ponga en todas las páginas algo arriba
+				//rep.pageHeader(this.texto("cabecera2"));
+				//rep.setDetailHeaderSplitType(SplitType.STRETCH);
+				// ####################################
+				
+				
+				 rep.addDetail(this.body);
+				//rep.addTitle(this.body);
 
 				if (this.isPutFooter() == true) {
 				
@@ -205,6 +217,10 @@ public class MyReport extends ReporteDefinicion {
 				}
 			}
 			
+
+			
+			this.reporteCore.setPropiedadesExtras(rep);
+
 
 
 		} catch (Exception e) {
@@ -252,6 +268,9 @@ public class MyReport extends ReporteDefinicion {
 			 * rep.toPdf(pdfExporter);
 			 */
 
+			
+			
+			
 			if (ver  == true) {
 				rep.show();
 

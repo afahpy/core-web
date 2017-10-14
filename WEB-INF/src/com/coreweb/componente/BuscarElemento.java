@@ -1,9 +1,11 @@
 package com.coreweb.componente;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.zkoss.zk.ui.HtmlBasedComponent;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -24,6 +26,8 @@ import com.coreweb.domain.Domain;
 import com.coreweb.domain.Register;
 import com.coreweb.dto.Assembler;
 import com.coreweb.dto.DTO;
+import com.coreweb.extras.browser.Browser;
+import com.coreweb.extras.browser.ColumnaBrowser;
 import com.coreweb.util.Misc;
 import com.coreweb.util.MyArray;
 
@@ -33,6 +37,7 @@ public class BuscarElemento implements VerificaAceptarCancelar {
 	Assembler assembler;
 	String[] atributos;
 	String[] nombresColumnas;
+	String[] componentes;
 	String[] ancho;
 	boolean anchoAsignado = false;
 	String[] valores;
@@ -184,7 +189,7 @@ public class BuscarElemento implements VerificaAceptarCancelar {
 
 		this.refreshModeloListbox();
 
-		listbox.setItemRenderer(new MyListitemRenderer(this.multiSelected));
+		listbox.setItemRenderer(new MyListitemRenderer(this.multiSelected, componentes));
 
 		if (this.renderAll == true) {
 			listbox.renderAll();
@@ -566,6 +571,23 @@ public class BuscarElemento implements VerificaAceptarCancelar {
 		this.renderAll = renderAll;
 	}
 
+	public String[] getComponentes() {
+		return componentes;
+	}
+
+	public void setComponentes(String[] comp) {
+
+		// agrego el ID para todos los casos
+		this.componentes = new String[comp.length + 1];
+
+		this.componentes[0] = "";
+
+		for (int i = 1; i < this.componentes.length; i++) {
+			this.componentes[i] = comp[i - 1];
+		}
+
+	}
+
 }
 
 class FiltroBuscarElementoEvento implements EventListener {
@@ -626,10 +648,18 @@ class ListboxEventListener implements EventListener {
 
 class MyListitemRenderer implements ListitemRenderer {
 
+	BrowserRender br = new BrowserRender();
+	String[] componentes = {};
+
 	boolean isMulti = false;
 
 	public MyListitemRenderer(boolean isMultiSelected) {
 		this.isMulti = isMultiSelected;
+	}
+
+	public MyListitemRenderer(boolean isMultiSelected, String[] componentes) {
+		this.isMulti = isMultiSelected;
+		this.componentes = componentes;
 	}
 
 	@Override
@@ -638,6 +668,10 @@ class MyListitemRenderer implements ListitemRenderer {
 
 		Object[] row = (Object[]) data;
 
+		if (this.componentes == null || this.componentes.length == 0) {
+			this.componentes = new String[row.length];
+		}
+
 		if (this.isMulti == true) {
 			new Listcell().setParent(listItem);
 
@@ -645,13 +679,59 @@ class MyListitemRenderer implements ListitemRenderer {
 
 		for (int i = 0; i < row.length; i++) {
 			Object va = row[i];
-			String d = "";
-			if (va != null) {
-				d = va.toString();
+			String compStr = componentes[i];
+
+			if ((va == null) || (compStr == null) || (compStr.trim().length() == 0)) {
+				compStr = Browser.LABEL;
 			}
-			new Listcell(d).setParent(listItem);
+
+			HtmlBasedComponent comp = null;
+			Method m = this.br.getClass().getMethod(compStr, Object.class, Object[].class);
+			comp = (HtmlBasedComponent) m.invoke(br, va, null);
+
+			// String d = "";
+			// if (va != null) {
+			// d = va.toString();
+			// }
+			Listcell lc = new Listcell();
+			
+			if (compStr.compareTo(Browser.LABEL_GS)==0){
+				
+			}
+			
+			comp.setParent(lc);
+
+			lc.setParent(listItem);
 		}
 
+	}
+
+}
+
+class BrowserRender extends Browser {
+
+	@Override
+	public List<ColumnaBrowser> getColumnasBrowser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class getEntidadPrincipal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setingInicial() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getTituloBrowser() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

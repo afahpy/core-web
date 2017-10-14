@@ -281,7 +281,7 @@ public abstract class DatosReporte extends ReporteDefinicion implements ReporteI
 
 		String pathCompleto = this.getArchivoPathReal();
 
-		this.reporte = new MyReport(this.membretePropioReporte, this.getMembretePropioReporte(), cr, body, footer,
+		this.reporte = new MyReport(this, this.membretePropioReporte, this.getMembretePropioReporte(), cr, body, footer,
 				data, empresa, logoEmpresa, logoAncho, logoAlto, titulo, usuario, pathCompleto,
 				this.footerPropioReporte, this.getFooterPropioReporte());
 
@@ -295,6 +295,14 @@ public abstract class DatosReporte extends ReporteDefinicion implements ReporteI
 		}
 	}
 
+	/**
+	 * Permite setear propiedades extras de Jasper o DynamicReport sobre los reportes
+	 * @param report
+	 */
+	public void setPropiedadesExtras(JasperReportBuilder JasperReport){
+		
+	}
+	
 	@Override
 	public boolean isBorrarDespuesDeVer() {
 		return borrarDespuesDeVer;
