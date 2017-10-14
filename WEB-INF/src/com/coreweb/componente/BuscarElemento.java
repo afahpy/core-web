@@ -142,7 +142,8 @@ public class BuscarElemento implements VerificaAceptarCancelar {
 			ah.getChildren().add(ahc);
 			listFiltros.add(ahcT);
 
-			FiltroBuscarElementoEvento ev = new FiltroBuscarElementoEvento(this, listFiltros);
+			FiltroBuscarElementoEvento ev = new FiltroBuscarElementoEvento(
+					this, listFiltros);
 			ahcT.addEventListener(Events.ON_OK, ev);
 			// quitamos el doble click, por que era molesto cuando uno queria
 			// selecionar, además sólo es necesario el enter en la cabecera
@@ -248,7 +249,8 @@ public class BuscarElemento implements VerificaAceptarCancelar {
 
 	}
 
-	private void setAnchoAlto(BodyPopupAceptarCancelar bpac, Listbox listbox, String w, String h) {
+	private void setAnchoAlto(BodyPopupAceptarCancelar bpac, Listbox listbox,
+			String w, String h) {
 		int ancho = Integer.parseInt(w.substring(0, w.length() - 2));
 		int alto = Integer.parseInt(h.substring(0, h.length() - 2));
 
@@ -295,8 +297,9 @@ public class BuscarElemento implements VerificaAceptarCancelar {
 		List<Object[]> datos = new ArrayList<Object[]>();
 		// datos = (List<Object[]>) rr.buscarElemento(clase,atributos, valores,
 		// tipos, where);
-		datos = (List<Object[]>) rr.buscarElemento(clase, atributos, valores, tipos, false, !this.sinLimite,
-				Config.CUANTOS_BUSCAR_ELEMENTOS, true, where, this.join, this.orden);
+		datos = (List<Object[]>) rr.buscarElemento(clase, atributos, valores,
+				tipos, false, !this.sinLimite, Config.CUANTOS_BUSCAR_ELEMENTOS,
+				true, where, this.join, this.orden);
 		return datos;
 	}
 
@@ -394,7 +397,8 @@ public class BuscarElemento implements VerificaAceptarCancelar {
 			if (li != null) {
 				Object[] dato = (Object[]) li.getValue();
 				MyArray ma = new MyArray(dato);
-				System.out.println("El id del objeto seleccionado es: " + ma.getId());
+				System.out.println("El id del objeto seleccionado es: "
+						+ ma.getId());
 				out.add(ma);
 			}
 		}
@@ -663,7 +667,8 @@ class MyListitemRenderer implements ListitemRenderer {
 	}
 
 	@Override
-	public void render(Listitem listItem, Object data, int arg2) throws Exception {
+	public void render(Listitem listItem, Object data, int arg2)
+			throws Exception {
 		listItem.setValue(data);
 
 		Object[] row = (Object[]) data;
@@ -687,6 +692,7 @@ class MyListitemRenderer implements ListitemRenderer {
 
 			HtmlBasedComponent comp = null;
 			Method m = this.br.getClass().getMethod(compStr, Object.class, Object[].class);
+
 			comp = (HtmlBasedComponent) m.invoke(br, va, null);
 
 			// String d = "";
