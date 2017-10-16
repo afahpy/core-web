@@ -61,7 +61,12 @@ public class ReporteDefinicion {
 	public static final String EXPORT_XLSX = ".xlsx";
 	public static final String EXPORT_DOCX = ".docx";
 
+	public static final String TABLA_ESTILO_CLASICO = "TablaClasico";
+	public static final String TABLA_ESTILO_MODERNO = "TablaModerno";
+
 	private PageType tipoPagina = PageType.A4;
+	private Color colorSombreado = new Color(221, 221, 221);
+	
 
 	public void setA4() {
 		this.tipoPagina = A4;
@@ -153,25 +158,18 @@ public class ReporteDefinicion {
 	 */
 	public JasperReportBuilder report() {
 		JasperReportBuilder r = new JasperReportBuilder();
-		r.addProperty("net.sf.jasperreports.export.xls.detect.cell.type",
-				"true");
+		r.addProperty("net.sf.jasperreports.export.xls.detect.cell.type", "true");
 		// r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.band.1","title");
 		// r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.band.2","columnFooter");
-		r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.band.3",
-				"pageFooter");
+		r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.band.3", "pageFooter");
 		// r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.band.4","lastPageFooter");
 		// r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.band.5","summary");
 		// r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.band.6","columnHeader");
 		r.addProperty("net.sf.jasperreports.export.xls.write.header", "true");
-		r.addProperty(
-				"net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.2",
-				"columnHeader");
-		r.addProperty(
-				"net.sf.jasperreports.export.xls.remove.empty.space.between.rows",
-				"true");
+		r.addProperty("net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.2", "columnHeader");
+		r.addProperty("net.sf.jasperreports.export.xls.remove.empty.space.between.rows", "true");
 
-		r.addProperty("net.sf.jasperreports.export.docx.flexible.row.height",
-				"true");
+		r.addProperty("net.sf.jasperreports.export.docx.flexible.row.height", "true");
 
 		return r;
 	}
@@ -192,8 +190,7 @@ public class ReporteDefinicion {
 	 *
 	 * @return a report builder
 	 */
-	public JasperConcatenatedReportBuilder concatenatedReport(
-			JasperReportHandler jasperReportHandler) {
+	public JasperConcatenatedReportBuilder concatenatedReport(JasperReportHandler jasperReportHandler) {
 		return new JasperConcatenatedReportBuilder(jasperReportHandler);
 	}
 
@@ -201,66 +198,54 @@ public class ReporteDefinicion {
 	public <T> FieldBuilderDR<T> field(String name, Class<T> valueClass) {
 		FieldBuilderDR<T> fieldBuilder = new FieldBuilderDR<T>(name, valueClass);
 		try {
-			DRIDataType<? super T, T> dataType = DataTypes
-					.detectType(valueClass);
+			DRIDataType<? super T, T> dataType = DataTypes.detectType(valueClass);
 			fieldBuilder.setDataType(dataType);
 		} catch (DRException e) {
 		}
 		return fieldBuilder;
 	}
 
-	public <T> FieldBuilderDR<T> field(String name,
-			DRIDataType<? super T, T> dataType) {
+	public <T> FieldBuilderDR<T> field(String name, DRIDataType<? super T, T> dataType) {
 		Validate.notNull(dataType, "dataType must not be null");
-		FieldBuilderDR<T> fieldBuilder = new FieldBuilderDR<T>(name,
-				dataType.getValueClass());
+		FieldBuilderDR<T> fieldBuilder = new FieldBuilderDR<T>(name, dataType.getValueClass());
 		fieldBuilder.setDataType(dataType);
 		return fieldBuilder;
 	}
 
 	// variable
-	public <T> VariableBuilderDR<T> variable(ValueColumnBuilder<?, ?> column,
-			Calculation calculation) {
+	public <T> VariableBuilderDR<T> variable(ValueColumnBuilder<?, ?> column, Calculation calculation) {
 		Validate.notNull(column, "column must not be null");
 		return new VariableBuilderDR<T>(column, calculation);
 	}
 
-	public <T> VariableBuilderDR<T> variable(String name,
-			ValueColumnBuilder<?, ?> column, Calculation calculation) {
+	public <T> VariableBuilderDR<T> variable(String name, ValueColumnBuilder<?, ?> column, Calculation calculation) {
 		Validate.notNull(column, "column must not be null");
 		return new VariableBuilderDR<T>(name, column, calculation);
 	}
 
-	public <T> VariableBuilderDR<T> variable(FieldBuilderDR<T> field,
-			Calculation calculation) {
+	public <T> VariableBuilderDR<T> variable(FieldBuilderDR<T> field, Calculation calculation) {
 		Validate.notNull(field, "field must not be null");
 		return new VariableBuilderDR<T>(field, calculation);
 	}
 
-	public <T> VariableBuilderDR<T> variable(String name,
-			FieldBuilderDR<T> field, Calculation calculation) {
+	public <T> VariableBuilderDR<T> variable(String name, FieldBuilderDR<T> field, Calculation calculation) {
 		return new VariableBuilderDR<T>(name, field, calculation);
 	}
 
-	public <T> VariableBuilderDR<T> variable(String fieldName,
-			Class<?> valueClass, Calculation calculation) {
-		return new VariableBuilderDR<T>(field(fieldName, valueClass),
-				calculation);
+	public <T> VariableBuilderDR<T> variable(String fieldName, Class<?> valueClass, Calculation calculation) {
+		return new VariableBuilderDR<T>(field(fieldName, valueClass), calculation);
 	}
 
-	public <T> VariableBuilderDR<T> variable(String name, String fieldName,
-			Class<?> valueClass, Calculation calculation) {
-		return new VariableBuilderDR<T>(name, field(fieldName, valueClass),
-				calculation);
-	}
-
-	public <T> VariableBuilderDR<T> variable(DRIExpression<?> expression,
+	public <T> VariableBuilderDR<T> variable(String name, String fieldName, Class<?> valueClass,
 			Calculation calculation) {
+		return new VariableBuilderDR<T>(name, field(fieldName, valueClass), calculation);
+	}
+
+	public <T> VariableBuilderDR<T> variable(DRIExpression<?> expression, Calculation calculation) {
 		return new VariableBuilderDR<T>(expression, calculation);
 	}
 
-	public <T> VariableBuilderDR<T> variable(String name,
-			DRIExpression<?> expression, Calculation calculation) {
+	public <T> VariableBuilderDR<T> variable(String name, DRIExpression<?> expression, Calculation calculation) {
 		return new VariableBuilderDR<T>(name, expression, calculation);
 	}
 
@@ -274,8 +259,7 @@ public class ReporteDefinicion {
 	}
 
 	public SortBuilder asc(String fieldName, Class<?> valueClass) {
-		return new SortBuilderDR(field(fieldName, valueClass))
-				.setOrderType(OrderType.ASCENDING);
+		return new SortBuilderDR(field(fieldName, valueClass)).setOrderType(OrderType.ASCENDING);
 	}
 
 	public SortBuilder asc(VariableBuilderDR<?> variable) {
@@ -295,8 +279,7 @@ public class ReporteDefinicion {
 	}
 
 	public SortBuilder desc(String fieldName, Class<?> valueClass) {
-		return new SortBuilderDR(field(fieldName, valueClass))
-				.setOrderType(OrderType.DESCENDING);
+		return new SortBuilderDR(field(fieldName, valueClass)).setOrderType(OrderType.DESCENDING);
 	}
 
 	public SortBuilder desc(VariableBuilderDR<?> variable) {
@@ -390,6 +373,7 @@ public class ReporteDefinicion {
 	public static final String DERECHA = "derecha";
 	public static final String WIDTH = "width";
 	public static final String BOX = "box";
+	public static final String FONDO_SOMBREADO = "fondoSombreado";
 	public static final String PADDING_IZQ = "paddingIzq";
 	public static final String PADDING_DER = "paddingDer";
 	public static final String TABLA_IZQUIERDA = "tablaIzquierda";
@@ -449,6 +433,11 @@ public class ReporteDefinicion {
 			stlNew = stlNew.setBorder(stl.pen1Point());
 		}
 
+		if (style.indexOf(FONDO_SOMBREADO) >= 0) {
+			stlNew = stlNew.setBackgroundColor(colorSombreado);
+		}
+
+		
 		if (style.indexOf(NEGRITA) >= 0) {
 			stlNew = stlNew.bold();
 		}
@@ -504,35 +493,27 @@ public class ReporteDefinicion {
 	 * return out; }
 	 */
 	public ComponentBuilder textoParValor(String texto, Object valor) {
-		return cmp.text("<b>" + texto + ":</b> " + valor).setStyle(
-				Templates.styleHTML);
+		return cmp.text("<b>" + texto + ":</b> " + valor).setStyle(Templates.styleHTML);
 	}
 
 	public ComponentBuilder textoParValorVertical(String texto, Object valor) {
-		if (valor == null){
+		if (valor == null) {
 			valor = "";
 		}
 		VerticalListBuilder ver = cmp.verticalList();
-		ver.add(cmp.text("<b>" + texto + ":</b> ").setStyle(
-				Templates.styleHTML));
+		ver.add(cmp.text("<b>" + texto + ":</b> ").setStyle(Templates.styleHTML));
 		ver.add(cmp.text(valor.toString()).setStyle(Templates.styleHTML));
 		return ver;
 	}
 
-	
-	
 	public ComponentBuilder textoAutorizado() {
 
 		VerticalListBuilder out = cmp.verticalList();
-		out.setStyle(stl.style().setHorizontalAlignment(
-				HorizontalAlignment.CENTER));
+		out.setStyle(stl.style().setHorizontalAlignment(HorizontalAlignment.CENTER));
 		out.add(cmp.verticalGap(100));
-		out.add(cmp
-				.horizontalFlowList()
-				.add(165,
-						this.textoNegrita("---------------------------------------------------------------------")));
-		out.add(cmp.horizontalFlowList().add(235,
-				this.textoNegrita("AUTORIZADO")));
+		out.add(cmp.horizontalFlowList().add(165,
+				this.textoNegrita("---------------------------------------------------------------------")));
+		out.add(cmp.horizontalFlowList().add(235, this.textoNegrita("AUTORIZADO")));
 		return out;
 	}
 
@@ -564,14 +545,12 @@ public class ReporteDefinicion {
 
 	public ComponentBuilder textoAncho(String texto, int ancho) {
 		HorizontalListBuilder out = cmp.horizontalList().setFixedWidth(ancho);
-		StyleBuilder ss = stl.style().setHorizontalAlignment(
-				HorizontalAlignment.LEFT);
+		StyleBuilder ss = stl.style().setHorizontalAlignment(HorizontalAlignment.LEFT);
 		out.add(texto(texto).setStyle(ss));
 		return out;
 	}
 
-	public ComponentBuilder textoAnchoStyle(String texto, int ancho,
-			StyleBuilder style) {
+	public ComponentBuilder textoAnchoStyle(String texto, int ancho, StyleBuilder style) {
 		HorizontalListBuilder out = cmp.horizontalList().setFixedWidth(ancho);
 		out.add(texto(texto).setStyle(style));
 		return out;
@@ -579,29 +558,24 @@ public class ReporteDefinicion {
 
 	public ComponentBuilder textoAnchoAlineadoDerecha(String texto, int ancho) {
 		HorizontalListBuilder out = cmp.horizontalList().setFixedWidth(ancho);
-		StyleBuilder ss = stl.style().setHorizontalAlignment(
-				HorizontalAlignment.RIGHT);
+		StyleBuilder ss = stl.style().setHorizontalAlignment(HorizontalAlignment.RIGHT);
 		out.add(texto(texto).setStyle(ss));
 		return out;
 	}
 
-	public ComponentBuilder textoAnchoAlineadoDerechaBackgorunColor(
-			String texto, int ancho, Color bg) {
+	public ComponentBuilder textoAnchoAlineadoDerechaBackgorunColor(String texto, int ancho, Color bg) {
 		HorizontalListBuilder out = cmp.horizontalList().setFixedWidth(ancho);
 
-		StyleBuilder ss = stl.style().setBackgroundColor(bg)
-				.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+		StyleBuilder ss = stl.style().setBackgroundColor(bg).setHorizontalAlignment(HorizontalAlignment.RIGHT);
 
 		out.add(texto(texto).setStyle(ss));
 		return out;
 	}
 
-	public ComponentBuilder textoAnchoAlineadoIzquierdaBackgorunColor(
-			String texto, int ancho, Color bg) {
+	public ComponentBuilder textoAnchoAlineadoIzquierdaBackgorunColor(String texto, int ancho, Color bg) {
 		HorizontalListBuilder out = cmp.horizontalList().setFixedWidth(ancho);
 
-		StyleBuilder ss = stl.style().setBackgroundColor(bg)
-				.setHorizontalAlignment(HorizontalAlignment.LEFT);
+		StyleBuilder ss = stl.style().setBackgroundColor(bg).setHorizontalAlignment(HorizontalAlignment.LEFT);
 
 		out.add(texto(texto).setStyle(ss));
 		return out;
@@ -617,8 +591,7 @@ public class ReporteDefinicion {
 	 * @return
 	 */
 
-	public ComponentBuilder getTabla2(String[][] cols, List<Object[]> datos,
-			String prop) {
+	public ComponentBuilder getTabla2(String[][] cols, List<Object[]> datos, String prop) {
 		HorizontalListBuilder out = cmp.horizontalList();
 		VerticalListBuilder cuerpo = cmp.verticalList();
 
@@ -634,8 +607,7 @@ public class ReporteDefinicion {
 
 		HorizontalListBuilder tabla = cmp.horizontalList();
 
-		if ((prop.indexOf(TABLA_DERECHA) >= 0)
-				|| (prop.indexOf(TABLA_CENTRADA) >= 0)) {
+		if ((prop.indexOf(TABLA_DERECHA) >= 0) || (prop.indexOf(TABLA_CENTRADA) >= 0)) {
 			out.add(colAux);
 		}
 
@@ -667,42 +639,43 @@ public class ReporteDefinicion {
 
 		out.add(cuerpo);
 
-		if ((prop.indexOf(TABLA_IZQUIERDA) >= 0)
-				|| (prop.indexOf(TABLA_CENTRADA) >= 0)) {
+		if ((prop.indexOf(TABLA_IZQUIERDA) >= 0) || (prop.indexOf(TABLA_CENTRADA) >= 0)) {
 			out.add(colAux);
 		}
 
 		return out;
 	}
 
-	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos,
-			String prop) {
-		return getTabla(cols, datos, prop, false,  true, true);
+	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop) {
+		return getTabla(cols, datos, prop, false, true, true);
 	}
 
-	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos,
-			String prop, boolean siPie) {
-		return getTabla(cols, datos, prop, siPie,  true, true);
+	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop, boolean siPie) {
+		return getTabla(cols, datos, prop, siPie, true, true);
 	}
 
+	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop, boolean siPie,
+			boolean paddingDer, boolean paddingIzq) {
+		return getTabla(cols, datos, prop, siPie, paddingDer, paddingIzq, TABLA_ESTILO_CLASICO);
+	}
 
-	
-	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos,
-			String prop, boolean siPie, boolean paddingDer, boolean paddingIzq) {
+	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop, boolean siPie,
+			boolean paddingDer, boolean paddingIzq, String tablaEstilo) {
+
+		boolean siEstiloModerno = tablaEstilo.compareTo(TABLA_ESTILO_MODERNO) == 0;
 
 		HorizontalListBuilder out = cmp.horizontalList();
 		VerticalListBuilder cuerpo = cmp.verticalList();
 
 		String ESP = " ";
 		String PADDING = "";
-		PADDING += paddingDer ?  PADDING_DER : "";
-		PADDING += paddingIzq ?  PADDING_IZQ : "";
-		
+		PADDING += paddingDer ? PADDING_DER : "";
+		PADDING += paddingIzq ? PADDING_IZQ : "";
 
 		// StyleBuilder colorbk =
 		// stl.style().setBackgroundColor(Color.LIGHT_GRAY);
-		StyleBuilder colorbk = stl.style().setBackgroundColor(
-				new Color(221, 221, 221));
+		StyleBuilder colorbk = stl.style().setBackgroundColor(colorSombreado);
+
 		boolean siBkColor = true;
 
 		// para centrar la tabla
@@ -712,8 +685,7 @@ public class ReporteDefinicion {
 		int nFilas = datos.size();
 		int nColumnas = cols.length;
 
-		if ((prop.indexOf(TABLA_DERECHA) >= 0)
-				|| (prop.indexOf(TABLA_CENTRADA) >= 0)) {
+		if ((prop.indexOf(TABLA_DERECHA) >= 0) || (prop.indexOf(TABLA_CENTRADA) >= 0)) {
 			out.add(colAux);
 		}
 
@@ -725,7 +697,7 @@ public class ReporteDefinicion {
 		}
 
 		VerticalListBuilder tabla = cmp.verticalList();
-//		tabla.setStyle(stl.style().setBorder(stl.pen1Point()));
+		// tabla.setStyle(stl.style().setBorder(stl.pen1Point()));
 
 		// cargar los titulos
 
@@ -733,11 +705,23 @@ public class ReporteDefinicion {
 		for (int cc = 0; cc < nColumnas; cc++) {
 			String titulo = cols[cc][0];
 			String estilo = this.BOX + PADDING + cols[cc][1];
-			fila.add(this.texto(ESP + titulo + ESP, NEGRITA + estilo));
+
+			if (siEstiloModerno == true && cc == 0){
+				estilo = FONDO_SOMBREADO+estilo;
+			}
+
+			ComponentBuilder celda = this.texto(ESP + titulo + ESP, NEGRITA + estilo);
+			fila.add(celda);
 		}
-		fila.setStyle(colorbk);
-		siBkColor = !siBkColor;
+		
+		if (siEstiloModerno == false){
+			fila.setStyle(colorbk);
+		}
+		
 		tabla.add(fila);
+
+		siBkColor = !siBkColor;
+
 
 		// los datos
 
@@ -759,7 +743,7 @@ public class ReporteDefinicion {
 
 			}
 
-			if (siBkColor == true) {
+			if ((siBkColor == true)&&(siEstiloModerno == false)) {
 				fila.setStyle(colorbk);
 			}
 
@@ -772,8 +756,7 @@ public class ReporteDefinicion {
 
 		out.add(cuerpo);
 
-		if ((prop.indexOf(TABLA_IZQUIERDA) >= 0)
-				|| (prop.indexOf(TABLA_CENTRADA) >= 0)) {
+		if ((prop.indexOf(TABLA_IZQUIERDA) >= 0) || (prop.indexOf(TABLA_CENTRADA) >= 0)) {
 			out.add(colAux);
 		}
 
