@@ -376,6 +376,8 @@ public class ReporteDefinicion {
 	public static final String FONDO_SOMBREADO = "fondoSombreado";
 	public static final String PADDING_IZQ = "paddingIzq";
 	public static final String PADDING_DER = "paddingDer";
+	public static final String PADDING_TOP = "paddingTop";
+	public static final String PADDING_BOT = "paddingBot";
 	public static final String TABLA_IZQUIERDA = "tablaIzquierda";
 	public static final String TABLA_DERECHA = "tablaDerecha";
 	public static final String TABLA_CENTRADA = "tablaCentrada";
@@ -451,6 +453,12 @@ public class ReporteDefinicion {
 		}
 		if (style.indexOf(PADDING_DER) >= 0) {
 			stlNew.setRightPadding(5);
+		}
+		if (style.indexOf(PADDING_TOP) >= 0) {
+			stlNew.setTopPadding(5);
+		}
+		if (style.indexOf(PADDING_BOT) >= 0) {
+			stlNew.setBottomPadding(5);
 		}
 
 		int pw = style.indexOf(WIDTH);
@@ -672,6 +680,12 @@ public class ReporteDefinicion {
 		PADDING += paddingDer ? PADDING_DER : "";
 		PADDING += paddingIzq ? PADDING_IZQ : "";
 
+		if (siEstiloModerno == true){
+			PADDING += PADDING_TOP;
+			PADDING += PADDING_BOT;
+		}
+		
+		
 		// StyleBuilder colorbk =
 		// stl.style().setBackgroundColor(Color.LIGHT_GRAY);
 		StyleBuilder colorbk = stl.style().setBackgroundColor(colorSombreado);
@@ -737,6 +751,11 @@ public class ReporteDefinicion {
 					siBox = NEGRITA + BOX;
 				}
 
+				if (siEstiloModerno == true) {
+					siBox = BOX;
+				}
+				
+				
 				String estilo = PADDING + siBox + cols[cc][1];
 				Object dd = datos.get(ff)[cc];
 				fila.add(this.texto(ESP + dd + ESP, estilo));
@@ -747,6 +766,8 @@ public class ReporteDefinicion {
 				fila.setStyle(colorbk);
 			}
 
+			
+			
 			tabla.add(fila);
 			siBkColor = !siBkColor;
 		}
