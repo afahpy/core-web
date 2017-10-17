@@ -26,6 +26,7 @@ import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.RowRenderer;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.impl.InputElement;
 
@@ -405,12 +406,19 @@ public abstract class Browser extends SimpleViewModel implements
 		Label t = new Label();
 		t.setValue((this.m.formatoGs((double)obj)));
 		t.setStyle("text-align: right");
-
-		Cell cel = new Cell();
-		cel.setAlign("right");
-		t.setParent(cel);
 		
-		return cel;
+		Vbox vb = new Vbox();
+		vb.setWidth("100%");
+		vb.setAlign("end");
+		
+		t.setParent(vb);
+		
+
+//		Cell cel = new Cell();
+//		cel.setAlign("right");
+//		t.setParent(cel);
+		
+		return vb;
 	}
 	
 	
