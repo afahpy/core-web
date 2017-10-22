@@ -450,17 +450,17 @@ public class Misc {
 		return dateCal.getTime();
 	}
 
-	public Date getFechaEnero1() {
+	public Date getFechaEnero1(Date fecha) {
 
 		Calendar dateCal = Calendar.getInstance();
-		dateCal.setTime(new Date());
+		dateCal.setTime(fecha);
 		dateCal.set(Calendar.DAY_OF_YEAR, 1);
 		return dateCal.getTime();
 	}
 
-	public Date getFechaDiciembre31() {
+	public Date getFechaDiciembre31(Date fecha) {
 		Calendar dateCal = Calendar.getInstance();
-		dateCal.setTime(new Date());
+		dateCal.setTime(fecha);
 		dateCal.set(Calendar.MONTH, 11); // 11 = december
 		dateCal.set(Calendar.DAY_OF_MONTH, 31); // new years eve
 		return dateCal.getTime();
