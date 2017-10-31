@@ -36,7 +36,7 @@
 	<!-- Compila el proyecto -->
 	<target name="compile" depends="copy-hbm">
 		<mkdir dir="${classes.dir}" />
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" encoding="UTF-8"
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" encoding="UTF-8" debug="true"
 			classpathref="classpath" includeantruntime="false" />
 	</target>
 
