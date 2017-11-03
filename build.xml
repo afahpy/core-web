@@ -47,6 +47,15 @@
 		<copy todir="${classes.dir}">
 			<fileset dir="${src.dir}" includes="**/*.xml" />
 		</copy>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}" includes="**/*.ttf" />
+		</copy>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}" includes="**/*.properties" />
+		</copy>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}" includes="**/*.ini" />
+		</copy>
 	</target>
 
 
