@@ -35,9 +35,8 @@ import net.sf.jasperreports.engine.JRDataSource;
 
 public class MyReport extends ReporteDefinicion {
 
-	
 	DatosReporte reporteCore = null;
-	
+
 	MiscReporte miscReporte = new MiscReporte();
 
 	CabeceraReporte cabecera = new CabeceraReporte();
@@ -62,14 +61,15 @@ public class MyReport extends ReporteDefinicion {
 	boolean simple = false;
 	boolean membretePropioReporte = false;
 	ComponentBuilder membretePropio = null;
-	boolean footerPropioReporte = false ;
+	boolean footerPropioReporte = false;
 	ComponentBuilder footerPropio = null;
 
 	public MyReport(boolean simple) {
 		this.simple = simple;
 	}
 
-	public MyReport(DatosReporte reporteCore, boolean membretePropioReporte, ComponentBuilder membretePropio, CabeceraReporte cabecera, ComponentBuilder body, ComponentBuilder footer, List<Object[]> datos,
+	public MyReport(DatosReporte reporteCore, boolean membretePropioReporte, ComponentBuilder membretePropio,
+			CabeceraReporte cabecera, ComponentBuilder body, ComponentBuilder footer, List<Object[]> datos,
 			String empresa, String logoEmpresa, int logoAncho, int logoAlto, String titulo, String usuario,
 			String archivo, boolean footerPropioReporte, ComponentBuilder footerPropio) {
 		this.reporteCore = reporteCore;
@@ -105,24 +105,22 @@ public class MyReport extends ReporteDefinicion {
 	public void setTipoPagina(PageType tipoPagina) {
 		this.tipoPagina = tipoPagina;
 	}
-	
-	
+
 	public JasperReportBuilder getRep() {
 		return rep;
 	}
 
-	
-	public ComponentBuilder getMembrete(){
+	public ComponentBuilder getMembrete() {
 		Templates tmp = new Templates();
 		ComponentBuilder membreteCab = null;
-		if (this.membretePropioReporte == false){
+		if (this.membretePropioReporte == false) {
 			membreteCab = tmp.createMembretePrincipal(empresa, logoEmpresa, logoAncho, logoAlto, titulo, usuario);
-		}else{
+		} else {
 			membreteCab = this.membretePropio;
 		}
 		return membreteCab;
 	}
-	
+
 	private void build() {
 
 		// StyleBuilder textStyle = stl.style(Templates.columnStyle).setBorder(
@@ -134,7 +132,6 @@ public class MyReport extends ReporteDefinicion {
 
 		try {
 
-			
 			// Templates template = new Templates();
 			Templates tmp = new Templates();
 
@@ -146,48 +143,49 @@ public class MyReport extends ReporteDefinicion {
 				rep.setTitleSplitType(SplitType.IMMEDIATE);
 				rep.setPageFormat(this.tipoPagina);
 			}
-			
-			
+
 			if (this.landscape == true) {
 				rep.setPageFormat(this.tipoPagina, PageOrientation.LANDSCAPE);
 			}
-			
+
 			if (this.simple == false) {
-				
+
 				ComponentBuilder membreteCab = null;
-				if (this.membretePropioReporte == false){
-					membreteCab = tmp.createMembretePrincipal(empresa, logoEmpresa, logoAncho, logoAlto, titulo, usuario);
-				}else{
+				if (this.membretePropioReporte == false) {
+					membreteCab = tmp.createMembretePrincipal(empresa, logoEmpresa, logoAncho, logoAlto, titulo,
+							usuario);
+				} else {
 					membreteCab = this.membretePropio;
 				}
 				rep.title(membreteCab);
 			}
-			
-			
 
-			if (this.simple == false) {				
-				
+			if (this.simple == false) {
+
 				// ####################################
 				// si queremos que ponga en todas las páginas algo arriba
-				//rep.pageHeader(this.texto("cabecera2"));
-				//rep.setDetailHeaderSplitType(SplitType.STRETCH);
+				// rep.pageHeader(this.texto("cabecera2"));
+				// rep.setDetailHeaderSplitType(SplitType.STRETCH);
 				// ####################################
+
+				if (this.datos == null){
+					// los datos que  vienen van en el detalle
+					rep.addDetail(this.body);					
+				}else{
+					// tiene cabecera y tiene datos detalles
+					rep.addTitle(this.body);
+				}
 				
-				
-				 rep.addDetail(this.body);
-				//rep.addTitle(this.body);
 
 				if (this.isPutFooter() == true) {
-				
-					if (this.footerPropioReporte == false){
-						rep.pageFooter(tmp.footerComponent);						
-					}else{
+
+					if (this.footerPropioReporte == false) {
+						rep.pageFooter(tmp.footerComponent);
+					} else {
 						rep.pageFooter(this.footerPropio);
 					}
 				}
-				
-				
-				
+
 				rep.setDataSource(this.miscReporte.createDataSource(cabecera.getColumnasDS(), datos));
 				rep.addSummary(this.footer);
 				rep.setWhenNoDataType(WhenNoDataType.ALL_SECTIONS_NO_DETAIL);
@@ -216,31 +214,24 @@ public class MyReport extends ReporteDefinicion {
 					rep.groupBy(gr);
 				}
 			}
-			
 
-			
 			this.reporteCore.setPropiedadesExtras(rep);
-
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	
-	public void crearXLSX(String nombreArchivo) throws Exception{
+	public void crearXLSX(String nombreArchivo) throws Exception {
 		AbstractJasperExporterBuilder exporterAux = export.xlsxExporter(nombreArchivo);
 		rep.toXlsx((JasperXlsxExporterBuilder) exporterAux);
 	}
-	
-	public void crearDOCX(String nombreArchivo) throws Exception{
+
+	public void crearDOCX(String nombreArchivo) throws Exception {
 		AbstractJasperExporterBuilder exporterAux = export.docxExporter(nombreArchivo);
 		rep.toDocx((JasperDocxExporterBuilder) exporterAux);
 	}
 
-	
-	
 	public void show(boolean ver) {
 
 		try {
@@ -255,23 +246,20 @@ public class MyReport extends ReporteDefinicion {
 			} else if (tipoFormato.equals(ReporteDefinicion.EXPORT_XLSX)) {
 				exporter = export.xlsxExporter(archivo);
 				rep.toXlsx((JasperXlsxExporterBuilder) exporter);
-				
+
 			} else if (tipoFormato.equals(ReporteDefinicion.EXPORT_DOCX)) {
 				exporter = export.docxExporter(archivo);
 				rep.toDocx((JasperDocxExporterBuilder) exporter);
 			}
-			
-			System.out.println("--->archivo:"+archivo);
+
+			System.out.println("--->archivo:" + archivo);
 			/*
 			 * build(); JasperPdfExporterBuilder pdfExporter =
 			 * export.pdfExporter(archivo).setEncrypted(false);
 			 * rep.toPdf(pdfExporter);
 			 */
 
-			
-			
-			
-			if (ver  == true) {
+			if (ver == true) {
 				rep.show();
 
 			}

@@ -44,7 +44,7 @@
 	<!-- copy hbm files ${dist.dir} -->
 	<target name="copy-hbm" description="Copy hibernate files">
 		<mkdir dir="${classes.dir}" />
-		<copy todir="${classes.dir}">
+		<copy todir="${classes.dir}" >
 			<fileset dir="${src.dir}" includes="**/*.xml" />
 		</copy>
 		<copy todir="${classes.dir}">
