@@ -645,8 +645,14 @@ public class Misc {
 		return out;
 	}
 
+	public double redondeoCero(double d) {
+		double d2 =  Math.rint(d);
+		return d2;
+	}
+
+	
 	public double redondeo(double d) {
-		double d2 = Math.rint(d * 1000) / 1000;
+		double d2 =  Math.rint(d * 1000) / 1000 ;
 		return d2;
 	}
 
@@ -1864,11 +1870,10 @@ public class Misc {
 	public static void main(String[] args) {
 		Misc m = new Misc();	
 
-		double d1 = 130.1;
-		double d2 = 100;
-		double margen = 30; 
-		
-		System.out.println(" es: " +m.esIgual(d1, d2, margen));
+		double d1 = 130.29000001;
+			
+		double d2 = m.redondeoCero(d1);
+		System.out.println(d1+" : " +m.redondeoCero(d1)+"  "+d2);
 		
 		/*
 		
