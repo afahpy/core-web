@@ -52,7 +52,7 @@
 					onClick="@command('buscarItemBr') @global-command('refreshComponentes')" 
 					disabled="@load(Toolbar.buscarDeshabilitado)" /> -->
 
-				<label id="idObjeto" value="@load(Toolbar.idObjeto)" visible="false"/>
+				<label id="idObjeto" value="@load(Toolbar.idObjeto)" visible="true"/>
 
 				<label id="abmModo" value="@load(Toolbar.estadoABM)"
 					multiline="false" style="font-size:12pt;font-weight:bold" visible="false"/>
