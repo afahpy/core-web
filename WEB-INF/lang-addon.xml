@@ -35,6 +35,16 @@
 	</component>
 
 	<component>
+		<component-name>toolbarbutton</component-name>
+		<extends>toolbarbutton</extends>
+		<property>
+			<property-name>autodisable</property-name>
+			<property-value>self</property-value>
+		</property>
+	</component>
+
+
+	<component>
 		<component-name>doublebox</component-name>
 		<component-class>com.coreweb.extras.zul.CoreWebDoubleBox</component-class> 
 		<extends>doublebox</extends>
