@@ -63,6 +63,8 @@
 <mapping resource="com/coreweb/domain/Tipo.hbm.xml" />
 <mapping resource="com/coreweb/domain/TipoTipo.hbm.xml" />
 <mapping resource="com/coreweb/domain/MensajeEmail.hbm.xml" />
+<mapping resource="com/coreweb/domain/DeleteObjetos.hbm.xml" />
+
 
 <!-- Agenda -->
 <mapping resource="com/coreweb/domain/AgendaEvento.hbm.xml" />

@@ -34,6 +34,7 @@ import org.zkoss.zul.Window;
 import com.coreweb.Archivo;
 import com.coreweb.Config;
 import com.coreweb.SistemaPropiedad;
+import com.coreweb.domain.DeleteObjetos;
 import com.coreweb.domain.Domain;
 import com.coreweb.domain.LogAcceso;
 import com.coreweb.domain.Register;
@@ -638,13 +639,12 @@ public class Control {
 
 	public void abrirFormulario(String aliasFormulario, String paramsFromMenu, boolean globalCommandHabilitarMenu,
 			boolean siPopUp) {
-		
+
 		// ver como hacer lo del popup
-		
-		
+
 		String url = this.getUs().formURL(aliasFormulario);
 		String label = this.getUs().formLabel(aliasFormulario);
-		
+
 		try {
 
 			if (paramsFromMenu == null) {
@@ -677,18 +677,16 @@ public class Control {
 				BindUtils.postGlobalCommand(null, null, "habilitarMenu", null);
 			}
 
-			
-			if (siPopUp == false){
+			if (siPopUp == false) {
 				Component main = Path.getComponent("/templateInicio");
 				Include inc = (Include) main.getFellow("principalBody");
 				inc.setSrc("");
 				this.setTextoFormularioCorriente(label);
 				this.saltoDePagina(urlSolo, map);
-			}else{
+			} else {
 				Window win = (Window) Executions.createComponents(urlSolo, null, map);
 				win.doModal();
 			}
-			
 
 			// inc.setSrc(urlSolo);
 
@@ -799,6 +797,33 @@ public class Control {
 	public Comparator getComparatorStringInMyArray(String[] campos) {
 		MyComparatorStringInMyArray c = new MyComparatorStringInMyArray(campos);
 		return c;
+	}
+
+	public void addInfoDelete(Domain d) {
+		try {
+			String usuario = this.getLoginNombre();
+			String clase = d.getClass().getName();
+			long idReferencia = d.getId();
+			String texto = d.toString();
+			this.addInfoDelete(usuario, clase, idReferencia, texto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addInfoDelete(String usuario, String clase, long idReferencia, String texto) {
+		try {
+			DeleteObjetos dObj = new DeleteObjetos();
+			dObj.setUsuario(usuario);
+			dObj.setClase(clase);
+			dObj.setIdReferencia(idReferencia);
+			dObj.setTexto(texto);
+			Register rr = Register.getInstance();
+			rr.saveObject(dObj, this.getLoginNombre());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
