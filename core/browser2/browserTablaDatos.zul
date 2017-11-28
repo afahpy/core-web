@@ -1,0 +1,7 @@
+<div apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.extras.browser.BrowserTablaDatos')">
+
+	<vlayout>
+		<div id="btd" />
+	</vlayout>
+</div>

@@ -1,0 +1,55 @@
+<zk xmlns:h="http://www.w3.org/1999/xhtml">
+
+	<div id="browserTable" width="98%" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')
+		@init('com.coreweb.extras.browser.BrowserTabla')">
+
+
+<h:link rel="stylesheet" type="text/css"        href="@load(vm.v1)" />
+<h:script type="text/javascript"                src="@load(vm.v2)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v3)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v4)"></h:script>
+
+
+
+
+	<h:script>
+		$(function(){ $('#coreWebBrowserTabla').DataTable({
+language:{
+    "sProcessing":     "Procesando...",
+    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sZeroRecords":    "No se encontraron resultados",
+    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Buscar:",
+    "sUrl":            "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }    
+    }
+		 }); } );
+	</h:script>
+
+
+
+
+		<vlayout>
+			<include mode="defer"  
+				src="/core/browser2/browserTablaDatos.zul" datos="@load(vm.datos)" />
+		</vlayout>
+
+	</div>
+
+</zk>
