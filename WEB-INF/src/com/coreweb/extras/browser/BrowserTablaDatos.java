@@ -91,7 +91,15 @@ public class BrowserTablaDatos extends Control {
 
 		Tbody tbody = new Tbody();
 		tbody.setParent(table);
-		ArrayList<Object[]> datos = this.runQuery();
+		
+		ArrayList<Object[]> datos = null;
+		
+		if (this.datos.ifUseList() == true){
+			datos = this.datos.getLista();
+		}else{
+			datos = this.runQuery();
+		}
+		
 
 		// System.out.println("--filas/columnas: [" + datos.size() + "/" + col +
 		// "]");

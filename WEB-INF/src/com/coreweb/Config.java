@@ -30,6 +30,7 @@ public class Config {
 	public static String BROWSER2_VM = "Browser2Vm";
 	
 	public static String PREFIX = "prefix";
+	public static String APP_NAME = "/sinApp";
 
 	public static String INIT_CLASE = "com.?.inicio.Inicio";
 	public static String INIT_METODO = "init";
@@ -78,6 +79,7 @@ public class Config {
 						.getCurrentDirectory();
 				DIRECTORIO_BASE_REAL = Executions.getCurrent().getDesktop()
 						.getWebApp().getRealPath("/");
+				
 			}else{
 				DIRECTORIO_BASE_WEB = "./";
 				DIRECTORIO_BASE_REAL = "./";
@@ -88,6 +90,9 @@ public class Config {
 			e.printStackTrace();
 			System.out.println("...............................................");
 		}
+		
+		APP_NAME = Executions.getCurrent().getContextPath();
+		
 		DIRECTORIO_WEB_REPORTES = DIRECTORIO_BASE_WEB + REPORTES;
 		DIRECTORIO_REAL_REPORTES = DIRECTORIO_BASE_REAL + REPORTES;
 		

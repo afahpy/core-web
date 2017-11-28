@@ -10,6 +10,7 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.ExecutionParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Executions;
 
 import com.coreweb.Config;
 import com.coreweb.control.Control;
@@ -19,12 +20,12 @@ import com.coreweb.util.MyArray;
 
 public class BrowserTabla extends Control {
 
-	String prefix = (String) this.getAtributoSession(Config.PREFIX);
+	String APP = Config.APP_NAME;
 
-	String v1 = "/" + prefix + "/core/browser2/DataTables/DataTables-1.10.16/css/jquery.dataTables.css";
-	String v2 = "/" + prefix + "/core/browser2/DataTables/datatables.min.js";
-	String v3 = "/" + prefix + "/core/browser2/DataTables/jQuery-3.2.1/jquery-3.2.1.min.js";
-	String v4 = "/" + prefix + "/core/browser2/DataTables/DataTables-1.10.16/js/jquery.dataTables.min.js";
+	String v1 = APP + "/core/browser2/DataTables/DataTables-1.10.16/css/jquery.dataTables.css";
+	String v2 = APP + "/core/browser2/DataTables/datatables.min.js";
+	String v3 = APP + "/core/browser2/DataTables/jQuery-3.2.1/jquery-3.2.1.min.js";
+	String v4 = APP + "/core/browser2/DataTables/DataTables-1.10.16/js/jquery.dataTables.min.js";
 
 	public BrowserTabla() {
 		super(null);
@@ -39,6 +40,9 @@ public class BrowserTabla extends Control {
 
 	@Init(superclass = true)
 	public void initBrowserTabla(@ExecutionParam("datos") Object obj) {
+		
+		System.out.println("\n\n\n\n\nv1: "+v1+"\n\n\n\n\n");
+		
 		// System.out.println("init de BrowserTabla (obj):" + obj);
 		BrowserTablaDatosInterface datos = (BrowserTablaDatosInterface) obj;
 		this.datos = datos;
@@ -55,14 +59,6 @@ public class BrowserTabla extends Control {
 
 	public void setDatos(BrowserTablaDatosInterface datos) {
 		this.datos = datos;
-	}
-
-	public String getPrefix() {
-		return prefix;
-	}
-
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
 	}
 
 	public String getV1() {
