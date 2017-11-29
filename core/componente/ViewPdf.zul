@@ -30,9 +30,11 @@
 				</cell>
 				<cell align="right" hflex="4" 
 					visible="${arg.botonImprimir || arg.botonCancelar}">
+					<!-- 
 					<toolbarbutton id="btnImprimir" label="Imprimir"
 						tooltiptext="Imprimir" visible="${arg.botonImprimir}"
 						image="/core/images/printer.png" onClick="@command('imprimir')" />
+					 -->	
 					<toolbarbutton id="btnCancel" label="Cancelar"
 						tooltiptext="Cancelar" visible="${arg.botonCancelar}"
 						image="/core/images/cancel.png" onClick="@command('cancelar')" />
