@@ -47,22 +47,12 @@
 									<hlayout visible="true" hflex="true">
 										<image
 											src="/core/images/_user.png" />
-										<textbox id="name" hflex="true"
+										<textbox  hflex="true" 
 											value="@bind(crt.user)"
 											onOK="@command('loginOk')" 
 											placeholder="Usuario"
 											onChange="@command('nombreUsuario')" />	
 										
-										<!-- <combobox id="name"
-											buttonVisible="false"
-											autocomplete="@load(crt.users.size() eq 1? 'true' : 'false')" 
-											placeholder="Usuario"
-											hflex="true" onOK="@command('loginOk')" readonly="false"
-											model="@load(crt.users)"
-											value="@bind(crt.user)"
-											instant="true"
-											onChange="@command('openUserList')">
-										</combobox> -->
 										<div width="20px"></div>
 									</hlayout>
 
@@ -71,7 +61,7 @@
 									<hlayout width="100%">
 										<image
 											src="/core/images/password.png" />
-										<textbox id="pwd" hflex="true"
+										<textbox hflex="true" 
 											type="password" value="@bind(crt.pass)"
 											onOK="@command('loginOk')" placeholder="Password" />
 										<div width="20px"></div>
@@ -95,26 +85,6 @@
 				</vbox>
 				<label value="Asunción - Paraguay" style="color:grey"></label>
 			</vbox>
-			<!-- <popup id="usuarios" width="200px" height="150px" sclass="rounded">
-				<listbox id="lst" model="@load(crt.users)" sclass="small-list" vflex="true"
-					selectedItem="@bind(crt.user)"
-					onSelect='usuarios.close()'>
-					<attribute name="onSelect">
-						pwd.focus();
-					</attribute>
-					<template name="model">
-						<listitem>
-							<listcell>
-								<hlayout valign="middle">
-									<image src="/core/images/user-.png"/>
-									<div width="5px"/>
-									<label value="@load(each)"/>
-								</hlayout>
-							</listcell>
-						</listitem>
-					</template>
-				</listbox>
-			</popup> -->
 			<script><![CDATA[
 	
 function loginFaild() { //Shake the window

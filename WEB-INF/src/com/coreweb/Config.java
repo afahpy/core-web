@@ -84,6 +84,7 @@ public class Config {
 				DIRECTORIO_BASE_WEB = "./";
 				DIRECTORIO_BASE_REAL = "./";
 			}
+			APP_NAME = Executions.getCurrent().getContextPath();
 			
 		} catch (Exception e) {
 			System.out.println("...............................................");
@@ -91,7 +92,6 @@ public class Config {
 			System.out.println("...............................................");
 		}
 		
-		APP_NAME = Executions.getCurrent().getContextPath();
 		
 		DIRECTORIO_WEB_REPORTES = DIRECTORIO_BASE_WEB + REPORTES;
 		DIRECTORIO_REAL_REPORTES = DIRECTORIO_BASE_REAL + REPORTES;
