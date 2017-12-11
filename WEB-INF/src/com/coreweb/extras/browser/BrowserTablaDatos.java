@@ -6,25 +6,32 @@ import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.ExecutionParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.Table;
 import org.zkoss.zhtml.Tbody;
 import org.zkoss.zhtml.Td;
 import org.zkoss.zhtml.Th;
 import org.zkoss.zhtml.Thead;
 import org.zkoss.zhtml.Tr;
+import org.zkoss.zk.ui.Components;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Label;
 
+import com.coreweb.Config;
 import com.coreweb.control.Control;
 import com.coreweb.domain.Register;
 import com.coreweb.dto.Assembler;
 
 public class BrowserTablaDatos extends Control {
 
+
+	
+	
 	public BrowserTablaDatos() {
 		super(null);
 	}
@@ -41,24 +48,26 @@ public class BrowserTablaDatos extends Control {
 		System.out.println("init de BrowserTablaDatos:" + obj);
 
 		BrowserTablaDatosInterface datos = (BrowserTablaDatosInterface) obj;
-
 		this.datos = datos;
 	}
 
 	@AfterCompose(superclass = true)
 	public void afterComposeBrowserTablaDatos() {
-		// System.out.println("after de BrowserTablaDatos");
-
-		Div div = (Div) Path.getComponent("/btd");
-		if (div != null) {
-			div.getChildren().add(getTabla());
-		} else {
-			this.mensajePopupTemporalWarning("Elemento no econtrado");
-		}
-		// System.out.println("fin after de BrowserTablaDatos");
+		this.cargarTabla();
 	}
 
-	public Table getTabla() {
+	private void cargarTabla() {
+		Div div = (Div) Path.getComponent("/btd");
+		if (div != null) {
+			Components.removeAllChildren(div);
+			div.getChildren().add(this.getTabla());
+		} else {
+			this.mensajePopupTemporalWarning("Elemento no econtrado (btd)");
+		}
+	}
+
+
+	private Table getTabla() {
 
 		int col = this.datos.getNombres().length;
 		String[] nombres = this.datos.getNombres();
@@ -91,20 +100,20 @@ public class BrowserTablaDatos extends Control {
 
 		Tbody tbody = new Tbody();
 		tbody.setParent(table);
-		
+
 		ArrayList<Object[]> datos = null;
-		
-		if (this.datos.ifUseList() == true){
+
+		if (this.datos.ifUseList() == true) {
 			datos = this.datos.getLista();
-		}else{
+		} else {
 			datos = this.runQuery();
 		}
-		
 
 		// System.out.println("--filas/columnas: [" + datos.size() + "/" + col +
 		// "]");
 
-		for (int i = 0; i < datos.size(); i++) {
+		int ndatos = datos.size();
+		for (int i = 0; i < ndatos; i++) {
 			Tr tri = new Tr();
 			tri.setParent(tbody);
 
@@ -140,5 +149,6 @@ public class BrowserTablaDatos extends Control {
 		}
 		return out;
 	}
+
 
 }

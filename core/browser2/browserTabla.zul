@@ -13,6 +13,7 @@
 
 
 
+
 	<h:script>
 		$(function(){ $('#coreWebBrowserTabla').DataTable({
 language:{
@@ -45,8 +46,10 @@ language:{
 
 
 
+
+
 		<vlayout>
-			<include mode="defer"  
+			<include id="idBrowserTable" mode="defer"  
 				src="/core/browser2/browserTablaDatos.zul" datos="@load(vm.datos)" />
 		</vlayout>
 

@@ -63,6 +63,9 @@ public class AlertaDTO extends DTO {
 	}
 
 	public String getFechaCancelacionStr() {
+		if (this.cancelada == false) {
+			return "";
+		}		
 		return this.getMisc().dateToString(this.fechaCancelacion,
 				Misc.YYYY_MM_DD_HORA_MIN_SEG2);
 	}

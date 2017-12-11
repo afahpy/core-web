@@ -33,6 +33,7 @@ public class ControlCrearAlerta extends SoloViewModel {
 		this.alerta.setNivel(this.getDtoUtil().getNivelAlertaInformativa());
 		this.alerta.setNumero("Sin asignar");
 		this.alerta.setCancelada(false);
+		this.alerta.setTipo(this.getDtoUtil().getTipoAlertaUno());
 	}
 
 	@AfterCompose(superclass = true)
@@ -58,15 +59,20 @@ public class ControlCrearAlerta extends SoloViewModel {
 	@NotifyChange("*")
 	public void buscarUsuario() {
 		try {
+			
+			String filtro = this.alerta.getDestino();
+			
 			BuscarElemento be = new BuscarElemento();
 			be.setTitulo("Buscar Usuario");
 			be.setClase(Usuario.class);
 			be.setAtributos(new String[] { "nombre", "login" });
 			be.setNombresColumnas(new String[] { "Usuario nombre",
 					"Usuario login" });
+			be.addOrden("nombre");
 			be.setWidth("400px");
 			be.setHeight("500px");
-			be.show("");
+			be.show((filtro.trim().length()==0 ? "%" : filtro), 0);
+			
 			if (be.isClickAceptar() == true) {
 				String destino = (String) be.getSelectedItem().getPos2(); // login
 				this.alerta.setDestino(destino);
@@ -201,7 +207,7 @@ public class ControlCrearAlerta extends SoloViewModel {
 			w = new WindowPopup();
 			w.setModo(WindowPopup.NUEVO);
 			w.setTitulo("Crear Alerta");
-			w.setWidth("370px");
+			w.setWidth("670px");
 			w.setHigth("460px");
 			w.show(Config.CREAR_ALERTA_ZUL);
 		} catch (Exception e) {

@@ -303,10 +303,10 @@ public abstract class GenericViewModel extends Control {
 	
 
 	/**
-	 * Retorna un String que es el motivo de anulacion..
+	 * Retorna un String que es el mensaje ..
 	 * Retorna vacio en caso de que se dio click en Cancelar..
 	 * */
-	public String getMotivoAnulacion() {
+	public String getMensaje(String titulo, String placeHolder) {
 		
 		Div dv = new Div();
 		dv.setHeight("5px");
@@ -315,19 +315,30 @@ public abstract class GenericViewModel extends Control {
 		Textbox tx = new Textbox();
 		tx.setRows(5);
 		tx.setHflex("true");
-		tx.setPlaceholder("Especifique el Motivo de Anulación..");
+		tx.setPlaceholder(placeHolder);
 		tx.setParent(dv);
 		
 		BodyPopupAceptarCancelar b = new BodyPopupAceptarCancelar();	
 		b.addComponente("", dv);
 		b.setHighWindows("200px");
 		b.setCheckAC(new VerificadorMotivoAnulacion(tx));
-		b.showPopupUnaColumna("Motivo de la Anulación");		
+		b.showPopupUnaColumna(titulo);		
 		if (b.isClickAceptar()) {
-			return tx.getValue();
+			return tx.getValue().trim();
 		}		
 		return "";
 	}	
+
+
+	/**
+	 * Retorna un String que es el motivo de anulacion..
+	 * Retorna vacio en caso de que se dio click en Cancelar..
+	 * */
+	public String getMotivoAnulacion() {
+		return this.getMensaje("Motivo de la Anulación", "Especifique el motivo de la anulación");
+	}	
+
+
 }
 
 // verificador del popup del motivo anulacion..

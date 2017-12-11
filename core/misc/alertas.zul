@@ -5,13 +5,18 @@
 	<div id="alertas">
 		<vlayout>
 			<hlayout width="100%" sclass="z-valign-middle">
+				<toolbarbutton label="Nueva" dir="reverse"
+					image="/core/images/add_.png" onClick="@command('crearAlertaRapida')" />
 				<separator width="360px" />
 				<toolbarbutton label="Anterior" dir="reverse"
 					image="/core/images/nav_izquierda.png" onClick="@command('prev')" />
 				<toolbarbutton label="Siguiente"
 					image="/core/images/nav_derecha.png" onClick="@command('next')" />
+				<separator width="100px" />
+				<label value="@load(vm.rango)"/>
 			</hlayout>
-			<listbox height="500px" model="@load(vm.alertas)"
+			
+			<listbox height="500px" model="@load(vm.alertas)" width="100%"
 				selectedItem="@bind(vm.selectedAlerta)"
 				emptyMessage="@bind(vm.mensaje)">
 				<custom-attributes
@@ -20,30 +25,43 @@
 					<listheader style="text-align:center"
 						width="50px">
 						<vlayout>
+							<label value="Id" />
+						</vlayout>
+					</listheader>
+					<!-- 
+					<listheader style="text-align:center"
+						width="50px">
+						<vlayout>
 							<label value="Nivel:" />
 						</vlayout>
 					</listheader>
+					 -->					
 					<listheader style="text-align:center"
 						width="150px">
 						<vlayout>
-							<label value="Fecha creación:" />
+							<label value="F.Creado" />
 						</vlayout>
 					</listheader>
 					<listheader style="text-align:center"
 						width="100px">
 						<vlayout>
-							<label value="Creador:" />
+							<label value="Creador" />
 						</vlayout>
 					</listheader>
 
 					<listheader style="text-align:center"
-						width="200px">
+						width="100px">
+						<vlayout>
+							<label value="Destino" />
+						</vlayout>
+					</listheader>
+
+					<listheader style="text-align:center" >
 						<vlayout>
 							<label value="Descripción" />
 						</vlayout>
 					</listheader>
-					<listheader style="text-align:center"
-						width="200px">
+					<listheader style="text-align:center" width="200px">
 						<vlayout>
 							<label value="Observación" />
 						</vlayout>
@@ -51,24 +69,28 @@
 					<listheader style="text-align:center"
 						width="150px">
 						<vlayout>
-							<label value="Fecha cancelación" />
+							<label value="F.Cancelado" />
 						</vlayout>
 					</listheader>
 					<listheader style="text-align:center"
 						width="50px">
 						<vlayout>
-							<label value="Estado" />
+							<label value="E" tooltiptext="Estado" />
 						</vlayout>
 					</listheader>
 				</listhead>
 				<template name="model">
 					<listitem>
+						<listcell label="@load(each.id)"/>
+						<!-- 
 						<listcell>
 							<image src="@load(each.nivelAlerta)"
 								tooltiptext="@load(each.mensajeNivel)" />
 						</listcell>
+						 -->
 						<listcell label="@load(each.fechaCreacionStr)"/>
 						<listcell label="@load(each.creador)" />
+						<listcell label="@load(each.destino)" />
 						<listcell label="@load(each.descripcion)" />
 						<listcell label="@load(each.observacion)" />
 						<listcell

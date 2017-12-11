@@ -50,7 +50,7 @@ public class ControlAlertas extends SoloViewModel {
 	private AlertaDTO selectedAlerta;
 
 	public List<AlertaDTO> getAlertas() {
-		return alertas;
+		return this.alertas;
 	}
 
 	public void setAlertas(List<AlertaDTO> alertas) {
@@ -95,7 +95,7 @@ public class ControlAlertas extends SoloViewModel {
 			w = new WindowPopup();
 			w.setModo(WindowPopup.NUEVO);
 			w.setTitulo("Mis Alertas");
-			w.setWidth("920px");
+			w.setWidth("1200px");
 			w.setHigth("520px");
 			w.setSoloBotonCerrar();
 			w.show(Config.ALERTAS_ZUL);
@@ -127,14 +127,16 @@ public class ControlAlertas extends SoloViewModel {
 	}
 
 	@Command
-	@NotifyChange("alertas")
+	@NotifyChange({"alertas","rango"})
 	public void next() {
-		this.desde += 20;
 		this.alertas = this.cargarAlertas();
+		if (this.alertas.size() > 0){
+			this.desde += 20;
+		}
 	}
 
 	@Command
-	@NotifyChange("alertas")
+	@NotifyChange({"alertas","rango"})
 	public void prev() {
 		if (this.desde != 0) {
 			this.desde -= 20;
@@ -238,7 +240,7 @@ public class ControlAlertas extends SoloViewModel {
 		this.refrescarAlertas(destino);
 	}
 
-	/*@Command
+	@Command
 	@NotifyChange("*")
 	public void crearAlertaRapida() throws Exception {
 		ControlCrearAlerta ca = new ControlCrearAlerta();
@@ -261,9 +263,9 @@ public class ControlAlertas extends SoloViewModel {
 				this.grabarAlerta(nuevaAlerta);
 				this.refrescarAlertas(nuevaAlerta.getDestino());
 			}
-			this.cargarAlertas();
+			this.alertas = this.cargarAlertas();
 		}
-	}*/
+	}
 
 	private void grabarAlerta(AlertaDTO alerta) throws Exception {
 		String login = this.getLoginNombre();
@@ -277,14 +279,17 @@ public class ControlAlertas extends SoloViewModel {
 	public void cancelarAlerta() throws Exception {
 		String login = this.getLoginNombre();
 		String destino = this.selectedAlerta.getDestino();
-		if (!this.selectedAlerta.isCancelada() && destino.contains(login)) {
-			String obsv = this.getMotivoAnulacion();
+		if ((this.selectedAlerta.isCancelada()==false) && destino.contains(login)) {
+			String obsv = this.getMensaje("Respuesta","...respuesta");
 			if (obsv.length() != 0) {
+				this.selectedAlerta.setFechaCancelacion(new Date());
 				this.selectedAlerta.setCancelada(true);
 				this.selectedAlerta.setObservacion(obsv);
 				this.grabarAlerta(this.selectedAlerta);
 				this.refrescarAlertas(destino);
 			}
+		}else{
+			this.mensajePopupTemporal("Usted no puede responder esta alerta.");
 		}
 	}
 
@@ -299,4 +304,23 @@ public class ControlAlertas extends SoloViewModel {
 		}
 	}
 
+	public int getDesde() {
+		return desde;
+	}
+
+	public String getRango() {
+		String hasta = desde+cantidad+"";
+		if (this.alertas.size() == this.cantidad){
+			hasta += "+";
+		}
+		return "[Rango "+desde+" - "+hasta+"]";
+	}
+
+	
+	public void setDesde(int desde) {
+		this.desde = desde;
+	}
+
 }
+
+

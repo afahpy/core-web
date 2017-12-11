@@ -139,6 +139,8 @@ public class Config {
 	public static String EXTENSION_IMAGEN = "jpg-jpeg-gif-png-tif";
 	public static String EXTENSION_PLANILLA = "xlsx-csv-ods";
 
+	/********************************************************************************************/
+	/********************************************************************************************/
 	// alertas
 	public static String ICONO_ACEPTAR_16X16 = "/core/images/accept_.png";
 	public static String ICONO_ANULAR_16X16 = "/core/images/delete_.png";
@@ -160,6 +162,27 @@ public class Config {
 	public static String NRO_ALERTA = "ALER";
 	
 	public static String CREAR_ALERTA_ZUL = "/core/misc/crearAlerta.zul";
+
+	
+	/*** esto debería estar en el core */
+
+	public static String ID_TIPO_TIPO_ALERTA = "Tipo Alerta";
+
+	public static String[] ARR_TIPO_ALERTAS = { ID_TIPO_TIPO_ALERTA,
+			SIGLA_TIPO_ALERTA_MUCHOS, "Muchos destinos, muchos canceladores",
+			SIGLA_TIPO_ALERTA_UNO, "Un destino, un cancelador",
+			SIGLA_TIPO_ALERTA_COMUNITARIA, "Muchos destinos, algun cancelador", };
+
+	public static String ID_TIPO_NIVEL_ALERTA = "Nivel Alerta";
+
+	public static String[] ARR_TIPO_NIVEL_ALERTAS = { ID_TIPO_NIVEL_ALERTA,
+			SIGLA_NIVEL_ALERTA_INFORMATIVA, ALERTA_NIVEL_INFORMATIVO,
+			SIGLA_NIVEL_ALERTA_ERROR, ALERTA_NIVEL_ERROR, };
+	
+	
+	/********************************************************************************************/
+	/********************************************************************************************/
+	
 	
 	public static String STR_ERROR_BUSCAR_ELEMENTO = "Debe ingresar un criterio de filtro";
 	

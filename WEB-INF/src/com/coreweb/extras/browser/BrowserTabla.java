@@ -6,11 +6,18 @@ import java.util.Date;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.ExecutionParam;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Path;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Include;
 
 import com.coreweb.Config;
 import com.coreweb.control.Control;
@@ -21,6 +28,7 @@ import com.coreweb.util.MyArray;
 public class BrowserTabla extends Control {
 
 	String APP = Config.APP_NAME;
+	Component mainComp = null;
 
 	String v1 = APP + "/core/browser2/DataTables/DataTables-1.10.16/css/jquery.dataTables.css";
 	String v2 = APP + "/core/browser2/DataTables/datatables.min.js";
@@ -38,8 +46,11 @@ public class BrowserTabla extends Control {
 
 	BrowserTablaDatosInterface datos = null;
 
+	
 	@Init(superclass = true)
-	public void initBrowserTabla(@ExecutionParam("datos") Object obj) {
+	public void initBrowserTabla(@ExecutionParam("datos") Object obj, 
+			@ContextParam(ContextType.VIEW) Component view) {
+		mainComp = view;
 		
 		System.out.println("\n\n\n\n\nv1: "+v1+"\n\n\n\n\n");
 		
@@ -53,6 +64,35 @@ public class BrowserTabla extends Control {
 		// System.out.println("after de BrowserTabla");
 	}
 
+	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void refrescarDatosTabla() {
+		
+		
+		this.mensajePopupTemporalWarning("Sin implementar aun");
+		if (1==1){
+			return;
+		}
+
+		try {
+
+			Include inc = (Include) mainComp.getFellow("idBrowserTable", true);
+			
+			String src = inc.getSrc();
+			inc.setSrc(null);
+			inc.setMode("defer");
+			inc.setSrc(src);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.mensajePopupTemporalWarning("Error al refrescar los datos\n" + e.getMessage());
+		}
+	}
+	
+	
+	
 	public BrowserTablaDatosInterface getDatos() {
 		return datos;
 	}

@@ -5,15 +5,17 @@
 		<vlayout>
 
 			<hlayout sclass="z-valign-middle">
-				<grid width="370px">
+				<grid width="670px">
 					<columns>
-						<column width="100px"></column>
+						<column width="120px"></column>
+						<column width="550px"></column>
 					</columns>
 					<rows>
+					<!-- 
 						<row>
 							Número:
 							<textbox value="@load(vm.alerta.numero)"
-								readonly="true" width="250px" />
+								readonly="true" width="100px" />
 						</row>
 						<row>
 							Nivel:
@@ -31,6 +33,7 @@
 								</template>
 							</combobox>
 						</row>
+					 -->	
 						<row visible="@load(vm.habUsuario)">
 							Usuario:
 							<hbox>
@@ -42,6 +45,8 @@
 									onClick="@command('buscarUsuario')" />
 							</hbox>
 						</row>
+						
+						<!-- 
 						<row visible="@load(vm.habGrupo)">
 							Grupo:
 							<combobox model="@load(vm.grupos)"
@@ -64,11 +69,12 @@
 								</template>
 							</combobox>
 						</row>
+						 -->
 						<row>
 							Descripción:
 							<textbox
-								value="@bind(vm.alerta.descripcion)" width="250px"
-								height="100px" />
+								value="@bind(vm.alerta.descripcion)" width="540px" multiline="true"
+								height="200px" />
 						</row>
 					</rows>
 				</grid>

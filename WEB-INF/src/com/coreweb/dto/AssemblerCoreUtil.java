@@ -29,11 +29,13 @@ public abstract class AssemblerCoreUtil extends Assembler {
 			dto.setHabilitado(this.listaSiNo());
 			// para cargar los diferentes tipos y niveles de alertas
 			Register rr = Register.getInstance();
+			
 			Tipo nivelAlertaInformativa = (Tipo) rr.getTipoPorSigla(Config.SIGLA_NIVEL_ALERTA_INFORMATIVA);
 			Tipo nivelAlertaError = (Tipo) rr.getTipoPorSigla(Config.SIGLA_NIVEL_ALERTA_ERROR);
 			Tipo tipoAlertaUno = (Tipo) rr.getTipoPorSigla(Config.SIGLA_TIPO_ALERTA_UNO);
 			Tipo tipoAlertaMuchos = (Tipo) rr.getTipoPorSigla(Config.SIGLA_TIPO_ALERTA_MUCHOS);
-			Tipo tipoAlertaComunitaria = (Tipo) rr.getTipoPorSigla(Config.SIGLA_TIPO_ALERTA_COMUNITARIA);
+			Tipo tipoAlertaComunitaria = (Tipo) rr.getTipoPorSigla(Config.SIGLA_TIPO_ALERTA_COMUNITARIA);			
+			
 			dto.setNivelAlertaInformativa(this.tipoToMyPair(nivelAlertaInformativa));
 			dto.setNivelAlertaError(this.tipoToMyPair(nivelAlertaError));
 			dto.setTipoAlertaUno(this.tipoToMyPair(tipoAlertaUno));

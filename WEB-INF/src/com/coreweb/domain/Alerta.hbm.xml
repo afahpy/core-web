@@ -16,8 +16,8 @@
 		<property name="fechaCancelacion" />
 		<property name="creador" />
 		<property name="destino" />
-		<property name="descripcion" />
-		<property name="observacion" />
+		<property name="descripcion" type="text" />
+		<property name="observacion" type="text" />
 		<property name="cancelada" />
 
 		<many-to-one name="nivel" class="com.coreweb.domain.Tipo"

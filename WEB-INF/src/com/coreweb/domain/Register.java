@@ -1322,8 +1322,13 @@ public class Register {
 	public List<Alerta> getAllAlertas(int desde, int cantidad, String usuario)
 			throws Exception {
 		List<Alerta> list = null;
+		
+		Criterion dest = Restrictions.like("destino", usuario, MatchMode.ANYWHERE);
+		Criterion crea = Restrictions.like("creador", usuario, MatchMode.ANYWHERE);
+		
 		Vector v = new Vector();
-		v.add(Restrictions.like("destino", usuario, MatchMode.ANYWHERE));
+		v.add(Restrictions.or(dest, crea));
+		
 		Vector v2 = new Vector();
 		v2.add(Order.asc("cancelada"));
 		v2.add(Order.desc("fechaCreacion"));
