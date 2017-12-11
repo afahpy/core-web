@@ -1,6 +1,7 @@
 package com.coreweb.control;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Enumeration;
@@ -20,6 +21,7 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.IdSpace;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
@@ -55,7 +57,8 @@ public class Control {
 	private static UtilCoreDTO dtoUtil = null; // = new
 												// AssemblerUtil().getDTOUtil();
 
-	private Component main;
+	private Component view;
+
 	private Hashtable<String, String> hashFilterValue = new Hashtable<String, String>();
 	// private ControlAgendaEvento ctrAgenda = new ControlAgendaEvento();
 	private Assembler ass;
@@ -90,7 +93,7 @@ public class Control {
 
 	@Init(superclass = true)
 	public void initControl() throws Exception {
-
+		
 		Session s = this.getSessionZK();
 		if (this.getDtoUtil() == null) {
 			String prefix = Executions.getCurrent().getParameter(Config.PREFIX);
@@ -132,6 +135,8 @@ public class Control {
 	@AfterCompose(superclass = true)
 	public void afterComposeControl(@ContextParam(ContextType.VIEW) Component view) {
 
+		this.view = view;
+		
 		// para los casos que queremos navegar sin el control
 		SistemaPropiedad sisPro = new SistemaPropiedad();
 		boolean ctrLogin = sisPro.isControlLoginPage();
@@ -159,6 +164,37 @@ public class Control {
 		// this.saltoDePagina(Archivo.errorLogin);
 	}
 
+	
+	public Component getComponenteById(String idStr){
+		Component mm = this.view;
+		Collection<Component> cc = mm.getDesktop().getComponents();
+		for (Iterator iterator = cc.iterator(); iterator.hasNext();) {
+			Component component = (Component) iterator.next();
+			Component xc = findComponenteById(component, idStr);
+			if (xc != null){
+				return xc;
+			}
+		}
+		return null;
+	}
+
+	public Component findComponenteById(Component component, String id) {
+	    if (component instanceof IdSpace) {
+	        Component found = component.query("#" + id);
+	        if (found != null) return found;
+	    }
+
+	    for(Component child : component.getChildren()) {
+	        Component found = findComponenteById(child, id);
+	        if (found != null) return found;
+	    }
+
+	    return null;
+	}
+	
+	
+	
+	
 	static public UtilCoreDTO getDtoUtilStatic() {
 		return dtoUtil;
 	}
@@ -261,7 +297,7 @@ public class Control {
 	// hacer un salto de pagina
 	public void saltoDePagina(String url, Map<String, Object> params) {
 		try {
-			main = Path.getComponent("/templateInicio");
+			Component main = Path.getComponent("/templateInicio");
 			Include inc = (Include) main.getFellow("principalBody", true);
 
 			Iterator<String> enu = params.keySet().iterator();
@@ -289,7 +325,7 @@ public class Control {
 		}
 
 		try {
-			main = Path.getComponent("/templateInicio");
+			Component main = Path.getComponent("/templateInicio");
 			Menuitem item = (Menuitem) main.getFellow("carita", true);
 			if (b == true) {
 				item.setImage(Archivo.caritaFeliz);

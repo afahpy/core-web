@@ -1,7 +1,10 @@
 package com.coreweb.extras.browser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -15,6 +18,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.IdSpace;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
@@ -68,17 +72,8 @@ public class BrowserTabla extends Control {
 	@GlobalCommand
 	@NotifyChange("*")
 	public void refrescarDatosTabla() {
-		
-		
-		this.mensajePopupTemporalWarning("Sin implementar aun");
-		if (1==1){
-			return;
-		}
-
 		try {
-
-			Include inc = (Include) mainComp.getFellow("idBrowserTable", true);
-			
+			Include inc = (Include) this.getComponenteById(this.datos.getIdInclude());		
 			String src = inc.getSrc();
 			inc.setSrc(null);
 			inc.setMode("defer");
@@ -90,6 +85,9 @@ public class BrowserTabla extends Control {
 			this.mensajePopupTemporalWarning("Error al refrescar los datos\n" + e.getMessage());
 		}
 	}
+	
+	
+	
 	
 	
 	

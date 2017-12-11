@@ -6,6 +6,12 @@ import java.util.Hashtable;
 public interface BrowserTablaDatosInterface {
 
 	/**
+	 * El id que se usa para el include
+	 * @return
+	 */
+	public String getIdInclude();
+	
+	/**
 	 * Define su usa una lista o usa el query
 	 * @return
 	 */
