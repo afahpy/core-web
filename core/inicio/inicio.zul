@@ -33,24 +33,30 @@
 	</style>
 	<script>
 
-
-
-
-
 		
-		<![CDATA[ zk.afterLoad("zul.tab", function () { var _tpWgt = {};
-		zk.override(zul.tab.Tabpanel.prototype, _tpWgt, { bind_:
-		function (a, b, c) { _tpWgt.bind_.apply(this, arguments); if
-		(!this._visible) jq(this.$n()).addClass('z-tabpanel-hidden'); },
-		setVisible: function (v) { var n = this.$n();
-		_tpWgt.setVisible.apply(this, arguments); if (n) { if (v)
-		jq(this.$n()).removeClass('z-tabpanel-hidden'); else
-		jq(this.$n()).addClass('z-tabpanel-hidden'); } } }); }); ]]>
+		<![CDATA[ 
+		          zk.afterLoad("zul.tab", function () { 
+		        	var _tpWgt = {};
+					zk.override(zul.tab.Tabpanel.prototype, _tpWgt, { 
+						bind_: function (a, b, c) { 
+						_tpWgt.bind_.apply(this, arguments); 
+						if (!this._visible) 
+							jq(this.$n()).addClass('z-tabpanel-hidden'); 
+						},
+					setVisible: function (v) { 
+							var n = this.$n();
+							_tpWgt.setVisible.apply(this, arguments); 
+							if (n) { 
+								if (v) 
+									jq(this.$n()).removeClass('z-tabpanel-hidden'); 
+								else
+									jq(this.$n()).addClass('z-tabpanel-hidden'); 
+								} 
+							} 
+						}); 
+					}); 
+				]]>
 		
-		
-		
-		
-
 
 	</script>
 
@@ -72,6 +78,9 @@
 		@init('com.coreweb.login.ControlInicio')"
 		border="normal">
 
+ 
+<timer id="timerKeepAliveSession" repeats="true" delay="60000" onTimer=""/>
+
 		<!-- contentStyle="overflow:auto" -->
 
 		<!-- // esto es para recibir como parametro el // archivo del menu a utilizar -->
@@ -79,8 +88,7 @@
 		<zscript>
 	import javax.servlet.http.HttpServletRequest;
 	import org.zkoss.zk.ui.Executions;
-	HttpServletRequest request = (HttpServletRequest) Executions.getCurrent()
-			.getNativeRequest();
+	HttpServletRequest request = (HttpServletRequest) Executions.getCurrent().getNativeRequest();
 	String menuApp = request.getParameter("menu");
 </zscript>
 
@@ -110,8 +118,8 @@
 				<hlayout valign="middle">
 					<hbox width="1px" align="center" height="30px" />
 
-					<hbox align="center" height="30px"
-						pack="start" visible="true">
+					<hbox align="center" height="30px" pack="start"
+						visible="true">
 						<include id="menuSistema"
 							src="@load(vm.menuSistema)" />
 					</hbox>
@@ -145,7 +153,7 @@
 								style="@load(vm.colorBarra)"
 								visible="@load(vm.misVentasVisible)"
 								onClick='usuEnLinea.open(templateInicio, "overlap_after")' />
-<!-- 							<menuitem id="support"
+							<!-- 							<menuitem id="support"
 								label="Soporte Sistema"
 								href="https://sistemasyhaguy.freshdesk.com/support/tickets/new"
 								target="_blank" iconSclass="z-icon-wrench"

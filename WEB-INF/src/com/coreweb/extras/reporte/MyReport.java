@@ -215,7 +215,9 @@ public class MyReport extends ReporteDefinicion {
 				}
 			}
 
-			this.reporteCore.setPropiedadesExtras(rep);
+			if (this.reporteCore != null){
+				this.reporteCore.setPropiedadesExtras(rep);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
