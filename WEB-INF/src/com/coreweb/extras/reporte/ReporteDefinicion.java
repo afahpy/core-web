@@ -63,6 +63,7 @@ public class ReporteDefinicion {
 
 	public static final String TABLA_ESTILO_CLASICO = "TablaClasico";
 	public static final String TABLA_ESTILO_MODERNO = "TablaModerno";
+	public static final String TABLA_SIN_CABECERA = "TablaSinCabecera";
 
 	private PageType tipoPagina = PageType.A4;
 	private Color colorSombreado = new Color(221, 221, 221);
@@ -670,6 +671,9 @@ public class ReporteDefinicion {
 	public ComponentBuilder getTabla(String[][] cols, List<Object[]> datos, String prop, boolean siPie,
 			boolean paddingDer, boolean paddingIzq, String tablaEstilo) {
 
+		boolean siCabecera = prop.indexOf(TABLA_SIN_CABECERA) < 0;
+
+		
 		boolean siEstiloModerno = tablaEstilo.compareTo(TABLA_ESTILO_MODERNO) == 0;
 
 		HorizontalListBuilder out = cmp.horizontalList();
@@ -732,7 +736,10 @@ public class ReporteDefinicion {
 			fila.setStyle(colorbk);
 		}
 		
-		tabla.add(fila);
+		if (siCabecera == true){
+			tabla.add(fila);
+		}
+		
 
 		siBkColor = !siBkColor;
 
