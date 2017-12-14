@@ -1866,6 +1866,50 @@ public class Misc {
 	}
 
 	
+	// meses entre dos fechas
+	public int mesesEntreFechas(Date fechaInicio, Date fechaFin) {
+		Calendar startCalendar = Calendar.getInstance();
+		startCalendar.setTime(fechaInicio);
+
+		Calendar endCalendar = Calendar.getInstance();
+		endCalendar.setTime(fechaFin);
+
+		int startMes = (startCalendar.get(Calendar.YEAR) * 12)
+				+ startCalendar.get(Calendar.MONTH);
+		int endMes = (endCalendar.get(Calendar.YEAR) * 12)
+				+ endCalendar.get(Calendar.MONTH);
+
+		int diffMonth = endMes - startMes + 1;
+		return diffMonth;
+	}
+
+	public String[] arregloMeses(Date fechaIni, Date fechaFin) {
+		int meses = this.mesesEntreFechas(fechaIni, fechaFin);
+		return this.arregloMeses(fechaIni, meses);
+	}
+
+	
+	public String[] arregloMeses(Date fechaIni, int nMes) {
+		String[] meses = new String[nMes];
+
+		Calendar startCalendar = Calendar.getInstance();
+		startCalendar.setTime(fechaIni);
+
+		int anioCC = startCalendar.get(Calendar.YEAR);
+		int mesCC = (startCalendar.get(Calendar.MONTH) + 1);
+
+		for (int i = 0; i < meses.length; i++) {
+			String ss = anioCC + "-" + mesCC;
+			meses[i] = ss;
+			mesCC++;
+			if (mesCC > 12) {
+				mesCC = 1;
+				anioCC++;
+			}
+		}
+		return meses;
+	}
+	
 	
 	public static void main(String[] args) {
 		Misc m = new Misc();	
