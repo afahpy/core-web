@@ -63,13 +63,13 @@
 					</listheader>
 					<listheader style="text-align:center" width="200px">
 						<vlayout>
-							<label value="Observación" />
+							<label value="Respuesta" />
 						</vlayout>
 					</listheader>
 					<listheader style="text-align:center"
 						width="150px">
 						<vlayout>
-							<label value="F.Cancelado" />
+							<label value="F.Respuesta" />
 						</vlayout>
 					</listheader>
 					<listheader style="text-align:center"
