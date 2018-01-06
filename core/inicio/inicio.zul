@@ -33,29 +33,17 @@
 	</style>
 	<script>
 
+
 		
-		<![CDATA[ 
-		          zk.afterLoad("zul.tab", function () { 
-		        	var _tpWgt = {};
-					zk.override(zul.tab.Tabpanel.prototype, _tpWgt, { 
-						bind_: function (a, b, c) { 
-						_tpWgt.bind_.apply(this, arguments); 
-						if (!this._visible) 
-							jq(this.$n()).addClass('z-tabpanel-hidden'); 
-						},
-					setVisible: function (v) { 
-							var n = this.$n();
-							_tpWgt.setVisible.apply(this, arguments); 
-							if (n) { 
-								if (v) 
-									jq(this.$n()).removeClass('z-tabpanel-hidden'); 
-								else
-									jq(this.$n()).addClass('z-tabpanel-hidden'); 
-								} 
-							} 
-						}); 
-					}); 
-				]]>
+		<![CDATA[ zk.afterLoad("zul.tab", function () { var _tpWgt = {};
+		zk.override(zul.tab.Tabpanel.prototype, _tpWgt, { bind_:
+		function (a, b, c) { _tpWgt.bind_.apply(this, arguments); if
+		(!this._visible) jq(this.$n()).addClass('z-tabpanel-hidden'); },
+		setVisible: function (v) { var n = this.$n();
+		_tpWgt.setVisible.apply(this, arguments); if (n) { if (v)
+		jq(this.$n()).removeClass('z-tabpanel-hidden'); else
+		jq(this.$n()).addClass('z-tabpanel-hidden'); } } }); }); ]]>
+		
 		
 
 	</script>
@@ -78,8 +66,9 @@
 		@init('com.coreweb.login.ControlInicio')"
 		border="normal">
 
- 
-<timer id="timerKeepAliveSession" repeats="true" delay="60000" onTimer=""/>
+
+		<timer id="timerKeepAliveSession" repeats="true" delay="60000"
+			onTimer="" />
 
 		<!-- contentStyle="overflow:auto" -->
 
@@ -170,12 +159,11 @@
 								style="@load(vm.colorBarra)" />
 							<menuitem id="carita" label="click me"
 								image="/core/images/face-angry.png" style="@load(vm.colorBarra)"
-								visible="false" />
-							<!-- onClick="@command('mostrarCarita')" -->
+								visible="true" onClick="@command('mostrarCarita')" />
 						</menubar>
 					</hbox>
 
-
+					<field value=" " />
 				</hlayout>
 				<!-- <menu label="@load(vm.us.nombre)" onClick="@command('informacionUsuario')" 
 					image="/core/images/user1.png" /> <image id="infoUsuario" src="/core/images/user1.png" 
