@@ -1,0 +1,6 @@
+<window title="${arg.title}" width="${arg.width}" height="${arg.height}" contentStyle="overflow:auto"
+ border="normal"  closable="true" sizable="true" xmlns:h="http://www.w3.org/1999/xhtml" >
+	<vbox>
+			<label pre="true" value="${arg.message}" multiline="true" style="font-family: 'Courier New', Courier, monospace;"/>
+	</vbox>
+</window>
