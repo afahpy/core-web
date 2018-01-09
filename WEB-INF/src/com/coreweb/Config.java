@@ -163,6 +163,7 @@ public class Config {
 	
 	public static String CREAR_ALERTA_ZUL = "/core/misc/crearAlerta.zul";
 
+	public static String MENSAJE_POPUP_ZUL = "/core/componente/mensajePopUp.zul";
 	
 	/*** esto debería estar en el core */
 

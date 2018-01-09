@@ -51,6 +51,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import com.coreweb.Config;
 import com.coreweb.domain.IiD;
@@ -1246,6 +1247,25 @@ public class Misc {
 	}
 
 	// ======================================================
+	
+	public void mensajePopUpMonoSpace(String titulo, String texto, String width, String height){
+		try {
+			Map<String, String> params = new HashMap<>();
+			params.put("title", titulo);
+			params.put("message", texto);
+			params.put("width", width);
+			params.put("height", height);
+			Window win = (Window)Executions.createComponents( Config.MENSAJE_POPUP_ZUL, null, params ) ;
+			win.doModal();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void mensajePopUpMonoSpace(String titulo, String texto){
+		this.mensajePopUpMonoSpace(titulo, texto, "500px", "300px");
+	}
+	
 
 	public boolean mensajeEliminar(String texto) {
 

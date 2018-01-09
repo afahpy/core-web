@@ -218,7 +218,7 @@ public class HibernateUtil {
 		try {
 			Class.forName("org.postgresql.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/yhaguydb", "postgres",
+					"jdbc:postgresql://localhost:5432/transferenciatdn", "postgres",
 					"postgres");
 
 			String sql = "SELECT * FROM usuariooperacion WHERE idformulario = ?";
@@ -264,8 +264,8 @@ public class HibernateUtil {
 	public static void main(String[] args) {
 		// HibernateUtil.clearDB();
 
-		// pruebaPreparedStatement();
-		pruebaProperties();
+		pruebaPreparedStatement();
+		//pruebaProperties();
 	}
 
 }
