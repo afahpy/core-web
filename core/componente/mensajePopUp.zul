@@ -1,6 +1,35 @@
-<window title="${arg.title}" width="${arg.width}" height="${arg.height}" contentStyle="overflow:auto"
- border="normal"  closable="true" sizable="true" xmlns:h="http://www.w3.org/1999/xhtml" >
+<div viewModel="@id('vm') @init('com.coreweb.componente.MensajePopUp')"
+apply="org.zkoss.bind.BindComposer" >
 	<vbox>
-			<label pre="true" value="${arg.message}" multiline="true" style="font-family: 'Courier New', Courier, monospace;"/>
+		<label pre="true" value="@load(vm.message)" multiline="true"
+			style="font-family: 'Courier New', Courier, monospace;" />
+	</vbox>
+</div>
+
+<!-- 
+
+@ExecutionArgParam(Config.DATO_SOLO_VIEW_MODEL)
+
+<window title="@load(vm.title)" width="@load(vm.width)" height="@load(vm.height)"
+	border="normal" closable="true" focus="true" sizable="true"
+	contentStyle="overflow:auto" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.coreweb.componente.MensajePopUp')">
+	<vbox>
+		<label pre="true" value="@load(vm.message)" multiline="true"
+			style="font-family: 'Courier New', Courier, monospace;" />
 	</vbox>
 </window>
+ -->
+
+<!-- 
+	contentStyle="overflow:auto"
+	apply="org.zkoss.bind.BindComposer" mode="modal"
+	viewModel="@id('vm') @init('com.coreweb.componente.MensajePopUp')"
+
+		<label pre="true" value="${arg.message}" multiline="true"
+			style="font-family: 'Courier New', Courier, monospace;" />
+
+<window title="${arg.title}" width="${arg.width}" height="${arg.height}"
+
+	
+-->

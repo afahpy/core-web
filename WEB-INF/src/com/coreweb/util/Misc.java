@@ -49,11 +49,13 @@ import org.zkoss.io.Files;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import com.coreweb.Config;
+import com.coreweb.componente.WindowPopup;
 import com.coreweb.domain.IiD;
 
 public class Misc {
@@ -1250,13 +1252,16 @@ public class Misc {
 	
 	public void mensajePopUpMonoSpace(String titulo, String texto, String width, String height){
 		try {
-			Map<String, String> params = new HashMap<>();
-			params.put("title", titulo);
-			params.put("message", texto);
-			params.put("width", width);
-			params.put("height", height);
-			Window win = (Window)Executions.createComponents( Config.MENSAJE_POPUP_ZUL, null, params ) ;
-			win.doModal();
+			WindowPopup win = new WindowPopup();
+			win.setDato(texto);
+			win.setWidth(width);
+			win.setHigth(height);
+			win.setTitulo(titulo);
+			win.permitirEditar(false);
+			win.setSoloBotonCerrar();
+			win.setModo(WindowPopup.SOLO_LECTURA);
+			win.show(Config.MENSAJE_POPUP_ZUL);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
