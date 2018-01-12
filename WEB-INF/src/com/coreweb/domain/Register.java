@@ -182,6 +182,7 @@ public class Register {
 	}
 	
 
+	
 	public synchronized void saveObject(Domain o, String user) throws Exception {
 		if (this.USA_THREAD == true){
 			DominiosToProcesar.put(user, o);

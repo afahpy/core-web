@@ -9,6 +9,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.hibernate.EntityNameResolver;
 import org.hibernate.cfg.Configuration;
@@ -37,8 +38,7 @@ public class DBMenuUserParser {
 
 	private Register rr = Register.getInstance();
 
-	public DBMenuUserParser(String fileIni, Class idClass, String userIni,
-			String[] usuarioPropiedades) {
+	public DBMenuUserParser(String fileIni, Class idClass, String userIni, String[] usuarioPropiedades) {
 		this.file = fileIni;
 		this.idClass = idClass;
 		this.userIni = userIni;
@@ -50,7 +50,7 @@ public class DBMenuUserParser {
 		Modulo modulo = new Modulo();
 
 		// 0 es el core.
-		
+
 		for (int mi = 0; ((mi <= 1) || (modulo != null)); mi++) {
 			// buscar los modulos
 			String m_ = m + mi;
@@ -64,7 +64,7 @@ public class DBMenuUserParser {
 					rr.saveObject(modulo, Config.USER_SYSTEMA);
 				}
 			}
-		}// modulo
+		} // modulo
 
 	}
 
@@ -221,7 +221,14 @@ public class DBMenuUserParser {
 			usuario = new Usuario();
 			usuario.setLogin(value[0]);
 			usuario.setNombre(value[1]);
-			usuario.setClave(misc.encriptar(value[2]));
+
+			// cuando se usa el menu que es generado, se tiene las claves
+			// encriptadas, en ese caso no hay que volver a encriptar
+			String clave = value[2];
+			if (clave.trim().length() < 25) {
+				clave = misc.encriptar(value[2]);
+			}
+			usuario.setClave(clave);
 
 			// perfiles para este usuario
 			for (int pi = 3; pi < value.length; pi++) {
@@ -296,36 +303,24 @@ public class DBMenuUserParser {
 	private void deleteDatos() throws Exception {
 
 		/*
-		rr.deleteAllObjects(Permiso.class.getName());
-		rr.deleteAllObjects(Operacion.class.getName());
-
-		rr.deleteAllObjects(Perfil.class.getName());
-		rr.deleteAllObjects(Modulo.class.getName());
-
-		rr.deleteAllObjects(UsuarioPropiedad.class.getName());
-		rr.deleteAllObjects(Usuario.class.getName());
-		*/
-		String delTablas = "DROP TABLE IF EXISTS " +
-				"usuario, " +
-				"usuario_usuarioperfil, " +
-				"usuarioformulario, " +
-				"usuariomodulo, " +
-				"usuariooperacion, " +
-				"usuarioperfil, " +
-				"usuariopermiso, " +
-				"usuariopropiedad " +
-				"CASCADE";
+		 * rr.deleteAllObjects(Permiso.class.getName());
+		 * rr.deleteAllObjects(Operacion.class.getName());
+		 * 
+		 * rr.deleteAllObjects(Perfil.class.getName());
+		 * rr.deleteAllObjects(Modulo.class.getName());
+		 * 
+		 * rr.deleteAllObjects(UsuarioPropiedad.class.getName());
+		 * rr.deleteAllObjects(Usuario.class.getName());
+		 */
+		String delTablas = "DROP TABLE IF EXISTS " + "usuario, " + "usuario_usuarioperfil, " + "usuarioformulario, "
+				+ "usuariomodulo, " + "usuariooperacion, " + "usuarioperfil, " + "usuariopermiso, "
+				+ "usuariopropiedad " + "CASCADE";
 
 		rr.sql2(delTablas);
 		rr.resetTables();
-		
-		rr.deleteAllObjects(Tipo.class.getName(), "sigla",
-				Config.TIPO_USUARIO_PROPIEDAD_SIGLA);
-		rr.deleteAllObjects(TipoTipo.class.getName(), "descripcion",
-				Config.TIPO_TIPO_USUARIO_PROPIEDAD);
-		
-		
-		
+
+		rr.deleteAllObjects(Tipo.class.getName(), "sigla", Config.TIPO_USUARIO_PROPIEDAD_SIGLA);
+		rr.deleteAllObjects(TipoTipo.class.getName(), "descripcion", Config.TIPO_TIPO_USUARIO_PROPIEDAD);
 
 	}
 
@@ -340,11 +335,9 @@ public class DBMenuUserParser {
 		this.loadConfigMenu();
 		this.cargaMenu(true);
 		this.cargaUsuarioPerfil(true);
-		System.out
-				.println("\n======================= menu_config.ini -> ID \n");
+		System.out.println("\n======================= menu_config.ini -> ID \n");
 		this.verificarAlias();
-		System.out
-				.println("\n======================= ID -> menu_config.ini \n");
+		System.out.println("\n======================= ID -> menu_config.ini \n");
 		this.misc.testIdInAlias(this.aliasTipo, this.idClass);
 
 		// CHISTES
@@ -393,7 +386,7 @@ public class DBMenuUserParser {
 				perfil.getPermisos().add(permiso);
 			}
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return permiso;
 	}
@@ -405,7 +398,8 @@ public class DBMenuUserParser {
 			String k = (String) keys.nextElement();
 			Permiso permiso = this.getPermisoFormatoNuevo(k.trim());
 			if ((permiso != null) && (grabar == true)) {
-				System.out.println("---------- k:("+k.trim()+")  permiso:"+permiso.getId()+ "  oper:"+permiso.getOperacion());
+				System.out.println("---------- k:(" + k.trim() + ")  permiso:" + permiso.getId() + "  oper:"
+						+ permiso.getOperacion());
 				rr.saveObject(permiso, Config.USER_SYSTEMA);
 			}
 		}
@@ -424,8 +418,7 @@ public class DBMenuUserParser {
 
 		Properties upFile = new Properties();
 		// prop.load(new FileInputStream(file));
-		upFile.load(new InputStreamReader(new FileInputStream(this.userIni),
-				"utf-8"));
+		upFile.load(new InputStreamReader(new FileInputStream(this.userIni), "utf-8"));
 
 		// cargar las propiedades como tipo
 		List<Tipo> lup = new ArrayList<Tipo>();
@@ -484,6 +477,212 @@ public class DBMenuUserParser {
 
 		}
 
+	}
+
+	// ==================================================
+
+	private String getMenuConfigCabecera() {
+		String out = "";
+		out += "﻿####################################################################################################\n";
+		out += "# Modulos: 	m_	= nombre ; descripcion\n";
+		out += "# Formularios:	m_f_	= alias ; habilitado ; label ;  descripcion ; url\n";
+		out += "# Operacion:	m_f_o_	= alias ; nombre ; descripcion ; habilitado \n";
+		out += "####################################################################################################\n";
+		out += "\n\n";
+		return out;
+	}
+
+	private String getMenuConfigCabeceraUsuarios() {
+		String out = "";
+		out += "#################################################################################################### \n";
+		out += "# Grupos:	g_ = texto  (Nota: no van en la DB, están en el Config.java) \n";
+		out += "# Perfil:	p_ = nombre ; descripcion ; grupo \n";
+		out += "# Usuario:	u_ = login ; nommbre ; clave ; p_ ... (lista de perfiles) \n";
+		out += "# Permisos	p_(perfil)-m_f_o_ (operacion) = habilitado (TRUE|FALSE) \n";
+		out += "\n";
+		return out;
+	}
+
+	private String getOperacionStr(String preForm, Operacion oper, int id) {
+		// # Operacion: m_f_o_ = alias ; nombre ; descripcion ; habilitado
+		String out = "";
+
+		String preOper = preForm + "o" + id;
+		out += preOper + " = " + oper.getAlias() + " ; ";
+		out += oper.getNombre() + " ; ";
+		out += oper.getDescripcion() + " ; ";
+		out += (oper.isHabilitado() + " ; ").toUpperCase();
+
+		// set el idText en la Operacion
+		oper.setIdTexto(preOper);
+		try {
+			rr.saveObject(oper, "sys");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return out;
+	}
+
+	private String getFormularioStr(String preMod, Formulario form, int id) {
+		// # Formularios: m_f_ = alias ; habilitado ; label ; descripcion ; url
+		String out = "";
+		String preForm = preMod + "f" + id;
+
+		out = preForm + " = " + form.getAlias() + " ; ";
+		out += (form.isHabilitado() + " ; ").toUpperCase();
+		out += form.getLabel() + " ; ";
+		out += form.getDescripcion() + " ; ";
+		out += form.getUrl();
+		out += "\n";
+
+		int i = 1;
+		Set<Operacion> loper = form.getOperaciones();
+		for (Iterator ite = loper.iterator(); ite.hasNext();) {
+			Operacion oper = (Operacion) ite.next();
+			out += this.getOperacionStr(preForm, oper, i++) + "\n";
+
+		}
+
+		return out;
+	}
+
+	private String getModuloStr(Modulo mod, int id) {
+		// m_ = nombre ; descripcion
+		String out = "";
+
+		String preMod = "m" + id;
+		out += preMod + " = " + mod.getNombre().trim() + " ; " + mod.getDescripcion().trim() + "\n";
+
+		// recorre los formularios
+		int i = 1;
+		Set<Formulario> lfor = mod.getFormularios();
+		for (Iterator ite = lfor.iterator(); ite.hasNext();) {
+			Formulario form = (Formulario) ite.next();
+			out += this.getFormularioStr(preMod, form, i++) + "\n";
+		}
+
+		return out;
+	}
+
+	private String getPermisoStr(Permiso perm, String prePer) {
+		// # Permisos p_(perfil)-m_f_o_ (operacion) = habilitado (TRUE|FALSE)
+		String out = "";
+		out += prePer + "-";
+		out += perm.getOperacion().getIdTexto() + " = ";
+		out += (perm.isHabilitado() + "").toUpperCase();
+		return out;
+	}
+
+	private String[] getPerfilStr(Perfil per, int id) {
+		// {"idPerfil","strPerfil", "strPermisos"};
+		// # Perfil: p_ = nombre ; descripcion ; grupo
+
+		String prePer = "p" + id;
+		String perStr = prePer + " = ";
+		perStr += per.getNombre() + " ; ";
+		perStr += per.getDescripcion() + " ; ";
+		perStr += per.getGrupo();
+
+		String permPerStr = "";
+
+		Set<Permiso> sperm = per.getPermisos();
+		for (Iterator ite = sperm.iterator(); ite.hasNext();) {
+			Permiso perm = (Permiso) ite.next();
+			permPerStr += this.getPermisoStr(perm, prePer) + "\n";
+		}
+		permPerStr += "\n";
+
+		try {
+			per.setAuxi(prePer);
+			rr.saveObject(per, "sys");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
+		String[] out = { prePer, perStr, permPerStr };
+
+		return out;
+	}
+
+	private String getUsariosStr(Usuario us, int id) {
+		// # Usuario: u_ = login ; nommbre ; clave ; p_ ... (lista de perfiles)
+		String out = "";
+
+		String outPerfil = "";
+		String outPermisos = "";
+
+		String usPre = "u" + id;
+
+		out += usPre + " = ";
+		out += us.getLogin() + " ; ";
+		out += us.getNombre() + " ; ";
+		out += us.getClave() + " ";
+
+		Set<Perfil> lper = us.getPerfiles();
+		for (Iterator ite = lper.iterator(); ite.hasNext();) {
+			Perfil per = (Perfil) ite.next();
+			out += " ; " + per.getAuxi();
+		}
+		return out;
+	}
+
+	private String menuConfigInversa() throws Exception {
+		String out = "";
+
+		out = this.getMenuConfigCabecera();
+
+		// load módulo
+		List<Modulo> lmod = rr.getAllModulos();
+
+		for (int i = 0; i < lmod.size(); i++) {
+
+			// Modulos: m_ = nombre ; descripcion
+			Modulo mod = lmod.get(i);
+			out += this.getModuloStr(mod, (i + 1)) + "\n";
+			out += "##------------------------\n";
+		}
+
+		out += "\n\n";
+
+		String outPerfiles = "";
+		String outPermisos = "";
+		// load los Perfiles, así arma todo
+		List<Perfil> lper = rr.getAllPerfiles();
+		for (int i = 0; i < lper.size(); i++) {
+			Perfil per = lper.get(i);
+			String[] perStr = this.getPerfilStr(per, (i + 1));
+			outPerfiles += perStr[1] + "\n";
+			outPermisos += perStr[2] + "\n";
+		}
+
+		// load los usuarios
+		out += this.getMenuConfigCabeceraUsuarios();
+
+		List<Usuario> lus = rr.getAllUsuarios();
+		for (int i = 0; i < lus.size(); i++) {
+			Usuario us = lus.get(i);
+			out += this.getUsariosStr(us, (i + 1)) + "\n";
+		}
+
+		out += "\n\n# Perfiles \n";
+		out += outPerfiles;
+		out += "\n\n# Permisos \n";
+		out += outPermisos;
+
+		return out;
+
+	}
+
+	public static void generarMenuInversa(String path) {
+		try {
+			Misc m = new Misc();
+			DBMenuUserParser dd = new DBMenuUserParser(null, null, null, null);
+			String ss = dd.menuConfigInversa();
+			m.grabarStringToArchivo(path, ss);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("====== FIN");
 	}
 
 }
