@@ -49,10 +49,8 @@ import org.zkoss.io.Files;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.UploadEvent;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Window;
 
 import com.coreweb.Config;
 import com.coreweb.componente.WindowPopup;
@@ -549,6 +547,31 @@ public class Misc {
 		return out;
 	}
 
+	
+	
+	/**
+	 * Data dos fechas, dice la diferencia de dias entre ellas, no considera las
+	 * horas y minutos. Ojo, la fecha 2 debe ser mas mayor.
+	 * 
+	 * @param d1
+	 * @param d2
+	 * @return
+	 */
+	public double horasEntreFechas(Date d1, Date d2) {
+		double out = 0.0;
+		long ld1 =  d1.getTime();
+		long ld2 =  d2.getTime();
+
+		double diff = ld2 - ld1;
+
+		if (diff <= 0) {
+			return -1;
+		}
+ 		out = (diff / (1000 * 60 * 60));
+		return out;
+	}
+
+	
 	/**
 	 * Agrega dias a una fecha dada..
 	 */
@@ -1939,10 +1962,28 @@ public class Misc {
 	public static void main(String[] args) {
 		Misc m = new Misc();	
 
-		double d1 = 130.29000001;
+		String formatoFecha = "MM-dd-yyyy HH:mm:ss";
+		String fecha1 = "17-01-2018 12:00:00";
+		String fecha2 = "17-01-2018 15:30:00";
+		
+		Date h1 = m.ParseFecha(fecha1, formatoFecha);
+		Date h2 = m.ParseFecha(fecha2, formatoFecha);
+		
+		long m1 = h1.getTime();
+		long m2 = h2.getTime();
+		long diff = m2 - m1;
+		double diffD = m2 - m1;
 			
-		double d2 = m.redondeoCero(d1);
-		System.out.println(d1+" : " +m.redondeoCero(d1)+"  "+d2);
+		double h = diff/(1000*60*60);
+		double hD = diffD/(1000*60*60);
+		System.out.println(m1);
+		System.out.println(m2);
+		System.out.println("\n");
+		System.out.println(diff);
+		System.out.println(diffD);
+		System.out.println("\n");
+		System.out.println(h);
+		System.out.println(hD);
 		
 		/*
 		
@@ -1968,23 +2009,3 @@ public class Misc {
 	
 }
 
-
-/*
- * class A {
- * 
- * public void setNameA(String nameA) { System.out.println("-- paso por set A");
- * }
- * 
- * public String getNameA() { return "andoA"; }
- * 
- * public String metodoA() { return "Estoy en A"; } }
- * 
- * class B extends A {
- * 
- * String name = "pepe";
- * 
- * public String getName() { return name; }
- * 
- * public void setName(String name) { System.out.println("pasa:" + name + " - "
- * + this.name + this); this.name = name; } }
- */
