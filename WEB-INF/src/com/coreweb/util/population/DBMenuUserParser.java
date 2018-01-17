@@ -38,7 +38,8 @@ public class DBMenuUserParser {
 
 	private Register rr = Register.getInstance();
 
-	public DBMenuUserParser(String fileIni, Class idClass, String userIni, String[] usuarioPropiedades) {
+	public DBMenuUserParser(String fileIni, Class idClass, String userIni,
+			String[] usuarioPropiedades) {
 		this.file = fileIni;
 		this.idClass = idClass;
 		this.userIni = userIni;
@@ -312,15 +313,49 @@ public class DBMenuUserParser {
 		 * rr.deleteAllObjects(UsuarioPropiedad.class.getName());
 		 * rr.deleteAllObjects(Usuario.class.getName());
 		 */
-		String delTablas = "DROP TABLE IF EXISTS " + "usuario, " + "usuario_usuarioperfil, " + "usuarioformulario, "
-				+ "usuariomodulo, " + "usuariooperacion, " + "usuarioperfil, " + "usuariopermiso, "
-				+ "usuariopropiedad " + "CASCADE";
 
-		rr.sql2(delTablas);
+		// Para postgres
+		/*
+		 * String delTablas = "DROP TABLE IF EXISTS " + "usuario, " +
+		 * "usuario_usuarioperfil, " + "usuarioformulario, " + "usuariomodulo, "
+		 * + "usuariooperacion, " + "usuarioperfil, " + "usuariopermiso, " +
+		 * "usuariopropiedad " + "CASCADE"; 
+		 * rr.sql2(delTablas);
+		 */
+
+		// Para sqlite
+
+		String delTablaUsuario = "DROP TABLE IF EXISTS " + "usuario ";
+		String delTablaUsuarioPerfil = "DROP TABLE IF EXISTS "
+				+ "usuario_usuarioperfil ";
+		String delTablaFormulario = "DROP TABLE IF EXISTS "
+				+ "usuarioformulario ";
+		String delTablaModulo = "DROP TABLE IF EXISTS " + "usuariomodulo ";
+		String delTablaOperacion = "DROP TABLE IF EXISTS "
+				+ "usuariooperacion ";
+		String delTablaperfil = "DROP TABLE IF EXISTS " + "usuarioperfil";
+		String delTablaPermiso = "DROP TABLE IF EXISTS " + "usuariopermiso ";
+		String delTablaPropiedad = "DROP TABLE IF EXISTS "
+				+ "usuariopropiedad ";
+
+		
+		rr.sql2(delTablaUsuarioPerfil);
+		rr.sql2(delTablaPermiso);
+		
+		rr.sql2(delTablaperfil);
+		rr.sql2(delTablaOperacion);
+		rr.sql2(delTablaFormulario);
+		rr.sql2(delTablaModulo);
+
+		rr.sql2(delTablaPropiedad);
+		rr.sql2(delTablaUsuario);
+
 		rr.resetTables();
 
-		rr.deleteAllObjects(Tipo.class.getName(), "sigla", Config.TIPO_USUARIO_PROPIEDAD_SIGLA);
-		rr.deleteAllObjects(TipoTipo.class.getName(), "descripcion", Config.TIPO_TIPO_USUARIO_PROPIEDAD);
+		rr.deleteAllObjects(Tipo.class.getName(), "sigla",
+				Config.TIPO_USUARIO_PROPIEDAD_SIGLA);
+		rr.deleteAllObjects(TipoTipo.class.getName(), "descripcion",
+				Config.TIPO_TIPO_USUARIO_PROPIEDAD);
 
 	}
 
@@ -335,9 +370,11 @@ public class DBMenuUserParser {
 		this.loadConfigMenu();
 		this.cargaMenu(true);
 		this.cargaUsuarioPerfil(true);
-		System.out.println("\n======================= menu_config.ini -> ID \n");
+		System.out
+				.println("\n======================= menu_config.ini -> ID \n");
 		this.verificarAlias();
-		System.out.println("\n======================= ID -> menu_config.ini \n");
+		System.out
+				.println("\n======================= ID -> menu_config.ini \n");
 		this.misc.testIdInAlias(this.aliasTipo, this.idClass);
 
 		// CHISTES
@@ -398,8 +435,8 @@ public class DBMenuUserParser {
 			String k = (String) keys.nextElement();
 			Permiso permiso = this.getPermisoFormatoNuevo(k.trim());
 			if ((permiso != null) && (grabar == true)) {
-				System.out.println("---------- k:(" + k.trim() + ")  permiso:" + permiso.getId() + "  oper:"
-						+ permiso.getOperacion());
+				System.out.println("---------- k:(" + k.trim() + ")  permiso:"
+						+ permiso.getId() + "  oper:" + permiso.getOperacion());
 				rr.saveObject(permiso, Config.USER_SYSTEMA);
 			}
 		}
@@ -418,7 +455,8 @@ public class DBMenuUserParser {
 
 		Properties upFile = new Properties();
 		// prop.load(new FileInputStream(file));
-		upFile.load(new InputStreamReader(new FileInputStream(this.userIni), "utf-8"));
+		upFile.load(new InputStreamReader(new FileInputStream(this.userIni),
+				"utf-8"));
 
 		// cargar las propiedades como tipo
 		List<Tipo> lup = new ArrayList<Tipo>();
@@ -551,7 +589,8 @@ public class DBMenuUserParser {
 		String out = "";
 
 		String preMod = "m" + id;
-		out += preMod + " = " + mod.getNombre().trim() + " ; " + mod.getDescripcion().trim() + "\n";
+		out += preMod + " = " + mod.getNombre().trim() + " ; "
+				+ mod.getDescripcion().trim() + "\n";
 
 		// recorre los formularios
 		int i = 1;
