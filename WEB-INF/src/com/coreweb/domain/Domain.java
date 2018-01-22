@@ -22,6 +22,18 @@ public abstract class Domain implements Serializable, Comparable, IiD {
 	
 	private String ip_pc = "";
 	
+
+	public boolean domCompare(Domain d1, Domain d2){
+		boolean out = false;
+		try {
+			out = d1.getId().longValue() == d2.getId().longValue();
+		} catch (Exception e) {
+			out = (d1 == null)&&(d2 == null);
+		}
+		return out;
+	}
+
+	
 	
 	public void xxdefinirOrden(){
 		this.orden = String.valueOf(id);

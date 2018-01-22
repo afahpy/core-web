@@ -88,7 +88,9 @@ public class Config {
 			
 		} catch (Exception e) {
 			System.out.println("...............................................");
-			e.printStackTrace();
+			String s = e.getMessage()+ " "+ e.getStackTrace()[0];
+			System.out.println("error en com.coreweb.Config: "+ s);
+			// e.printStackTrace();
 			System.out.println("...............................................");
 		}
 		
@@ -103,6 +105,7 @@ public class Config {
 		SCRIPT_VER_CATALINA = DIRECTORIO_SCRIPT + SCRIPT_VER_CATALINA;
 
 		System.out.println("DIRECTORIO_WEB_REPORTES:"+DIRECTORIO_WEB_REPORTES);
+		System.out.println("\n\n\n");
 		
 		
 	}
