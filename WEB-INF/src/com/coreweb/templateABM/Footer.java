@@ -65,30 +65,19 @@ public class Footer extends GenericViewModel {
 		boolean out = false;
 
 		DTO dto = this.pagina.getBody().getDTOCorriente();
+		
 		if ((this.pagina.getBody().siControlCambio() == true) && (dto.esNuevo() == false)) {
 
-			// ver la fecha del dto actual y del objeto del dominio
 			String entidad = this.pagina.getBody().getEntidadPrincipal();
 
-			try {
-				Register rr = Register.getInstance();
-				Domain dom = rr.getObject(entidad, dto.getId());
-
-				if (dom.getModificado().compareTo(dto.getModificado()) > 0) {
-					this.mensajeError("Error al intentar actualizar, ya existe una version mas reciente modificada el "
-							+ dom.getModificado().toString() + " por " + dom.getUsuarioMod());
-					return false;
-				}
-			} catch (Exception e) {
-				this.mensajeError(e.getMessage());
-				e.printStackTrace();
+			String msg = this.siHayUnaVersionNueva(dto, entidad);
+			if (msg.trim().length() > 0){
+				this.mensajeError(msg);
+				return false;
 			}
-
 		}
 
-		if (this.pagina.getBody().verificarAlGrabar() == false)
-
-		{
+		if (this.pagina.getBody().verificarAlGrabar() == false){
 			this.mensajeError(this.pagina.getBody().textoErrorVerificarGrabar());
 			return false;
 		}

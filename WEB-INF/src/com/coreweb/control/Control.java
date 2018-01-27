@@ -93,7 +93,7 @@ public class Control {
 
 	@Init(superclass = true)
 	public void initControl() throws Exception {
-		
+
 		Session s = this.getSessionZK();
 		if (this.getDtoUtil() == null) {
 			String prefix = Executions.getCurrent().getParameter(Config.PREFIX);
@@ -136,7 +136,7 @@ public class Control {
 	public void afterComposeControl(@ContextParam(ContextType.VIEW) Component view) {
 
 		this.view = view;
-		
+
 		// para los casos que queremos navegar sin el control
 		SistemaPropiedad sisPro = new SistemaPropiedad();
 		boolean ctrLogin = sisPro.isControlLoginPage();
@@ -164,14 +164,13 @@ public class Control {
 		// this.saltoDePagina(Archivo.errorLogin);
 	}
 
-	
-	public Component getComponenteById(String idStr){
+	public Component getComponenteById(String idStr) {
 		Component mm = this.view;
 		Collection<Component> cc = mm.getDesktop().getComponents();
 		for (Iterator iterator = cc.iterator(); iterator.hasNext();) {
 			Component component = (Component) iterator.next();
 			Component xc = findComponenteById(component, idStr);
-			if (xc != null){
+			if (xc != null) {
 				return xc;
 			}
 		}
@@ -179,22 +178,21 @@ public class Control {
 	}
 
 	public Component findComponenteById(Component component, String id) {
-	    if (component instanceof IdSpace) {
-	        Component found = component.query("#" + id);
-	        if (found != null) return found;
-	    }
+		if (component instanceof IdSpace) {
+			Component found = component.query("#" + id);
+			if (found != null)
+				return found;
+		}
 
-	    for(Component child : component.getChildren()) {
-	        Component found = findComponenteById(child, id);
-	        if (found != null) return found;
-	    }
+		for (Component child : component.getChildren()) {
+			Component found = findComponenteById(child, id);
+			if (found != null)
+				return found;
+		}
 
-	    return null;
+		return null;
 	}
-	
-	
-	
-	
+
 	static public UtilCoreDTO getDtoUtilStatic() {
 		return dtoUtil;
 	}
@@ -382,6 +380,42 @@ public class Control {
 
 	/***********************************************************************/
 
+	private String siHayUnaVersionNueva(String entidad, long id, Date modificado) {
+		try {
+			Register rr = Register.getInstance();
+			Domain dom = rr.getObject(entidad, id);
+
+			if (dom.getModificado().compareTo(modificado) > 0) {
+				String msg = "Error al intentar actualizar, ya existe una version mas reciente modificada el "
+						+ dom.getModificado().toString() + " por " + dom.getUsuarioMod();
+				return msg;
+			}
+
+		} catch (Exception e) {
+			System.out.println("siHayUnaVersionNueva:"+e.getMessage());
+		}
+		
+		return "";
+	}
+
+	protected String siHayUnaVersionNueva(Domain dom) {
+		if (dom.esNuevo() == true) {
+			return "";
+		}
+		return siHayUnaVersionNueva(dom.getClass().getName(), dom.getId(), dom.getModificado());
+	}
+
+	
+	protected String siHayUnaVersionNueva(DTO dtoCC, String entidad) {
+		if (dtoCC.esNuevo() == true) {
+			return "";
+		}
+		return siHayUnaVersionNueva(entidad, dtoCC.getId(), dtoCC.getModificado());
+	}
+
+	
+	
+	
 	protected DTO saveDTO(DTO dto) throws Exception {
 		return saveDTO(dto, this.getAss());
 	}
