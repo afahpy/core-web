@@ -37,7 +37,12 @@
 		
 		var table = $('#coreWebBrowserTabla').DataTable({
 		dom: 'Bfrtip',
+		lengthMenu: [
+        [ 10, 25, 50, 100 ],
+        [ '10 filas', '25 filas', '50 filas', '100 filas' ]
+    ],
 		buttons: [
+			'pageLength',
            {
                 extend: 'csvHtml5',
                 exportOptions: {
@@ -82,7 +87,11 @@ language:{
         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
     },
     buttons: {
-                colvis: 'Columnas'
+                colvis: 'Columnas',
+                pageLength: {
+                _: "%d filas",
+                '-1': "todas"
+                 }
             }    
     }
         
