@@ -6,16 +6,58 @@
 
 
 <h:link rel="stylesheet" type="text/css"        href="@load(vm.v1)" />
+<h:link rel="stylesheet" type="text/css"        href="@load(vm.v14)" />
+
 <h:script type="text/javascript"                src="@load(vm.v2)"></h:script>
 <h:script type="text/javascript" charset="utf8" src="@load(vm.v3)"></h:script>
 <h:script type="text/javascript" charset="utf8" src="@load(vm.v4)"></h:script>
 
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v7)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v8)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v9)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v10)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v11)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v12)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v13)"></h:script>
+<h:script type="text/javascript" charset="utf8" src="@load(vm.v15)"></h:script>
 
 
-
+<!-- 
+<a class="toggle-vis" data-column="4">Start date</a>
+-->
 
 	<h:script>
-		$(function(){ $('#coreWebBrowserTabla').DataTable({
+		$(document).ready(function(){ 
+		
+		 // Setup - add a text input to each footer cell
+    $('#coreWebBrowserTabla tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="'+title+'" />' );
+    } );
+		
+		var table = $('#coreWebBrowserTabla').DataTable({
+		dom: 'Bfrtip',
+		buttons: [
+           {
+                extend: 'csvHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+           {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            'colvis'
+    ],
 language:{
     "sProcessing":     "Procesando...",
     "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -38,9 +80,41 @@ language:{
     "oAria": {
         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }    
+    },
+    buttons: {
+                colvis: 'Columnas'
+            }    
     }
-		 }); } );
+        
+		 }); 
+		 
+	$('a.toggle-vis').on( 'click', function (e) {
+        e.preventDefault();
+ 
+        // Get the column API object
+        var column = table.column( $(this).attr('data-column') );
+ 
+        // Toggle the visibility
+        column.visible( ! column.visible() );
+    } );
+		 
+	
+	
+	 // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+	
+		 
+		 } );
 	</h:script>
 
 

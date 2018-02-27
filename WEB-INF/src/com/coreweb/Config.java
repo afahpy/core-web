@@ -4,6 +4,9 @@ import org.zkoss.zk.ui.Executions;
 
 public class Config {
 
+	
+	public static String ID_TABLA_DATO = "coreWebBrowserTabla";
+	
 	public static String CSV_SEPARADOR = "\t";
 	
 	// 0 = normal, 1=bootstrap, 2=
