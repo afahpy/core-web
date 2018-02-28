@@ -33,6 +33,7 @@ import com.coreweb.dto.Assembler;
 
 public class BrowserTablaDatos extends Control {
 
+	private int cantidadMaximaDeFilas = (10 * 1000);
 	private boolean botonColumnas = true;
 
 	public BrowserTablaDatos() {
@@ -119,7 +120,28 @@ public class BrowserTablaDatos extends Control {
 		return div;
 	}
 
-	private Table getTabla() {
+	private Component getTabla() {
+
+		// buscar los datos
+		ArrayList<Object[]> datos = null;
+
+		if (this.datos.ifUseList() == true) {
+			datos = this.datos.getLista();
+		} else {
+			datos = this.runQuery();
+		}
+
+		int ndatos = datos.size();
+
+		// ver que sea un número manejable de datos
+		if (ndatos > this.cantidadMaximaDeFilas) {
+
+			String nDatoStr = this.m.formatoNumero(ndatos);
+			String nMaxStr = this.m.formatoNumero(this.cantidadMaximaDeFilas);
+			Label lb = new Label();
+			lb.setValue("Se intenta mostrar " + nDatoStr + " registros, y el máximo es " + nMaxStr + " !");
+			return lb;
+		}
 
 		int col = this.datos.getNombres().length;
 		String[] nombres = this.datos.getNombres();
@@ -152,6 +174,7 @@ public class BrowserTablaDatos extends Control {
 
 		{
 			Tfoot foot = new Tfoot();
+			//Thead foot = new Thead();
 			foot.setParent(table);
 
 			Tr tr = new Tr();
@@ -160,9 +183,11 @@ public class BrowserTablaDatos extends Control {
 			for (int i = 0; i < col; i++) {
 				Th th = new Th();
 				th.setParent(tr);
-				Label lb = new Label();
-				lb.setParent(th);
-				lb.setValue(nombres[i]);
+				
+				th.setDynamicProperty("filtro", "filtro");
+				//Label lb = new Label();
+				//lb.setParent(th);
+				//lb.setValue(nombres[i]);
 			}
 
 		}
@@ -172,18 +197,6 @@ public class BrowserTablaDatos extends Control {
 		Tbody tbody = new Tbody();
 		tbody.setParent(table);
 
-		ArrayList<Object[]> datos = null;
-
-		if (this.datos.ifUseList() == true) {
-			datos = this.datos.getLista();
-		} else {
-			datos = this.runQuery();
-		}
-
-		// System.out.println("--filas/columnas: [" + datos.size() + "/" + col +
-		// "]");
-
-		int ndatos = datos.size();
 		for (int i = 0; i < ndatos; i++) {
 			Tr tri = new Tr();
 			tri.setParent(tbody);
@@ -227,6 +240,14 @@ public class BrowserTablaDatos extends Control {
 
 	public void setBotonColumnas(boolean botonColumnas) {
 		this.botonColumnas = botonColumnas;
+	}
+
+	public int getCantidadMaximaDeFilas() {
+		return cantidadMaximaDeFilas;
+	}
+
+	public void setCantidadMaximaDeFilas(int cantidadMaximaDeFilas) {
+		this.cantidadMaximaDeFilas = cantidadMaximaDeFilas;
 	}
 
 }
