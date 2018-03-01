@@ -424,6 +424,21 @@ public class Misc {
 		dateCal.set(Calendar.MILLISECOND, 0);
 		return dateCal.getTime();
 	}
+	
+	public Date getFechaDiaSiguiente(Date fecha) {
+
+		Calendar dateCal = Calendar.getInstance();
+		// make it now
+		dateCal.setTime(fecha);
+		// make it tomorrow
+		dateCal.add(Calendar.DAY_OF_YEAR, 1);
+		// Now set it to the time you want
+		dateCal.set(Calendar.HOUR_OF_DAY, 0);
+		dateCal.set(Calendar.MINUTE, 0);
+		dateCal.set(Calendar.SECOND, 0);
+		dateCal.set(Calendar.MILLISECOND, 0);
+		return dateCal.getTime();
+	}
 
 	public Date getFechaHoy00() {
 
@@ -1871,6 +1886,26 @@ public class Misc {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(d);
 		return cal.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	public String getDiaEnLetrasAbreviado(int dia) {
+		switch (dia) {
+		case 1:
+			return "Dom";
+		case 2:
+			return "Lun";
+		case 3:
+			return "Mar";
+		case 4:
+			return "Mie";
+		case 5:
+			return "Jue";
+		case 6:
+			return "Vie";
+		case 7:
+			return "Sab";
+		}
+		return "no valido";
 	}
 
 	/**
