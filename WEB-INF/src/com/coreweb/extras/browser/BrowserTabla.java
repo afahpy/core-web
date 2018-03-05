@@ -116,7 +116,7 @@ https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js
 			@ContextParam(ContextType.VIEW) Component view) {
 		mainComp = view;
 		
-		System.out.println("\n\n\n\n\nv1: "+v1+"\n\n\n\n\n");
+//		System.out.println("\n\n\n\n\nv1: "+v1+"\n\n\n\n\n");
 		
 		// System.out.println("init de BrowserTabla (obj):" + obj);
 		BrowserTablaDatosInterface datos = (BrowserTablaDatosInterface) obj;

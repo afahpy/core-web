@@ -27,103 +27,109 @@
 -->
 
 	<h:script>
+	
+		// cargar la tabla
 		$(document).ready(function(){ 
 		
-		 // Setup - add a text input to each footer cell
-    $('#coreWebBrowserTabla tfoot th').each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="'+title+'" />' );
-    } );
 		
-		var table = $('#coreWebBrowserTabla').DataTable({
-		dom: 'Bfrtip',
-		lengthMenu: [
-        [ 10, 25, 50, 100 ],
-        [ '10 filas', '25 filas', '50 filas', '100 filas' ]
-    ],
-		buttons: [
-			'pageLength',
-           {
-                extend: 'csvHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-           {
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            'colvis'
-    ],
-language:{
-    "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar _MENU_ registros",
-    "sZeroRecords":    "No se encontraron resultados",
-    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix":    "",
-    "sSearch":         "Buscar:",
-    "sUrl":            "",
-    "sInfoThousands":  ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-        "sFirst":    "Primero",
-        "sLast":     "Último",
-        "sNext":     "Siguiente",
-        "sPrevious": "Anterior"
-    },
-    "oAria": {
-        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    },
-    buttons: {
-                colvis: 'Columnas',
-                pageLength: {
-                _: "%d filas",
-                '-1': "todas"
-                 }
-            }    
-    }
+			// definicion de la tabla		
+			var table = $('#coreWebBrowserTabla').DataTable({
+				dom: 'Bfrtip',
+				"scrollX": true, 
+				lengthMenu: [
+        			[ 10, 25, 50, 100 ],
+        			[ '10 filas', '25 filas', '50 filas', '100 filas' ]
+    			],
+				buttons: [
+					'pageLength',{
+                		extend: 'csvHtml5',
+                		exportOptions: {
+                    		columns: ':visible'
+                		}
+            		},
+           			{
+                		extend: 'excelHtml5',
+                		exportOptions: {
+                    		columns: ':visible'
+                		}
+            		},
+            		{
+                		extend: 'pdfHtml5',
+                		exportOptions: {
+                    		columns: ':visible'
+                		}
+            		},
+            		'colvis'
+    			],
+				language:{
+    				"sProcessing":     "Procesando...",
+    				"sLengthMenu":     "Mostrar _MENU_ registros",
+    				"sZeroRecords":    "No se encontraron resultados",
+    				"sEmptyTable":     "Ningún dato disponible en esta tabla",
+    				"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    				"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    				"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    				"sInfoPostFix":    "",
+    				"sSearch":         "Buscar:",
+    				"sUrl":            "",
+    				"sInfoThousands":  ",",
+    				"sLoadingRecords": "Cargando...",
+    				"oPaginate": {
+        				"sFirst":    "Primero",
+        				"sLast":     "Último",
+        				"sNext":     "Siguiente",
+        				"sPrevious": "Anterior"
+    				},
+    				"oAria": {
+        				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    				},
+    				buttons: {
+                		colvis: 'Columnas',
+                		pageLength: {
+                			_: "%d filas",
+                			'-1': "todas"
+                 		}
+            		}    
+    			} // language
         
-		 }); 
+			}); // definición de la tabla 
 		 
-	$('a.toggle-vis').on( 'click', function (e) {
-        e.preventDefault();
+		//===================== NO SE USA ================================ 
+		// para hacer visible las columns con links, no se usa 
+		$('a.toggle-vis').on( 'click', function (e) {
+        	e.preventDefault();
  
-        // Get the column API object
-        var column = table.column( $(this).attr('data-column') );
+        	// Get the column API object
+        	var column = table.column( $(this).attr('data-column') );
  
-        // Toggle the visibility
-        column.visible( ! column.visible() );
-    } );
+        	// Toggle the visibility
+        	column.visible( ! column.visible() );
+    	} );
 		 
 	
 	
-	 // Apply the search
-    table.columns().every( function () {
-        var that = this;
+		// ==============================================================
+		// para los filtros por columnas
+//		$('#coreWebBrowserTabla tfoot th').each( function () {
+//        		var title = $(this).text();
+//      		$(this).html( '<input type="text" placeholder="'+title+'"  />' );
+//        } );
+	
+		// Apply the search
+    	table.columns().every( function () {
+        	var that = this;
  
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
+        	$( 'input', this.footer() ).on( 'keyup change', function () {
+            	if ( that.search() !== this.value ) {
+                	that.search( this.value ).draw();
+            	}
+        	} );
+    	} );
+		// ==============================================================
 	
 		 
-		 } );
+	} ); // funcion ready
 	</h:script>
 
 

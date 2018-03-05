@@ -11,6 +11,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zhtml.A;
 import org.zkoss.zhtml.Br;
+import org.zkoss.zhtml.Input;
 import org.zkoss.zhtml.Table;
 import org.zkoss.zhtml.Tbody;
 import org.zkoss.zhtml.Td;
@@ -33,6 +34,7 @@ import com.coreweb.dto.Assembler;
 
 public class BrowserTablaDatos extends Control {
 
+	private static int ANCHO_INUT = 20;
 	private int cantidadMaximaDeFilas = (10 * 1000);
 	private boolean botonColumnas = true;
 
@@ -145,11 +147,13 @@ public class BrowserTablaDatos extends Control {
 
 		int col = this.datos.getNombres().length;
 		String[] nombres = this.datos.getNombres();
+		// ancho de la columna
+		int[] anchos = new int[nombres.length];
 
 		// === tabla
 		Table table = new Table();
 		table.setId(Config.ID_TABLA_DATO);
-		table.setDynamicProperty("class", "display");
+		table.setDynamicProperty("class", "display nowrap");
 		table.setDynamicProperty("cellspacing", "0");
 		table.setDynamicProperty("width", "100%");
 
@@ -165,32 +169,16 @@ public class BrowserTablaDatos extends Control {
 			for (int i = 0; i < col; i++) {
 				Th th = new Th();
 				th.setParent(tr);
+				th.setDynamicProperty("align", "left");
 				Label lb = new Label();
 				lb.setParent(th);
 				lb.setValue(nombres[i]);
+				this.setAnchoInput(anchos, i, nombres[i]);
+
 			}
 		}
 		// === footer
 
-		{
-			Tfoot foot = new Tfoot();
-			//Thead foot = new Thead();
-			foot.setParent(table);
-
-			Tr tr = new Tr();
-			tr.setParent(foot);
-
-			for (int i = 0; i < col; i++) {
-				Th th = new Th();
-				th.setParent(tr);
-				
-				th.setDynamicProperty("filtro", "filtro");
-				//Label lb = new Label();
-				//lb.setParent(th);
-				//lb.setValue(nombres[i]);
-			}
-
-		}
 
 		// === datos
 
@@ -204,19 +192,71 @@ public class BrowserTablaDatos extends Control {
 			Object[] dato = datos.get(i);
 
 			for (int j = 0; j < col; j++) {
+				String valor = dato[j] + "";
+				
 				Td td = new Td();
 				td.setParent(tri);
 
 				Label lb = new Label();
 				lb.setParent(td);
-				lb.setValue(dato[j] + "");
+				lb.setValue(valor);
+
+				this.setAnchoInput(anchos, j, valor);
+				
 			}
 		}
 
+		
+		{
+			Tfoot foot = new Tfoot();
+			//Thead foot = new Thead();
+			foot.setParent(table);
+
+			Tr tr = new Tr();
+			tr.setParent(foot);
+
+			for (int i = 0; i < col; i++) {
+				Th th = new Th();
+				th.setParent(tr);
+				
+				th.setDynamicProperty("filtro", "filtro");
+				th.setDynamicProperty("align", "left");
+				
+				//Label lb = new Label();
+				//lb.setParent(th);
+				//lb.setValue(nombres[i]);
+				
+				Input imp = new Input();
+				imp.setDynamicProperty("type", "text");
+				imp.setDynamicProperty("placeholder", nombres[i]);
+				imp.setDynamicProperty("size", anchos[i]+"");
+				
+				imp.setParent(th);
+//				<input type="text" placeholder="'+title+'"  />
+
+				
+			}
+
+		}
+		
 		return table;
 
 	}
 
+	private void setAnchoInput(int[] ancho, int pos, String dato){
+		int pCC = ancho[pos];
+		int pNew = dato.trim().length();
+		pNew = (pNew > ANCHO_INUT)? ANCHO_INUT : pNew+2;
+		
+		if (pNew > pCC){
+			ancho[pos] = pNew; 
+		}
+		
+		
+	}
+	
+	
+	
 	private ArrayList<Object[]> runQuery() {
 		ArrayList<Object[]> out = new ArrayList<>();
 		try {
