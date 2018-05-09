@@ -2,7 +2,7 @@
 Comandos utiles postgres:
 =========================
 
-Desinstalar:
+Desinstalar:.
 ------------
 
 # sudo apt-get remove --purge postgresql-9.5 (Version puede variar)
